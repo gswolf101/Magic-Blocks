@@ -126,3 +126,16 @@ img.mini { width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;
 .support p { color: var(--soft); }
 
 footer { border-top: 1px solid var(--line); padding: 22px 20px 36px; color: var(--soft); font-size: 14px; text-align: center; }
+
+/* prints do jogo (montagem dos rituais) */
+.prints { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 14px 0; }
+.prints figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.prints img { display: block; width: 100%; height: auto; image-rendering: auto; }
+.prints figcaption { padding: 8px 10px; font-size: 14px; color: var(--soft); }
+.steps { margin: 8px 0 12px 20px; padding: 0; }
+.steps li { margin: 4px 0; }
+/* pagina de texto (Balanceamento) */
+main.page-text { max-width: 980px; margin: 0 auto; padding: 28px 20px 40px; }
+main.page-text h2 { font-family: "Press Start 2P", monospace; font-size: 15px; color: var(--cyan); margin: 30px 0 6px; }
+main.page-text code { background: #222a3c; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; color: var(--gold); }
+table.tbl td:last-child { white-space: normal; color: var(--text); font-weight: 400; }
