@@ -111,6 +111,11 @@ ICON_BUILDERS = {
     'magicblocks:mana_ore': lambda: iso(mtex('block/mana_ore'), mtex('block/mana_ore')),
     'magicblocks:nature_workbench': lambda: iso(mtex('block/nature_workbench_top'), mtex('block/nature_workbench_side')),
     'magicblocks:pedestal': lambda: iso(vtex('block/smooth_stone'), vtex('block/smooth_stone')),
+    'minecraft:beacon': lambda: iso(vtex('block/beacon'), vtex('block/beacon')),
+    'magicblocks:ancestral_sapling': lambda: flat(mtex('block/ancestral_sapling')),
+    'magicblocks:stripped_ancestral_log': lambda: iso(mtex('block/stripped_ancestral_log_top'), mtex('block/stripped_ancestral_log')),
+    'minecraft:smooth_stone': lambda: iso(vtex('block/smooth_stone'), vtex('block/smooth_stone_slab_side')),
+    'minecraft:zombie_head': lambda: Image.open(io.BytesIO(jar.read('assets/minecraft/textures/entity/zombie/zombie.png'))).convert('RGBA').crop((8, 8, 16, 16)).resize((16, 16), Image.NEAREST),
     'magicblocks:arcane_pedestal': lambda: iso(mtex('block/arcane_pedestal_top'), mtex('block/arcane_pedestal_rune')),
     'magicblocks:manilium_spawner': lambda: iso(mtex('block/manilium_spawner'), mtex('block/manilium_spawner')),
     # --- manilium pintavel (cor padrao) ---
@@ -182,6 +187,8 @@ ICON_BUILDERS = {
     'minecraft:enchanted_golden_apple': lambda: flat(vtex('item/golden_apple')),
     'magicblocks:fire_spirit_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (138, 42, 10)), vtex('item/spawn_egg_overlay'), (255, 176, 46))),
     'magicblocks:arcane_sentinel_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (43, 36, 56)), vtex('item/spawn_egg_overlay'), (180, 92, 255))),
+    'magicblocks:fractured_colossus_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (36, 32, 44)), vtex('item/spawn_egg_overlay'), (180, 106, 240))),
+    'magicblocks:star_slug_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (42, 74, 140)), vtex('item/spawn_egg_overlay'), (159, 240, 255))),
     'magicblocks:mana_log': lambda: iso(mtex('block/mana_log_top'), mtex('block/mana_log')),
     'magicblocks:mana_planks': lambda: iso(mtex('block/mana_planks'), mtex('block/mana_planks')),
     'magicblocks:mana_leaves': lambda: iso(mtex('block/mana_leaves'), mtex('block/mana_leaves')),
@@ -241,6 +248,11 @@ def icon(item_id):
     """Caminho (relativo ao site) do icone do item; gera o arquivo na primeira vez."""
     if item_id.endswith('_shulker_box'):
         item_id = 'minecraft:shulker_box'
+    if item_id.startswith('#magicblocks:'):   # tag do mod: icone do primeiro item da tag
+        tag_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src', 'main', 'resources', 'data', 'magicblocks', 'tags',
+                                'items', item_id.split(':', 1)[1] + '.json')
+        if os.path.exists(tag_file):
+            return icon(json.load(open(tag_file, encoding='utf-8'))['values'][0])
     name = item_id.replace('#', 'tag_').replace(':', '_')
     path = os.path.join(ICONS, name + '.png')
     # icone tirado do proprio jogo (DevIconExport: modelos 3D, cores, tudo igual ao inventario); sempre atualizado
@@ -321,8 +333,15 @@ def slot(item_id, big=False):
     return '<span class="slot%s" title="%s"><img src="%s" alt="%s"></span>' % (' big' if big else '', n, icon(item_id), n)
 
 
+MISSING_RECIPES = []
+
+
 def crafting(recipe_file):
-    d = json.load(open(os.path.join(RECIPES, recipe_file + '.json'), encoding='utf-8'))
+    path = os.path.join(RECIPES, recipe_file + '.json')
+    if not os.path.exists(path):
+        MISSING_RECIPES.append(recipe_file)   # receita tirada do mod: a wiki so nao mostra
+        return ''
+    d = json.load(open(path, encoding='utf-8'))
     key = {}
     for k, v in d.get('key', {}).items():
         first = v[0] if isinstance(v, list) else v
@@ -371,7 +390,7 @@ def table(rows, head=('Ação', 'Efeito', 'Mana')):
 # Cada entrada: (id do item, texto de introducao, [blocos de html extras])
 RECURSOS = [
     ('magicblocks:mana_orb', 'O coração de todas as receitas mágicas. Também serve de alimentação no Nature Infuser para fortalecer a armadura e a espada de Manilium.',
-     [note('Minere o Minério de Mana com picareta de diamante ou melhor (Fortuna aumenta). Ou faça com Essência de Mana:'), crafting('mana_orb')]),
+     [note('Minere o Minério de Mana com picareta de diamante ou melhor (Fortuna aumenta).')]),
     ('magicblocks:mana_essence', 'Energia de mana pura, usada para criar Orbes de Mana, o Coletor da Alma e o molde de Manilium.',
      [note('Todo mago (zumbis magos, Zumbi Necromante e Mago Midas) tem <b>10%</b> de chance de soltar uma.')]),
     ('magicblocks:void_essence', 'Um pedaço do nada. Ingrediente do Bloco de Void.',
@@ -383,7 +402,7 @@ RECURSOS = [
      [note('Cai dos <b>Espíritos Elementais</b> (8%, mais com Pilhagem), da <b>Sentinela Arcana</b> (2 a 4) e do baú da <b>Torre Arcana</b>.'), crafting('elemental_diamond_from_shards')]),
     ('magicblocks:mana_fruit', 'Cai das folhas da Árvore de Mana (6%, mais com Fortuna). Comer devolve <b>2 de mana</b> na hora (e mata a fome como uma maçã).',
      [note('Quebre as Folhas de Mana.')]),
-    ('magicblocks:teleport_crystal', '<b>Shift + direito</b> marca o lugar onde você está. Depois, <b>segure direito</b> por 1,5s para voltar até lá, gastando mana: 1 + 1 a cada 250 blocos (no máximo 8). Só funciona na mesma dimensão; recarga de 5s.',
+    ('magicblocks:teleport_crystal', '<b>Shift + direito</b> marca o lugar onde você está. Depois, <b>segure direito</b> por 1,5s para voltar até lá, gastando mana: 1 + 1 a cada 250 blocos (no máximo 8). Só funciona na mesma dimensão; recarga de 5s. Num <b>Pedestal Arcano</b>, um cristal marcado abre um <b>mini portal</b> em cima do pedestal: entre nele para ir ao lugar marcado, <b>sem gastar mana</b> (o Estabilizado também atravessa dimensões).',
      [crafting('teleport_crystal'), '<h4>Cristal de Teleporte Estabilizado</h4><p>Também viaja <b>entre dimensões</b> (Nether, End...), por +2 de mana.</p>', crafting('stable_teleport_crystal')]),
     ('magicblocks:lunar_fragment', 'Um pedaço da Lua Roxa. Faz o Cristal de Teleporte Estabilizado e o Ritual do Conhecimento.',
      [note('Monstros da <b>Lua Roxa</b> soltam (35%); o Arauto da Lua Roxa solta 4 a 6.')]),
@@ -403,9 +422,34 @@ RECURSOS = [
      [crafting('manilium_ingot')]),
     ('magicblocks:manilium_block', 'Guarda 9 Barras de Manilium. Feito como o bloco de slime: uma <b>casca translúcida de galáxia</b> que se mexe e brilha no escuro, com um <b>núcleo grande de Manilium negro</b> no meio. Serve de base de <b>sinalizador</b> (e a barra pode pagar o sinalizador). Precisa de picareta de diamante.',
      [crafting('manilium_block'), crafting('manilium_ingot_from_block')]),
+    ('magicblocks:emerald_heart', 'O coração da <b>Esmeralda Colossal</b>: cai quando você derrota o chefe da Caverna de Esmeralda (1 por vitória). Serve para fazer a Picareta de Esmeralda.',
+     [note('Derrote a Esmeralda Colossal (só picaretas ferem ela).')]),
+    ('magicblocks:emerald_pickaxe', '<b>Inquebrável</b> (nunca gasta) e com <b>12 de dano</b>. Minera como netherita e mais rápido e <b>aceita encantamentos</b> na mesa de encantamentos (menos Inquebrável e Remendo). <b>Shift + segurar o botão direito</b> carrega um ataque de mineração (1s); ao soltar gasta <b>6 de mana</b> e abre um <b>túnel 8x8 de 100 blocos</b> para onde você olha (ou para baixo, olhando o chão): só pedra, terra e parecidos somem, os <b>minérios ficam no lugar, expostos</b> (estilo Miner\'s Dream), e a <b>lava</b> dentro e nas paredes do túnel <b>vira pedra</b>. Blocos <b>colocados por jogadores</b> (construções) nunca são apagados. Como é uma picareta, também serve para enfrentar a Esmeralda Colossal de novo.',
+     [crafting('emerald_pickaxe')]),
+    ('magicblocks:ancestral_staff', 'Cajado de madeira ancestral com um Cristal Instável preso em garras douradas. Receita: 3 Troncos Ancestrais Descascados, 1 Cristal Instável e a Varinha do Aprendiz. No <b>Nature Infuser</b>, coloque um Bloco Mágico para equipar (tira igual à espada: sozinho ou com um Cristal Instável na bancada). O cajado usa as habilidades do bloco e ganha um <b>poder segurando o botão esquerdo</b>. <b>Baú e Slime não encaixam.</b>',
+     [crafting('ancestral_staff'),
+      table([('Fogo', 'Passivo', 'Os ataques de fogo chegam 60% mais longe'),
+             ('Água', 'Shift + segurar esquerdo', 'Redemoinho em volta: gira e fere os monstros (1 de mana/s)'),
+             ('Gelo', 'Shift + segurar esquerdo', 'Espinho de Gelo carregável: até 10s e 50 de dano (1 de mana até 4s, 3 até 8s, 6 até 10s)'),
+             ('Redstone', 'Segurar esquerdo', 'Explosão Carmesim posicionável: círculos mágicos onde você mira; solte para explodir (raio 15, 10 de mana, carrega 2s; não quebra blocos)'),
+             ('TNT', 'Segurar esquerdo', 'TNT sem pavio que explode no impacto, bem forte (3 de mana)'),
+             ('Void', 'Segurar esquerdo 6s', 'Buraco negro 4x maior (8 de mana)'),
+             ('Folha', 'Segurar esquerdo', 'Abraço da Floresta: vinhas prendem os monstros em volta (lentidão, veneno, dano) e você regenera (1 de mana/s)'),
+             ('Sculk', 'Segurar esquerdo', 'Eco: os monstros à frente brilham; ao soltar, ondas sônicas acertam até 6 deles (4 de mana)')],
+            head=('Bloco', 'Como', 'Poder'))]),
+    ('magicblocks:small_colossus', 'Um bloquinho de esmeralda que cai da <b>Esmeralda Colossal (5%)</b> e do <b>Príncipe das Esmeraldas (20%)</b>. Coloque no chão: vira o <b>Mini Colosso</b>, a Colossal em miniatura (45% de um bloco). Dê <b>Esmeraldas</b> para domar (1 chance em 3 por esmeralda). Ele cresce em <b>150 dias</b> (75 por estágio), ou mais rápido com <b>Blocos de Esmeralda</b> (cada um = 10 dias); um <b>Minério de Esmeralda de Ardósia</b> trava/destrava o crescimento. <b>Estágio 1</b>: só segue você. <b>Estágio 2</b>: atira estilhaços de esmeralda nos monstros que lutam com você (1 a cada 7s). <b>Estágio 3</b> (2x2x2): monte com a mão vazia — você fica <b>de pé</b> em cima dele, como num tronco rolando; a <b>barra de pulo</b> carrega uma investida (a faixa verde no chão mostra o caminho), quem estiver no caminho leva dano, e no fim ele fica parado 1,5s. Sobe degraus de 2 blocos. Em todos os estágios: <b>Shift + bater</b> faz ele sentar (dorme com Zzz, no centro do bloco); Shift + clique mostra o crescimento; esmeraldas o curam.',
+     [note('Esmeralda Colossal (5%) ou Príncipe das Esmeraldas (20%).')]),
+    ('magicblocks:awakened_mana_star', 'A Estrela de Mana levada ao limite. Feita no <b>Altar de Rituais</b>: a Estrela de Mana no altar e, nos pedestais, um <b>Fragmento Lunar</b>, um <b>Bloco Mágico</b> qualquer (30% de chance de sumir), uma <b>Essência do Void</b> e uma <b>Estrela do Nether</b> (25.000 de energia). A Estrela de Mana comum para em <b>+5 de armadura</b> e <b>+50 de dano</b> na espada; daí em diante só a Despertada: no Nature Infuser, <b>+1 de armadura</b> por estrela (até +10) e <b>+1 de dano</b> por estrela na Espada de Manilium (até +120). Depois vem a <a href="o-vazio.html#void-star">Estrela do Vazio</a>.',
+     [note('Altar de Rituais: Estrela de Mana + Fragmento Lunar, Bloco Mágico, Essência do Void e Estrela do Nether.')]),
+    ('magicblocks:miner_essence', 'Cai do <b>Príncipe das Esmeraldas</b> (1 por vitória). Serve para fazer a Picareta de Esmeralda Real.',
+     [note('Derrote o Príncipe das Esmeraldas: desperte uma Caverna de Esmeralda tendo a Picareta de Esmeralda no inventário.')]),
+    ('magicblocks:royal_emerald_template', 'Molde para a mesa de ferraria. Feito no <b>Nature Infuser</b>: Molde de Melhoria de Netherita na entrada e o <b>Coração de Esmeralda</b> na alimentação.',
+     [infuser('minecraft:netherite_upgrade_smithing_template', 'magicblocks:emerald_heart', 'magicblocks:royal_emerald_template')]),
+    ('magicblocks:royal_emerald_pickaxe', 'A Picareta de Esmeralda melhorada (mesa de ferraria: <b>Molde de Esmeralda Real + Picareta de Esmeralda + Essência do Minerador</b>; mantém os encantamentos). Faz tudo o que a de esmeralda faz e mais: <b>Shift + bater num bloco</b> gasta <b>12 de mana</b> e deixa o bloco <b>energizado</b> (faíscas verdes); depois de <b>30s</b> ele quebra sozinho e solta o item — funciona até na <b>bedrock</b>. Respeita áreas protegidas.',
+     [note('Mesa de ferraria: Molde de Esmeralda Real + Picareta de Esmeralda + Essência do Minerador.')]),
     ('magicblocks:manilium_upgrade_smithing_template', 'Molde da mesa de ferraria que transforma equipamento de netherita em Manilium.',
      [infuser('minecraft:netherite_upgrade_smithing_template', 'magicblocks:mana_essence', 'magicblocks:manilium_upgrade_smithing_template')]),
-    ('magicblocks:soul_converter', 'Quando falta mana, paga a diferença com o seu XP: <b>10 pontos de XP = 1 de mana</b>. Funciona no inventário, no slot de amuleto do <b>Curios</b> (aparece no peito, estilo reator) ou embutido em qualquer peitoral.',
+    ('magicblocks:soul_converter', 'Quando falta mana, paga a diferença com o seu XP: <b>30 pontos de XP = 1 de mana</b>. Funciona no inventário, no slot de amuleto do <b>Curios</b> (aparece no peito, estilo reator) ou embutido em qualquer peitoral.',
      [crafting('soul_converter'), infuser('minecraft:netherite_chestplate', 'magicblocks:soul_converter', 'minecraft:netherite_chestplate').replace(
          '<div class="hint">', '<div class="hint">qualquer peitoral recebe o conversor embutido &middot; ')]),
     ('magicblocks:unstable_condensed_mana_orb', 'Item de combate que guarda <b>10 de mana extra</b>. Não precisa segurar: basta estar no inventário, e ela é gasta sozinha quando a sua mana acaba (antes do XP do Conversor de Almas). Quando esvazia, <b>se desfaz</b>.',
@@ -474,8 +518,8 @@ BLOCOS = [
      [crafting('nature_restorer')]),
     ('magicblocks:nature_mana_well', 'Com energia de natureza (pelos cabos), a cada 6 segundos devolve <b>1 de mana</b> aos jogadores a até 6 blocos que não estão cheios. Custa 4.000 de energia por ponto. Também <b>recarrega as Orbes de Mana Condensada Estabilizadas</b> jogadas em cima dele: +1 de mana por segundo, 3.000 de energia cada. Clique para ver a energia.',
      [crafting('nature_mana_well')]),
-    ('magicblocks:ritual_altar', 'O centro dos <b>rituais</b>. Monte 4 <b>Pedestais</b> a 3 blocos do altar (norte, sul, leste e oeste, na mesma altura) e ligue o altar à energia de natureza pelos cabos (guarda 40.000). Clique no altar com o <b>catalisador</b>, coloque os 4 itens nos pedestais (em qualquer ordem) e clique no altar de <b>mão vazia</b>. Por 5 segundos, raios de luz saem dos pedestais até o altar; no fim, os itens são gastos e um raio (sem dano) cai no altar. Shift + direito de mão vazia tira o catalisador.',
-     [crafting('ritual_altar'), '<h4>Como montar</h4><ol class="steps"><li>Coloque o <b>Altar</b> e ligue-o à energia (cabos de um Charger, gerador ou bateria).</li><li>Coloque <b>4 Pedestais</b> (comuns ou Arcanos) a <b>3 blocos</b> do altar: norte, sul, leste e oeste, <b>na mesma altura</b> do altar (2 blocos vazios entre o altar e cada pedestal).</li><li>Clique no altar segurando o <b>catalisador</b> (ele fica flutuando em cima).</li><li>Clique em cada pedestal segurando um dos 4 itens do ritual (qualquer ordem).</li><li>Clique no altar de <b>mão vazia</b>. Se aparecer "nenhum ritual usa esses itens", confira os itens; "faltam pedestais" = algum pedestal fora do lugar.</li></ol><div class="prints"><figure><img src="img/prints/altar_angulo.jpg" alt="Altar com os 4 pedestais" loading="lazy"><figcaption>Altar com os 4 pedestais</figcaption></figure><figure><img src="img/prints/altar_cima.jpg" alt="Visto de cima: pedestais a 3 blocos, em cruz" loading="lazy"><figcaption>Visto de cima: pedestais a 3 blocos, em cruz</figcaption></figure><figure><img src="img/prints/altar_ritual.jpg" alt="Ritual em andamento" loading="lazy"><figcaption>Ritual em andamento</figcaption></figure></div>', table([
+    ('magicblocks:ritual_altar', 'O centro dos <b>rituais</b>. Monte 4 <b>Pedestais</b> a 3 blocos do altar (norte, sul, leste e oeste, na mesma altura) e ligue o altar à energia de natureza pelos cabos (guarda 40.000). Clique no altar com o <b>catalisador</b>, coloque os 4 itens nos pedestais (em qualquer ordem) e clique no altar de <b>mão vazia</b>. Por 5 segundos, raios de luz saem dos pedestais até o altar; no fim, os itens são gastos e um raio (sem dano) cai no altar. Shift + direito de mão vazia tira o catalisador. Um <b>funil ou baú embaixo do altar</b> recebe o resultado do ritual (senão ele pula em cima do altar), e um funil pode colocar o catalisador.',
+     [crafting('ritual_altar'), '<p class="tip">Todos os rituais vistos de cima, com cada item no seu pedestal, estão na aba <a href="rituais.html"><b>Rituais</b></a>.</p><h4>Como montar</h4><ol class="steps"><li>Coloque o <b>Altar</b> e ligue-o à energia (cabos de um Charger, gerador ou bateria).</li><li>Coloque <b>4 Pedestais</b> (comuns ou Arcanos) a <b>3 blocos</b> do altar: norte, sul, leste e oeste, <b>na mesma altura</b> do altar (2 blocos vazios entre o altar e cada pedestal).</li><li>Clique no altar segurando o <b>catalisador</b> (ele fica flutuando em cima).</li><li>Clique em cada pedestal segurando um dos 4 itens do ritual (qualquer ordem).</li><li>Clique no altar de <b>mão vazia</b>. Se aparecer "nenhum ritual usa esses itens", confira os itens; "faltam pedestais" = algum pedestal fora do lugar.</li></ol><div class="prints"><figure><img src="img/prints/altar_angulo.jpg" alt="Altar com os 4 pedestais" loading="lazy"><figcaption>Altar com os 4 pedestais</figcaption></figure><figure><img src="img/prints/altar_cima.jpg" alt="Visto de cima: pedestais a 3 blocos, em cruz" loading="lazy"><figcaption>Visto de cima: pedestais a 3 blocos, em cruz</figcaption></figure><figure><img src="img/prints/altar_ritual.jpg" alt="Ritual em andamento" loading="lazy"><figcaption>Ritual em andamento</figcaption></figure></div>', table([
          ('Chuva', 'Orbe de Mana', '2 Baldes de Água + 2 Cristais de Prismarinho', '5.000', 'Chove por 10 minutos (os baldes voltam vazios)'),
          ('Céu Limpo', 'Orbe de Mana', '2 Girassóis + 2 Pó de Pedra Luminosa', '5.000', 'Para a chuva e, se for noite, pula para a manhã'),
          ('Tempestade', 'Orbe de Mana', '2 Para-raios + 2 Pólvoras', '8.000', 'Tempestade com raios por 5 minutos'),
@@ -484,6 +528,10 @@ BLOCOS = [
          ('Transmutação', 'Diamante', '2 Essências de Mana + 2 Esmeraldas', '6.000', '2 Diamantes Instáveis'),
          ('Bênção', 'Maçã Dourada', 'Essência de Mana + Pó de Blaze + Pena + Açúcar', '8.000', 'Força II, Velocidade II, Regeneração e Resistência por 5 min para todos a até 12 blocos'),
          ('Conhecimento', 'Livro', '2 Fragmentos Lunares + 2 Orbes de Mana', '20.000', '<b>+1 ponto de habilidade</b> para quem começou o ritual'),
+         ('Estrela Despertada', 'Estrela de Mana', 'Fragmento Lunar + um Bloco Mágico + Essência do Void + Estrela do Nether', '25.000', 'Estrela de Mana Despertada (o bloco tem 30% de chance de sumir; senão fica no pedestal)'),
+         ('Armadura Elemental', 'Peça de Armadura Elemental', 'O Bloco Mágico do elemento (para o Void: <b>Essência do Void</b>, o Bloco de Void não serve) + Cristal Instável + 2 Essências de Mana', '8.000', 'A peça ganha o elemento do bloco (o bloco tem 30% de chance de ser gasto; senão fica no pedestal)'),
+         ('Bússola de Estruturas', 'Bússola', '4 Essências de Mana + 4 Teias (usa os 8 pedestais, incluindo as diagonais)', '8.000', 'Bússola Encantada: direito abre uma lista com busca de <b>todas as estruturas</b> (vanilla e de mods); escolha e ela aponta para a mais perto'),
+         ('Bússola de Biomas', 'Bússola', '4 Essências de Mana + 4 Folhas quaisquer (8 pedestais)', '8.000', 'Bússola Encantada: lista com busca de <b>todos os biomas</b>; escolha e ela aponta para o mais perto'),
          ('Invocação do Golem', 'Um Bloco Mágico (não é gasto)', '2 Orbes de Mana + 2 Diamantes Instáveis', '20.000', 'Cria o <b>Invocador</b> do golem daquele elemento: coloque onde quiser para lutar com ele')],
          head=('Ritual', 'Catalisador (no altar)', 'Pedestais', 'Energia', 'Efeito'))]),
     ('magicblocks:nature_quarry', 'Uma máquina movida a <b>energia de natureza</b> (pelos cabos, guarda 40.000) que minera uma área de <b>9x9</b> embaixo dela, ou o <b>retângulo formado pelos Marcadores de Área</b> (até <b>64x64</b>), camada por camada, até o fundo do mundo: um bloco a cada 0,2s, 250 de energia por bloco, como uma picareta de diamante. Pula líquidos, blocos inquebráveis e blocos com inventário (baús, spawners...). Os itens vão para um <b>baú encostado</b> em qualquer lado; sem baú, ela guarda até 27 pilhas e pausa. Só trabalha com <b>sinal de redstone</b> (alavanca, tocha de redstone, botão... encostado). A <b>área que vai ser minerada aparece sempre</b>: uma caixa 9x9 do Minerador até a camada atual, com a camada sendo minerada destacada (verde = minerando, laranja = parado sem sinal ou sem energia, cinza = terminou). Não mina dentro da arena de um golem vivo.',
@@ -500,7 +548,7 @@ BLOCOS = [
      [crafting('nature_furnace')]),
     ('magicblocks:mana_distiller', 'Transforma energia de natureza em <b>Essência de Mana</b>: 20.000 de energia (40 segundos) por essência. Manda para um baú encostado ou guarda até você clicar.',
      [crafting('mana_distiller')]),
-    ('magicblocks:nature_shield', 'Protege uma <b>área quadrada</b> de 25x25 (12 blocos para cada lado). A borda aparece no chão como uma faixa de luz, acompanhando o terreno, igual aos anéis de fogo do golem. Escudos com áreas que se encostam ou se cruzam <b>se fundem</b>: aparece só o contorno de fora e os monstros são empurrados para fora do conjunto inteiro. Clique no bloco com um <b>corante</b> para mudar a cor do emblema e da área. O escudo <b>destrói projéteis</b> que não são de jogadores (flechas de esqueleto, bolas de fogo, disparos dos espíritos...) e <b>empurra os monstros</b> para fora. Não afeta chefes. 150 de energia por projétil e 20 por empurrão.',
+    ('magicblocks:nature_shield', 'Protege uma <b>área quadrada</b> de 25x25 (12 blocos para cada lado), de <b>12 blocos abaixo até 20 acima</b> do escudo. A borda aparece no chão como uma faixa de luz, acompanhando o terreno, igual aos anéis de fogo do golem. Escudos com áreas que se encostam ou se cruzam <b>se fundem</b>: aparece só o contorno de fora e os monstros são empurrados para fora do conjunto inteiro. Clique no bloco com um <b>corante</b> para mudar a cor do emblema e da área. O escudo <b>destrói projéteis</b> que não são de jogadores (flechas de esqueleto, bolas de fogo, disparos dos espíritos...) e <b>empurra os monstros</b> para fora. Não afeta chefes. 150 de energia por projétil e 20 por empurrão.',
      [crafting('nature_shield')]),
     ('magicblocks:soul_generator', '<b>Fonte de energia</b>: cada criatura que morre a até 10 blocos gera 40 de energia por ponto de vida máxima (até 3.000 por morte; um zumbi dá 800). Ótimo embaixo de uma fazenda de monstros. Manda a energia pelos cabos (até 800 por tick) para máquinas e baterias.',
      [crafting('soul_generator')]),
@@ -514,6 +562,10 @@ BLOCOS = [
      [crafting('mana_elevator')]),
     ('magicblocks:nature_battery', 'Um bloco de vidro que <b>guarda energia de natureza</b> (até 250.000). Ligue nos cabos: ele recebe do Nature Charger e <b>devolve para as máquinas</b> ligadas nos mesmos cabos (até 600 por tick, dividido entre elas; nunca para outras baterias). O vidro <b>enche de líquido verde</b> brilhante conforme carrega. Clique para ver a energia; um comparador ao lado dá sinal de 0 a 15 conforme o nível. <b>Quebrada, guarda a energia</b>: o item mostra o líquido na altura do nível, uma barra verde embaixo e a energia na dica; colocada de novo, volta com tudo.',
      [crafting('nature_battery')]),
+    ('magicblocks:ancestral_sapling', 'A <b>Árvore Ancestral</b> é uma árvore gigante (~30 blocos) de folhas vermelhas, rara em <b>qualquer floresta</b>. Na base dela fica a <b>Raiz Ancestral</b> (tronco com runas douradas): clique para ganhar <b>1 Muda Ancestral</b> (uma por jogador em cada árvore). A muda cresce uma árvore do tamanho de um carvalho, mas <b>Maçãs Douradas</b> brotam embaixo das folhas e amadurecem em 4 estágios (madura, clique para colher ou quebre); as folhas <b>não soltam mudas</b>. Num <b>vaso</b> perto do Nature Charger ou do Nature Infuser, cada muda soma <b>+0,5x de natureza</b> (até 4 = +2x). A madeira tem todas as peças: tronco, madeira, descascados, tábuas, escada, laje, cerca, portão, porta, alçapão, botão, placa de pressão, placa e placa pendurada.',
+     [note('Raiz Ancestral, na base da árvore gigante das florestas.')]),
+    ('magicblocks:mastery_codex', 'A Mesa de Maestria <b>de bolso</b>. Segurando e clicando <b>usar</b>, abre a tela de maestria de qualquer lugar para <b>ligar/desligar as habilidades</b> de cada Bloco Mágico e os <b>Efeitos</b> (tipo shader) dos Blocos Verdadeiros e do Void. As melhorias (rituais) continuam só na mesa. Feito com a Mesa de Maestria no meio, 7 Altares de Ritual em volta e uma Barra de Manilium embaixo.',
+     [crafting('mastery_codex')]),
     ('magicblocks:mastery_table', 'A <b>árvore de cada Bloco Mágico</b>. Todas as ações dos blocos continuam liberadas; a mesa serve para <b>melhorar</b> cada bloco e para <b>desligar ações</b> que você não quer usar (ex.: desligar o Shift + Bater do Bloco de Fogo). Clique na mesa: à esquerda escolha o bloco; em cima ligue/desligue as ações (de graça); embaixo escolha uma melhoria para ver o que o ritual pede e clique em <b>Iniciar Ritual</b>.',
      [crafting('mastery_table'),
       '<h4>O ritual (8 pedestais)</h4><p>Coloque <b>8 Pedestais</b> em anel em volta da mesa, na mesma altura: 4 a 3 blocos em linha reta (norte, sul, leste, oeste) e 4 nas diagonais (2 blocos em cada eixo). Ligue a mesa à energia de natureza pelos cabos (guarda 60.000).</p><pre class="ring">      P\n  P       P\nP     M     P\n  P       P\n      P</pre><div class="prints"><figure><img src="img/prints/mesa_angulo.jpg" alt="Mesa com os 8 pedestais" loading="lazy"><figcaption>Mesa com os 8 pedestais</figcaption></figure><figure><img src="img/prints/mesa_cima.jpg" alt="Visto de cima: 4 em cruz a 3 blocos e 4 nas diagonais" loading="lazy"><figcaption>Visto de cima: 4 em cruz a 3 blocos e 4 nas diagonais</figcaption></figure><figure><img src="img/prints/mesa_ritual.jpg" alt="Ritual de melhoria em andamento" loading="lazy"><figcaption>Ritual de melhoria em andamento</figcaption></figure></div>',
@@ -524,12 +576,15 @@ BLOCOS = [
              ('2', '4 do elemento + 2 do atributo + 2 Orbes de Mana', '10', '10.000'),
              ('3', '4 do elemento + 2 do atributo + 2 Diamantes Instáveis', '20', '20.000')], head=('Nível', 'Itens nos 8 pedestais', 'Níveis de XP', 'Energia')),
       '<p class="tip">Item do elemento: Fogo = Pó de Blaze, Água = Fragmento de Prismarinho, Gelo = Gelo Compactado, Trovão = Barra de Cobre, Redstone = Redstone, TNT = Pólvora, Void = Pérola do Ender, Sculk = Sculk, Folha = qualquer folha, Blackstone Dourado = Barra de Ouro (só Economia), Spawner = Osso (Alcance e Economia). O Bloco de Baú só tem as ações para desligar. As melhorias ficam no <b>jogador</b> (valem para qualquer cópia do bloco, até dentro da Espada de Manilium) e não se perdem ao morrer. Se tirarem um item no meio do ritual, ele falha e o XP volta.</p>']),
-    ('magicblocks:pedestal', 'Expõe um item: clique com o item para colocar e com a mão vazia para pegar. Espadas ficam cravadas. É a peça dos <b>rituais</b>: 4 em volta do Altar de Rituais e 8 em volta da Mesa de Maestria (veja as montagens com fotos nesses blocos). Com folhas (ou o Bloco de Folha) em cima, fortalece o Nature Infuser.',
+    ('magicblocks:pedestal', 'Expõe um item: clique com o item para colocar e com a mão vazia para pegar. Espadas ficam cravadas. É a peça dos <b>rituais</b>: 4 em volta do Altar de Rituais e 8 em volta da Mesa de Maestria (veja as montagens com fotos nesses blocos). Com folhas (ou o Bloco de Folha) em cima, fortalece o Nature Infuser. <b>Funis</b> colocam itens no pedestal vazio (1 por vez) e recolhem por baixo só as <b>sobras dos rituais</b> (baldes vazios...), nunca os ingredientes.',
      [crafting('pedestal')]),
     ('magicblocks:arcane_pedestal', 'A melhoria do pedestal, mais alto e com cristal: <b>funciona igual ao Pedestal</b> (guarda um item e conta nos rituais do Altar e da Mesa de Maestria e no Nature Infuser) e solta partículas encantadas. Dá para misturar pedestais comuns e arcanos no mesmo ritual.',
      [crafting('arcane_pedestal')]),
-    ('magicblocks:manilium_spawner', 'Um spawner melhorado: cria as criaturas <b>mesmo com luz</b>, mas só enquanto recebe <b>sinal de redstone</b>. Clique nele com um ovo gerador para escolher a criatura. Quebra com qualquer picareta e guarda a criatura escolhida.',
-     [infuser('magicblocks:lifeless_spawner', 'magicblocks:manilium_ingot', 'magicblocks:manilium_spawner')]),
+    ('magicblocks:manilium_spawner', 'Um spawner melhorado: cria as criaturas <b>mesmo com luz</b>, mas só enquanto recebe <b>sinal de redstone</b>. Clique nele com um ovo gerador para escolher a criatura. Quebra com qualquer picareta e guarda a criatura escolhida. <b>Melhorias</b>: faça a melhoria no Nature Infuser (Pedra Lisa + o item) e clique no spawner com a <b>Chave de Spawner</b> (15% de chance ao quebrar um spawner; ela não é gasta). Abre uma tela com 3 espaços: coloque a melhoria para instalar e tire para remover. O spawner guarda as melhorias ao quebrar. <b>Açúcar</b> = Velocidade (até 10, no máximo 3x mais rápido); <b>Sinalizador</b> = Carregador de Chunk (até 1: mantém o chunk carregado e funciona sem jogador perto); <b>Cabeça de criatura</b> = Quantidade (até 5: +2 criaturas por vez).',
+     [infuser('magicblocks:lifeless_spawner', 'magicblocks:manilium_ingot', 'magicblocks:manilium_spawner'),
+      infuser('minecraft:smooth_stone', 'minecraft:sugar', 'magicblocks:spawner_upgrade_speed'),
+      infuser('minecraft:smooth_stone', 'minecraft:beacon', 'magicblocks:spawner_upgrade_chunk'),
+      infuser('minecraft:smooth_stone', 'minecraft:zombie_head', 'magicblocks:spawner_upgrade_count')]),
 ]
 
 MAGICOS = [
@@ -619,7 +674,7 @@ MAGICOS = [
          ('TNT (selvas)', 'Bloco de TNT', 'Bombardeio em fileira marcada; TNTs arremessadas em círculos marcados; <b>Mega Bomba</b> com bipe cada vez mais rápido: saia do disco; Chuva de TNT')],
          head=('Golem (onde fica a ruína)', 'Desperta com', 'Ataques')),
       '<h4>Blocos Verdadeiros</h4><p>O Bloco Mágico colocado no pedestal <b>fica guardado</b>. Quando o golem cai, ele volta como <b>Verdadeiro</b> (nome dourado e brilho de encantado), com habilidades melhores e um <b>ATAQUE NOVO</b>:</p>' + table([('Verdadeiro Bloco de Fogo', '<b>Bater: Meteoro</b> que cai do céu onde você mira (40 blocos). Lança-chamas de 16 blocos com o dobro de dano; explosão de chamas de 7 blocos'),('Verdadeiro Bloco de Água', '<b>Shift + direito: Tsunami</b>, uma parede de água que avança 24 blocos. Jato de 26 blocos que empurra mais e fere'),('Verdadeiro Bloco de Trovão', '<b>Shift + bater: Tempestade</b>, raios caem sozinhos nos monstros perto por 8s. Cadeia em 8 alvos; 3 raios; salto de 15 blocos'),('Verdadeiro Blackstone Dourado', '<b>Bater: Toque de Midas</b>, o alvo fica lento e fraco, leva +50% de dano e solta pepitas. Forma dourada com Resistência III, Regeneração II e Força'),('Verdadeiro Bloco de Gelo', '<b>Bater: Linha de Estacas</b> de cristais de gelo pontudos que brotam para a frente (16 blocos) e terminam num leque de cristais. Jato de 26 blocos que fere; nevasca de raio 14'),('Verdadeiro Bloco de Redstone', '<b>Shift + bater: Torreta</b> de redstone (sobe do chão, gira mirando e atira lasers nos monstros por 10s). Kamehameha carrega em 3s, mais grosso, mais longo, +50% de dano e cura 1,5 coração; faísca de 8; Sobrecarga um nível acima por 15s'),('Verdadeiro Bloco de TNT', 'A explosão nuclear cai <b>onde você mira, até 75 blocos</b>; a TNT arremessada vira <b>bomba de fragmentação</b> (4 explosões extras)')], head=('Bloco', 'Melhorias')),
-      '<p class="tip">A arena <b>não pode ser quebrada</b> enquanto o golem estiver vivo: nem na mão, nem por explosões, nem pela cratera da nuclear do Bloco de TNT, pela corrupção do Void ou pelo Minerador da Natureza. Na aba criativa há os <b>Invocadores</b> (um pedestal de cada golem) para colocar onde quiser. Todos também dão um <b>Esmagar</b> quando você está colado (disco vermelho em volta dele). Cada golem tem 175 corações, armadura, e deixa 500 de experiência, Essência e Orbes de Mana, diamantes e itens do elemento (Coração do Mar, Maçã Dourada Encantada, sucata de Netherita...).</p>']),
+      '<p class="tip">A arena <b>não pode ser quebrada</b> enquanto o golem estiver vivo: nem na mão, nem por explosões, nem pela cratera da nuclear do Bloco de TNT, pela corrupção do Void ou pelo Minerador da Natureza. Na aba criativa há os <b>Invocadores</b> (um pedestal de cada golem) para colocar onde quiser. Todos também dão um <b>Esmagar</b> quando você está colado (disco vermelho em volta dele). Cada golem tem 175 corações, armadura, e deixa 75 de experiência, Essência de Mana, diamantes e itens do elemento (Coração do Mar, Maçã Dourada Encantada, sucata de Netherita...).</p>']),
     ('magicblocks:corrupted_fire_block', 'Os Blocos de Fogo, Folha, Blackstone Dourado, Spawner, Água, Gelo e TNT têm uma <b>versão corrompida</b> (escurecida e avermelhada), achada em baús de estruturas que combinam com ele. Funciona como o bloco normal, mas é <b>mais fraca</b> (quem segura causa 40% menos dano e se cura 40% menos) e aguenta só <b>2 usos</b>: cada habilidade usada gasta 1. Não pode ser consertada, encantada (nada de Remendo) nem colocada na Espada de Manilium.',
      [table([
          ('Bloco de Fogo Corrompido', 'Fortaleza do Nether', '30%'),
@@ -656,14 +711,23 @@ ARMAS = [
 
 ARMAS.extend([
     ('magicblocks:mage_cloth', 'Os conjuntos de armadura do mod lado a lado.', ['<div class="prints"><figure><img src="img/prints/armaduras.jpg" alt="Mago, Elementais (fogo, água, gelo, trovão) e Manilium" loading="lazy"><figcaption>Mago, Elementais (fogo, água, gelo, trovão) e Manilium</figcaption></figure></div>']),
-    ('magicblocks:elemental_chestplate', 'A <b>Armadura de Mago melhorada</b>: o mesmo modelo (chapéu, manto, calças e sapatos), com as cores do elemento. Receita: a peça de mago no meio com <b>Diamantes Elementais</b> em volta (chapéu 3, manto 7, calças 6, sapatos 2). Defesa de diamante, durabilidade quase de netherita, 2,5 de resistência e <b>conta como peça de mago</b> para a volta da mana. No <b>Nature Infuser</b>, coloque a peça na entrada e o item do elemento na alimentação para dar um <b>elemento</b> a ela (as cores mudam; dá para trocar depois). Os bônus contam as peças do <b>mesmo elemento</b> vestidas.',
+    ('magicblocks:elemental_chestplate', 'A <b>Armadura de Mago melhorada</b>: o mesmo modelo (chapéu, manto, calças e sapatos), com as cores do elemento. Receita: a peça de mago no meio com <b>Diamantes Elementais</b> em volta (chapéu 3, manto 7, calças 6, sapatos 2). Defesa de diamante, durabilidade quase de netherita, 2,5 de resistência e <b>conta como peça de mago</b> para a volta da mana. O <b>elemento</b> vem do <b>Altar de Rituais</b>: a peça no altar e, nos 4 pedestais, o <b>Bloco Mágico</b> do elemento, 1 Cristal Instável e 2 Essências de Mana (8.000 de energia). O bloco tem <b>30% de chance de ser gasto</b> (senão fica no pedestal). Dá para trocar de elemento depois. <b>Cada peça</b> vestida dá o efeito no nível 1; com as <b>4 peças</b> do mesmo elemento, nível 2.',
      ['<div class="pieces">%s</div>' % ''.join(slot('magicblocks:elemental_' + p) for p in ['helmet', 'chestplate', 'leggings', 'boots']),
       crafting('elemental_chestplate'),
-      table([('Fogo', 'Pó de Blaze', '-40% de dano de fogo', 'Resistência ao Fogo permanente'),
-             ('Água', 'Cristais de Prismarinho', 'Respira debaixo d\'água', 'Graça do Golfinho e Poder do Conduto na água'),
-             ('Gelo', 'Gelo Azul', 'Não congela na neve fofa e não fica lento', 'Congela a água por onde anda'),
-             ('Trovão', 'Para-raios', 'Velocidade I', 'Velocidade II e 30% de chance de dar um choque (4 de dano) em quem te bater')],
-            head=('Elemento', 'Infusão', '2 peças', '4 peças')),
+      table([('Fogo', 'Bloco de Fogo', 'Resistência ao Fogo', 'Quem te bate pega fogo'),
+             ('Água', 'Bloco de Água', 'Poder do Conduto', '+ Graça do Golfinho'),
+             ('Gelo', 'Bloco de Gelo', 'Anda sobre a água; não congela nem fica lento', 'Anda sobre a lava também (vira obsidiana por um tempo)'),
+             ('Trovão', 'Bloco de Trovão', 'Velocidade I', 'Velocidade II'),
+             ('Redstone', 'Bloco de Redstone', 'Pressa I', 'Pressa II'),
+             ('Folha', 'Bloco de Folha', 'Regeneração I', 'Regeneração II'),
+             ('Sculk', 'Bloco de Sculk', 'Imune à Escuridão e Resistência I', 'Resistência II'),
+             ('Void', 'Bloco de Void', 'Projéteis não acertam', 'O voo instável do Bloco de Void'),
+             ('Dourado', 'Blackstone Dourado', 'Piglins não atacam e Sorte I', 'Sorte II'),
+             ('TNT', 'Bloco de TNT', '-50% de dano de explosão', 'Imune a explosões'),
+             ('Slime', 'Bloco de Slime', 'Super Pulo I', 'Super Pulo II e sem dano de queda'),
+             ('Spawner', 'Bloco de Spawner', 'Força I', 'Força II'),
+             ('Baú', 'Bloco de Baú', 'Visão Noturna', 'Herói da Vila')],
+            head=('Elemento', 'Bloco no ritual', 'Cada peça', '4 peças')),
       '<p class="tip">Peças com elemento também aparecem nos baús da <a href="criaturas.html#spawner">Masmorra Elemental</a>.</p>']),
     ('magicblocks:unstable_pickaxe', 'O degrau entre o diamante e o Manilium, feito com <b>Diamante Instável</b> e gravetos (receitas iguais às de diamante). Minera o mesmo que o diamante, mas tem <b>2.000 de durabilidade</b>, é mais rápido e cada ferramenta tem uma habilidade. Conserta na bigorna com Diamante Instável.',
      ['<div class="pieces">%s</div>' % ''.join(slot('magicblocks:unstable_' + p) for p in ['sword', 'pickaxe', 'axe', 'shovel', 'hoe']),
@@ -681,7 +745,8 @@ ARMAS.extend([
          ('Tecla G (mão livre)', 'Abre a roda de blocos: aponte e clique (ou solte a tecla) para pegar o bloco', '—'),
          ('Tirar o bloco da mão', 'Trocar de slot ou jogar no chão devolve o bloco ao talismã', '—')]),
       '<p class="tip">A tecla pode ser trocada em Opções &rarr; Controles &rarr; Magic &amp; Blocks.</p>',
-      '<h4>Rolar para desviar (tecla R)</h4><p>Com qualquer item (ou mão vazia), aperte <b>R</b> no chão para dar uma cambalhota na direção em que está andando (para frente se estiver parado). Durante a rolagem você fica <b>invulnerável por 0,4s</b> e desvia de qualquer ataque, inclusive dos golens. Recarga de <b>2 segundos</b>: um ícone ao lado direito da hotbar mostra quando dá para rolar de novo (apagado enquanto recarrega, pisca quando fica pronto). Gasta um pouco de fome. Não funciona na água, voando ou montado.</p>'])])
+      '<h4>Rolar para desviar (tecla R)</h4><p>Com qualquer item (ou mão vazia), aperte <b>R</b> no chão para dar uma cambalhota na direção em que está andando (para frente se estiver parado). Durante a rolagem você fica <b>invulnerável por 0,4s</b> e desvia de qualquer ataque, inclusive dos golens. Recarga de <b>2 segundos</b>: um ícone ao lado direito da hotbar mostra quando dá para rolar de novo (apagado enquanto recarrega, pisca quando fica pronto). Gasta um pouco de fome. Não funciona na água, voando ou montado.</p>',
+      '<h4>Câmera de ombro (TAB)</h4><p>Na terceira pessoa de costas (F5), aperte <b>TAB</b>: a câmera chega mais perto e vai para o ombro direito, e a <b>mira aparece no meio da tela</b>. O personagem vira para o ponto exato da mira, então golpes, magias e flechas vão onde você está mirando. TAB de novo desliga. A tecla pode ser trocada nos controles.</p>'])])
 
 CRIATURAS = [
     ('magicblocks:fire_spirit_spawn_egg', 'Espíritos que flutuam como blazes e aparecem (não muito comuns) <b>à noite</b> nos biomas do seu elemento. Cada elemento tem seu próprio corpo: o de Fogo tem coroa de chamas e punhos grandes, o de Água um rabo ondulante e um anel de água girando, o de Gelo espinhos de cristal translúcido e o de Trovão chifres em zigue-zague e um corpo de nuvem com um raio pendurado. Carregam por um instante (brilhando) e atiram <b>dois disparos</b> do elemento; colados em você, batem. Têm 13 corações.',
@@ -725,11 +790,100 @@ CRIATURAS = [
       '<div class="prints"><figure><img src="img/prints/eclipse_sol.jpg" alt="O sol coberto" loading="lazy"><figcaption>O sol coberto</figcaption></figure><figure><img src="img/prints/eclipse_sombras.jpg" alt="Sombras no eclipse" loading="lazy"><figcaption>Sombras no eclipse</figcaption></figure></div>']),
 ]
 
+ARMAS.extend([
+    ('magicblocks:leviathan_chestplate', 'Feita com as <b>Escamas de Leviatã</b>. Tem um <b>modelo 3D próprio</b>: o capacete é a cabeça do Leviatã (o seu rosto aparece pela boca), o peitoral tem o anel e asas de verdade saindo das costas, as ombreiras têm espinhos e as botas, garras. Cada peça tem <b>2 de armadura a mais que a de netherita</b> e 4 de resistência. <b>Pintura</b>: na Mesa de Ferraria, sem molde, a peça (de Leviatã ou da Besta Celestial) com um <b>corante</b> pinta as escamas cinzas e com um <b>minério</b> (ou gema/barra: diamante, esmeralda, redstone, lápis, ouro, cobre, ametista, quartzo...) pinta as partes roxas; na Celestial elas são uma <b>galáxia animada</b> na cor do minério.',
+     ['<div class="pieces">%s</div>' % ''.join(slot('magicblocks:leviathan_' + p) for p in ['helmet', 'chestplate', 'leggings', 'boots']),
+      crafting('leviathan_chestplate'),
+      table([('Cada peça', 'Corta <b>15% do dano</b> recebido (as 4 juntas deixam só 40%: protege <b>2,5x mais</b>)'),
+             ('4 peças', '<b>Nenhum dano do void</b>: nem o void normal nem o ar da dimensão do Vazio machucam')], head=('Vestindo', 'Efeito')),
+      '<h4>Armadura Elemental de Leviatã</h4><p>No <b>Nature Infuser</b>, uma peça da <a href="#elemental-chestplate">Armadura Elemental</a> na entrada e uma <b>Escama de Leviatã</b> na alimentação. A peça mantém o <b>elemento e os encantamentos</b>, ganha +2 de armadura, +1,5 de resistência e conta como peça de Leviatã (os 15% por peça e a proteção do void com as 4).</p>',
+      infuser('magicblocks:elemental_chestplate', 'magicblocks:leviathan_scale', 'magicblocks:elemental_chestplate')]),
+    ('magicblocks:abyssal_chestplate', 'Armadura do Vazio feita na bancada com <b>Cristal Abissal</b> e <b>Fragmento do Vazio</b>. Tem os mesmos números da <b>netherita</b> (não queima na lava). Com as <b>4 peças</b>, o void normal não machuca e o ar da dimensão do Vazio só tira <b>meio coração por minuto</b>.',
+     ['<div class="pieces">%s</div>' % ''.join(slot('magicblocks:abyssal_' + p) for p in ['helmet', 'chestplate', 'leggings', 'boots']),
+      crafting('abyssal_helmet'), crafting('abyssal_chestplate'), crafting('abyssal_leggings'), crafting('abyssal_boots')]),
+    ('magicblocks:beast_sword', 'Uma adaga de garra do Leviatã com <b>50 de dano</b>, feita com 2 Garras sobre 1 Escama. Na <b>segunda mão</b>, o botão direito bate exatamente como na principal (dano, encantamentos, crítico), e cada mão tem a <b>própria recarga</b>: dá para alternar direita e esquerda.',
+     [crafting('beast_sword'),
+      '<h4>Defesa</h4><p>Com duas armas "duas mãos" (uma em cada mão), <b>segure o botão direito</b> (sem shift; um clique rápido continua sendo o golpe da segunda mão): elas se cruzam e bloqueiam como escudo o que vem de frente. As adagas da besta só defendem durante a Fúria.</p><h4>Fúria da Besta</h4><p>Com uma adaga em cada mão (comum, Celestial ou Lâmina do Caos), segure <b>Shift + botão direito</b> por 3 segundos e solte. Enquanto carrega, as adagas se cruzam e um círculo de aura vermelha cresce nos pés.</p>',
+      table([('Bônus', 'Força III, Regeneração I e +35% de velocidade'),
+             ('Custo', '4 de mana ao ativar e mais 4 a cada 20s (renova sozinha enquanto houver mana e as duas adagas)'),
+             ('Escudos', 'As adagas desativam escudos como um machado'),
+             ('Dash (R)', 'No lugar da rolagem: um dash vermelho que corta quem estiver no caminho (12 de dano e fogo)')], head=('', 'Fúria da Besta'))]),
+    ('magicblocks:manilium_beast_sword', 'A Espada da Besta com Manilium: <b>60 de dano</b> e lâmina roxa-escura com galáxia. Feita no <b>Nature Infuser</b> (mantém encantamentos e nome). Durante a Fúria da Besta a galáxia fica vermelha.',
+     [infuser('magicblocks:beast_sword', 'magicblocks:manilium_ingot', 'magicblocks:manilium_beast_sword')]),
+    ('magicblocks:chaos_blade', 'A lâmina negra-carmesim com galáxia: <b>65 de dano</b> e sobe com Estrelas igual à Espada de Manilium. Feita no <b>Altar de Rituais</b>: a Espada da Besta (comum ou Celestial) no altar e <b>4 Barras de Manilium + 4 Cristais Instáveis</b> nos pedestais. Como são 8 itens, o altar aceita também 4 pedestais nas <b>diagonais</b>, a 2 blocos dele.',
+     ['<p class="tip">Funciona com a Fúria da Besta como as outras adagas.</p>']),
+    ('magicblocks:molten_manilium_bucket', 'Com o <b>Tinkers\' Construct</b> instalado, o Manilium vira material de ferramentas, armaduras e escudo. Ele derrete na fornalha virando <b>Manilium Derretido</b>, um líquido com uma <b>galáxia animada</b>. Derrete a <b>950°</b>, então a fornalha com lava comum já funciona. Escamas (45 mb) e Garras (90 mb) de Leviatã também derretem no mesmo líquido, e o novo material <b>Leviatã</b> deixa as espadas do Tinkers "duas mãos" e com a Fúria da Besta. O líquido machuca como o void (sem fogo) e não queima itens. Com o <b>Silent Gear</b> instalado, Manilium e Barra do Vazio viram materiais com encantabilidade alta.',
+     [table([('Ferramentas (Tinkers)', 'Nível netherita, Enderference e Experienced'),
+             ('Armaduras (Tinkers)', 'Proteção Mágica'),
+             ('Manilium (Silent Gear)', 'Stellar, Renew e Magnetic'),
+             ('Barra do Vazio (Silent Gear)', 'Void Ward, Hard e Adamant'), ('Escama de Leviatã (Silent Gear)', 'Besta (espadas, adagas, facas e katanas ficam duas mãos e entram na Fúria) e Light'), ('Cristal Abissal (Silent Gear)', 'Rasgo do Vazio (Wither)'), ('Cristal Instável (Silent Gear)', 'Surto de Mana (chance de devolver mana a cada golpe)')], head=('Material', 'Traços')),
+      '<p class="tip">Os itens do próprio Magic &amp; Blocks continuam iguais e encantáveis. Sem esses mods instalados nada disso aparece.</p>']),
+])
+
+VAZIO = [
+    ('magicblocks:gray_grass', 'Uma dimensão de <b>ilhas flutuantes</b> cinzentas embaixo do mundo. Só se entra pelo <b>void do Overworld</b>: quem cair e passar da <b>camada -100</b> vai para lá (antes do dano do void normal, ninguém morre no caminho) (o void do Nether, do End e do próprio Vazio não leva). Ao chegar aparece o <b>Pedestal do Retorno</b>, inquebrável, com um portal que leva ao seu ponto de spawn. O céu é escuro e cheio de buracos negros, e lá é bem mais fácil achar Orbes de Mana.',
+     [table([('Planícies do Vazio', 'Ilhas enormes e inteiras'), ('Abismos do Vazio', 'As mesmas planícies cortadas por ravinas até o fundo'),
+             ('Ilhas do Vazio', 'Várias ilhas separadas'), ('Planícies de Luz', 'Douradas e iluminadas: árvores e arbustos dourados, Gira-Sóis, mariposas brilhantes'), ('Pântano Abissal', 'Lama, lagos de água roxa, árvores de mangue com vinhas, vitórias-régias e Lesmas Estelares')], head=('Bioma', 'Como é')),
+      '<p class="tip">No céu de todos os biomas do Vazio podem aparecer <b>Ruínas Flutuantes</b>: ilhotas de pedra com pilares quebrados, ligadas por correntes, com um baú de tesouros na do meio.</p>',
+      '<h4>O ar do Vazio</h4>',
+      table([('Sem proteção', '5 corações a cada 15 segundos (ignora armadura)'),
+             ('Bloco de Void na mão, 4 peças Elementais de Void ou 4 peças Abissais', 'Meio coração por minuto'),
+             ('Camadas -20 a -50 (Abismo Verdadeiro)', 'Dano pesado, Fraqueza e Escuridão; nada protege. Só a Âncora Abissal te puxa de volta'),
+             ('Abaixo da camada -50', 'O buraco negro vermelho gigante te engole: morte, como no void normal')], head=('Situação', 'Dano'))]),
+    ('magicblocks:void_mana_ore', 'Os minérios das ilhas do Vazio.',
+     [table([('Minério de Mana do Vazio', 'O mais comum', '1 a 2 Orbes de Mana (Fortuna aumenta)'),
+             ('Minério de Vazio', 'Picareta de ferro', '1 a 3 Fragmentos do Vazio'),
+             ('Minério de Cristal Abissal', 'Picareta de diamante', 'Cristal Abissal'),
+             ('Minério de Vazio Profundo', 'Raro, picareta de diamante', '1 a 3 Pepitas do Vazio (Fortuna aumenta)')], head=('Minério', 'Como', 'Solta'))]),
+    ('magicblocks:void_shard', 'Cai do <b>Minério de Vazio</b>, sai de <b>9 Pepitas do Vazio</b> e aparece no baú da Forja. 4 fragmentos viram 1 Essência do Void. Na <b>Fornalha Natural</b>, depois de <b>120 segundos</b>, vira uma <b>Barra do Vazio</b> (a fornalha comum não aceita; coloque com o mouse ou por funil).',
+     [crafting('void_shard_from_nuggets'), crafting('void_essence_from_shards')]),
+    ('magicblocks:void_bar', 'Feita na <b>Fornalha Natural</b> com um Fragmento do Vazio (120 segundos). Também cai do Leviatã. É material do Silent Gear.',
+     [note('Fragmento do Vazio na Fornalha Natural (120s) ou drop do Leviatã.')]),
+    ('magicblocks:void_star', 'No <b>Nature Infuser</b>: Estrela de Mana Despertada + Fragmento do Vazio. Depois da Despertada, cada Estrela do Vazio dá <b>+1</b> na armadura de Manilium (até <b>+15</b>) ou na espada (até <b>+150</b>). Jogada no buraco da <a href="#void-leviathan-spawn-egg">Toca do Abismo</a>, chama o Leviatã.',
+     [infuser('magicblocks:awakened_mana_star', 'magicblocks:void_shard', 'magicblocks:void_star')]),
+    ('magicblocks:abyss_rock', 'A "madeira" do Vazio: formações de pedra tortas espalhadas pelas ilhas, com um <b>Núcleo do Abismo</b> escondido na base. Enquanto o núcleo existir, a formação devolve <b>1 bloco a cada 30 segundos</b>. Quebrando o núcleo (picareta de ferro) ela para de crescer, e o núcleo faz a <b>Lanterna do Abismo</b>: um lampião com um mini buraco negro girando dentro (luz 15).',
+     [crafting('abyss_lantern')]),
+    ('magicblocks:abyssal_anchor', 'Se você cair no <b>Abismo Verdadeiro</b> (camadas -20 a -50 do Vazio), ela te puxa de volta ao último chão firme e se quebra.',
+     [crafting('abyssal_anchor')]),
+    ('magicblocks:void_jellyfish_spawn_egg', 'As criaturas do Vazio. As do Overworld não nascem lá.',
+     [table([('Água-viva do Vazio', 'Passiva: flutua em pulsos e brilha', 'Gel do Vazio (comida: Queda Lenta por 30s)'),
+             ('Mariposa Cinzenta', 'Passiva: voa até o bloco iluminado mais perto e fica rodopiando', 'Pó de Mariposa (poção estranha + pó = Visão Noturna)'),
+             ('Sombra Errante', 'Agressiva: some e reaparece nas suas costas', '—'),
+             ('Devorador', 'Agressivo: boca flutuante que cospe mini buracos negros', '15% de chance de Orbe de Mana')], head=('Criatura', 'Comportamento', 'Solta'))]),
+    ('magicblocks:forge_bench', '<b>A Forja</b> é uma estrutura rara do Vazio (no mínimo uns 2500 blocos uma da outra): muralha redonda de pedra negra com contrafortes de Pedra do Abismo, telhado cônico, a fornalha grande com chaminé, bigornas, altos-fornos e um baú com loot. No centro fica a <b>Bancada da Forja</b> (3x1), que ainda vai ser usada para forjar uma super espada.',
+     ['<p class="tip">Para gerar uma onde você está (operador): <code>/magicblocks structure forge</code>.</p>']),
+    ('magicblocks:void_leviathan_spawn_egg', 'A <b>Toca do Abismo</b> é uma arena redonda do Vazio com um buraco muito fundo no meio. Jogue uma <b>Estrela do Vazio</b> no buraco: o <b>Leviatã do Vazio</b>, um dragão-serpente no estilo Rayquaza, sai em espiral e um pedestal com o <b>Cristal do Vazio</b> sobe no meio. Todos os ataques mostram antes onde vão acertar.',
+     [table([('Fase 1', 'Barra de 5 pontos. Golpes não fazem nada: faça o <b>laser</b> dele acertar o cristal (o cristal devolve uma onda que tira 1 ponto). Com 3 pontos ele se enfurece e ataca 35% mais rápido. O laser vem a cada 4 ataques.'),
+             ('Transição', 'Ele destrói o cristal e empurra todo mundo para a beira.'),
+             ('Fase 2', '1500 de vida. Ele fica enrolado no meio da arena e o buraco é tapado.')], head=('', 'Como funciona')),
+      table([('Meteoros', '1 e 2', 'Círculos vermelhos no chão'), ('Buraco negro', '1', 'Puxa a arena inteira e arranca pedras da borda'),
+             ('Metralhadora', '1', 'Mini buracos negros saindo da cabeça'), ('Laser', '1', 'Carrega 5s; acertar o cristal é o objetivo'),
+             ('Mergulho', '1 e 2', 'Sobe em cima de você e desce com uma onda de choque'), ('Bote', '1 e 2', 'Avança rápido e morde'),
+             ('Rugido', '1 e 2', 'Empurra todo mundo e deixa lento'), ('Investida', '2', 'Corre na faixa vermelha, seguindo você até pouco antes'),
+             ('Laser varrendo', '2', 'Sobe devagar de baixo para cima'), ('Lasers do céu', '2', 'Caem nos círculos roxos'),
+             ('Nova', '2', 'Anéis de tiros para todos os lados')], head=('Ataque', 'Fase', 'Como é')),
+      '<p class="tip">O corpo inteiro pode ser acertado (50% do dano; a cabeça leva 100%). <b>Magias</b>, projéteis e explosões dão <b>50% a mais</b>, e nenhum golpe passa de <b>100 de dano</b>. Se a arena ficar vazia por 1 minuto ele volta para o buraco. Comandos de operador: <code>/magicblocks structure den</code> gera uma Toca e <code>/magicblocks leviathan</code> chama o Leviatã na Toca mais perto.</p>']),
+    ('magicblocks:leviathan_scale', 'O Leviatã solta <b>12 a 28 Escamas</b>, <b>2 a 8 Garras</b>, o <b>Coração do Leviatã</b> (um bloquinho rosa que pulsa e brilha), Cristais Abissais, sucata de netherita, 1 Orbe de Mana, Essência do Void e Barras do Vazio. As escamas fazem a <a href="armas-e-armaduras.html#leviathan-chestplate">Armadura de Leviatã</a> e as garras, a <a href="armas-e-armaduras.html#beast-sword">Espada da Besta</a>.',
+     ['<div class="pieces">%s</div>' % ''.join(slot(i) for i in ['magicblocks:leviathan_scale', 'magicblocks:leviathan_claw', 'magicblocks:leviathan_heart']),
+      '<p class="tip">Uma <b>Garra</b> no Nature Infuser com a Espada de Manilium deixa a espada <b>"duas mãos"</b>: na segunda mão, o botão direito bate como na principal.</p>']),
+    ('magicblocks:fractured_colossus_spawn_egg', 'O <b>Colosso Fraturado</b> é um mini-chefe raro das Planícies e do Pântano Abissal: um golem de pedra abissal rachado, com cristais roxos brilhando nas fendas. <b>Todo ataque é avisado antes</b>.',
+     [table([('Pancada', 'Ergue os braços e um <b>círculo vermelho</b> aparece no chão onde vai cair (1,5s). Quem estiver dentro leva 15 de dano e voa'),
+             ('Lança de Cristal', 'Uma <b>linha vermelha</b> mostra o caminho (1,25s) e um feixe de cristal corta a linha (11 de dano)'),
+             ('Erupção de Cristais', '<b>5 círculos roxos</b> aparecem em volta de você (1,5s) e espinhos de cristal sobem de cada um (10 de dano)'), ('Investida', 'Uma <b>faixa vermelha</b> no chão mostra o caminho (1,25s) e ele corre por ela atropelando quem estiver na frente (14 de dano)'), ('Fratura', 'Com 2/3 e 1/3 da vida ele se parte e solta <b>2 Fragmentos</b> (pequenos, só dão a pancada)')], head=('Ataque', 'Como é')),
+      '<p>Solta o <b>Núcleo Fraturado</b>, 2 a 5 Cristais Abissais e 1 a 3 Essências do Void (nunca Barra do Vazio nem Orbe de Mana). O núcleo faz o <b>Martelo Fraturado</b>: a cada 1,5s o golpe faz um tremor que joga os monstros em volta para cima.</p>',
+      crafting('fractured_hammer')]),
+    ('magicblocks:star_slug_spawn_egg', 'A <b>Lesma Estelar</b> é passiva e bem lenta, com estrelinhas piscando dentro do corpo. Por onde passa deixa um <b>Rastro Estelar</b> brilhante que some sozinho depois de uns 15 segundos. Vive nas Planícies de Luz e no Pântano Abissal e solta <b>Gosma Estelar</b> (1 gosma = 2 Bolsas de Tinta Brilhante).', []),
+    ('magicblocks:sunturn', 'O <b>Gira-Sol</b> nasce nas Planícies de Luz: a flor vira a cabeça para o jogador mais perto e dá <b>Visão Noturna</b> a quem estiver a até 6 blocos. Brilha e pode ser replantado em grama, terra ou Grama Luminosa.', []),
+    ('magicblocks:golden_door', 'A <b>Madeira Dourada</b> das árvores das Planícies de Luz (brilha de leve): tábuas, escadas, laje, cerca, portão, porta, alçapão, botão, placa de pressão, madeira e as versões descascadas (machado no tronco).', []),
+]
+
+
 PAGES = [
     ('recursos', 'Recursos', 'Materiais, essências e itens úteis.', RECURSOS),
     ('blocos', 'Blocos', 'Blocos que você coloca no mundo.', BLOCOS),
     ('blocos-magicos', 'Blocos Mágicos', 'Blocos que flutuam na mão e dão poderes elementais.', MAGICOS),
     ('armas-e-armaduras', 'Armas e Armaduras', 'Ferramentas Instáveis, o equipamento de Manilium e o Talismã dos Blocos.', ARMAS),
+    ('o-vazio', 'O Vazio', 'A dimensão embaixo do mundo: ilhas, minérios, criaturas, A Forja e o Leviatã.', VAZIO),
     ('criaturas', 'Criaturas', 'Espíritos Elementais, a Torre Arcana, a Masmorra, a Lua Roxa e os Atributos.', CRIATURAS),
 ]
 
@@ -767,7 +921,7 @@ def display_name(item_id):
 
 def topbar(active):
     tabs = ''.join('<a href="%s.html"%s>%s</a>' % (slug, ' class="on"' if slug == active else '', title)
-                   for slug, title, _, _ in PAGES) + ('<a href="balanceamento.html"%s>Balanceamento</a>' % (' class="on"' if active == 'balanceamento' else ''))
+                   for slug, title, _, _ in PAGES) + ('<a href="rituais.html"%s>Rituais</a>' % (' class="on"' if active == 'rituais' else '')) + ('<a href="integracoes.html"%s>Integrações</a>' % (' class="on"' if active == 'integracoes' else '')) + ('<a href="balanceamento.html"%s>Balanceamento</a>' % (' class="on"' if active == 'balanceamento' else ''))
     return ('<header class="top"><a class="brand" href="index.html"><img src="img/logo.png" alt="">Magic &amp; Blocks <small>wiki</small></a>'
             '<nav class="tabs">%s</nav><a class="btn small" href="%s" target="_blank" rel="noopener">&#10084; Apoiar</a></header>') % (tabs, SUPPORT)
 
@@ -817,7 +971,7 @@ def balance_page():
         ('Dano dos monstros', 'x multiplicador', 'Golpes e ataques que usam o dano do monstro.'),
         ('Velocidade', 'não muda', 'Os monstros andam e atacam na mesma velocidade de sempre, em qualquer dificuldade.'),
         ('Armadura (só do mod)', '+2 por ponto acima de 1', 'Monstros e chefes do Magic &amp; Blocks ficam mais duros.'),
-        ('Drops raros do mod', 'caem multiplicador vezes menos', 'Fragmentos Lunares e do Eclipse, Diamante Instável, Essência de Mana e do Void, Orbes de Mana, Estilhaços Instáveis e Barras de Manilium. Com x2 cai metade (a parte quebrada vira chance).')])
+        ('Drops raros do mod', 'caem multiplicador vezes menos', 'Fragmentos Lunares e do Eclipse, Diamante Instável, Essência de Mana e do Void, Orbes de Mana, Estilhaços Instáveis e Barras de Manilium. Com x2 cai metade (a parte quebrada vira chance). O <b>loot dos chefes</b> (golens e Esmeralda Colossal) <b>não muda</b>.')])
     body = ('<main class="page-text"><h1>Balanceamento</h1>'
             '<p class="sub">Achou fácil demais? Use o comando <b>/apelar</b> para deixar o mundo mais difícil (ou mais fácil).</p>'
             '<div class="callout">O comando é de <b>operador</b> (precisa de cheats no singleplayer ou ser OP no servidor). '
@@ -834,6 +988,171 @@ def balance_page():
     return page('Balanceamento', body, 'balanceamento')
 
 
+# ===================================================================== rituais (aba propria)
+
+# (id, nome, catalisador, itens nos 4 pedestais em cruz [N, S, L, O], itens nas 4 diagonais ou None, energia, resultado
+#  (item ou None), efeito, observacao)
+RITUAIS = [
+    ('mana_orb', 'Orbe de Mana', 'magicblocks:elemental_diamond', ['magicblocks:mana_essence'] * 4, None, 4000,
+     'magicblocks:mana_orb', 'Cria uma <b>Orbe de Mana</b>.', ''),
+    ('transmutation', 'Transmutação', 'minecraft:diamond',
+     ['magicblocks:mana_essence', 'magicblocks:mana_essence', 'minecraft:emerald', 'minecraft:emerald'], None, 6000,
+     'magicblocks:elemental_diamond', 'Transforma o diamante em <b>2 Cristais Instáveis</b>.', ''),
+    ('rain', 'Chuva', 'magicblocks:mana_orb',
+     ['minecraft:water_bucket', 'minecraft:water_bucket', 'minecraft:prismarine_crystals', 'minecraft:prismarine_crystals'], None, 5000,
+     None, 'Chove por <b>10 minutos</b>.', 'Os baldes voltam vazios para os pedestais.'),
+    ('clear', 'Céu Limpo', 'magicblocks:mana_orb',
+     ['minecraft:sunflower', 'minecraft:sunflower', 'minecraft:glowstone_dust', 'minecraft:glowstone_dust'], None, 5000,
+     None, 'Para a chuva e, se for noite, <b>pula para a manhã</b>.', ''),
+    ('storm', 'Tempestade', 'magicblocks:mana_orb',
+     ['minecraft:lightning_rod', 'minecraft:lightning_rod', 'minecraft:gunpowder', 'minecraft:gunpowder'], None, 8000,
+     None, 'Tempestade com raios por <b>5 minutos</b>.', ''),
+    ('purple_moon', 'Lua Roxa', 'minecraft:ender_eye',
+     ['minecraft:amethyst_shard', 'minecraft:amethyst_shard', 'magicblocks:mana_essence', 'magicblocks:mana_essence'], None, 15000,
+     None, 'Chama a <b>Lua Roxa</b> agora (se for noite) ou na próxima noite.', ''),
+    ('eclipse', 'Eclipse Solar', 'magicblocks:lunar_fragment',
+     ['minecraft:sunflower', 'minecraft:sunflower', 'minecraft:obsidian', 'minecraft:obsidian'], None, 15000,
+     None, 'Chama o <b>Eclipse Solar</b> agora (se for dia) ou no próximo meio-dia.', ''),
+    ('blessing', 'Bênção', 'minecraft:golden_apple',
+     ['magicblocks:mana_essence', 'minecraft:blaze_powder', 'minecraft:feather', 'minecraft:sugar'], None, 8000,
+     None, 'Força II, Velocidade II, Regeneração e Resistência por <b>5 minutos</b> para todos a até 12 blocos.', ''),
+    ('knowledge', 'Conhecimento', 'minecraft:book',
+     ['magicblocks:lunar_fragment', 'magicblocks:lunar_fragment', 'magicblocks:mana_orb', 'magicblocks:mana_orb'], None, 20000,
+     None, '<b>+1 ponto de habilidade</b> para quem começou o ritual.', ''),
+    ('elemental_armor', 'Armadura Elemental', 'magicblocks:elemental_chestplate',
+     ['magicblocks:fire_block', 'magicblocks:elemental_diamond', 'magicblocks:mana_essence', 'magicblocks:mana_essence'], None, 8000,
+     'magicblocks:elemental_chestplate', 'A peça ganha o <b>elemento do bloco</b> (mantém os encantamentos).',
+     'Use o Bloco Mágico do elemento que quiser (na imagem, Fogo). Para o <b>Void</b>, use a <b>Essência do Void</b>: o Bloco de Void não serve. '
+     'O bloco tem 70% de chance de voltar para o pedestal.'),
+    ('awakened_star', 'Estrela Despertada', 'magicblocks:mana_star',
+     ['magicblocks:lunar_fragment', 'magicblocks:fire_block', 'magicblocks:void_essence', 'minecraft:nether_star'], None, 25000,
+     'magicblocks:awakened_mana_star', 'Cria a <b>Estrela de Mana Despertada</b>.',
+     'Qualquer Bloco Mágico serve (na imagem, Fogo); ele tem 70% de chance de voltar para o pedestal.'),
+    ('golem', 'Invocação do Golem', 'magicblocks:fire_block',
+     ['magicblocks:mana_orb', 'magicblocks:mana_orb', 'magicblocks:elemental_diamond', 'magicblocks:elemental_diamond'], None, 20000,
+     'magicblocks:ruin_pedestal', 'Cria o <b>Invocador</b> do golem do elemento do bloco: coloque onde quiser para lutar com ele.',
+     'O Bloco Mágico no altar <b>não é gasto</b>.'),
+    ('chaos_blade', 'Lâmina do Caos', 'magicblocks:beast_sword', ['magicblocks:manilium_ingot'] * 4, ['magicblocks:elemental_diamond'] * 4, 30000,
+     'magicblocks:chaos_blade', 'Transforma a Espada da Besta (comum ou Celestial) na <b>Lâmina do Caos</b> (mantém encantamentos).', ''),
+    ('structure_compass', 'Bússola de Estruturas', 'minecraft:compass', ['magicblocks:mana_essence'] * 4, ['minecraft:cobweb'] * 4, 8000,
+     'minecraft:compass', 'Cria a <b>Bússola Encantada de Estruturas</b>: botão direito abre uma lista com busca de todas as estruturas '
+     '(do jogo e de outros mods); escolha uma e ela aponta para a mais perto.', ''),
+    ('biome_compass', 'Bússola de Biomas', 'minecraft:compass', ['magicblocks:mana_essence'] * 4, ['minecraft:oak_leaves'] * 4, 8000,
+     'minecraft:compass', 'Cria a <b>Bússola Encantada de Biomas</b>: lista com busca de todos os biomas; escolha um e ela aponta para o mais perto.',
+     'Qualquer folha serve (na imagem, Carvalho).'),
+]
+
+RIT_DIR = os.path.join(SITE, 'img', 'rituais')
+
+
+def ritual_image(rid, catalyst, cross, diag):
+    """A foto de cima do altar com o icone de cada item em cima do seu pedestal (e o catalisador no altar)."""
+    base = Image.open(os.path.join(RIT_DIR, 'base8.png' if diag else 'base4.png')).convert('RGBA')
+    c = 480
+    spots = [(c, c - 322), (c, c + 322), (c + 322, c), (c - 322, c)]
+    if diag:
+        spots += [(c - 214, c - 214), (c + 214, c - 214), (c - 214, c + 214), (c + 214, c + 214)]
+    items = list(cross) + list(diag or [])
+
+    def put(item_id, x, y, size):
+        ic = Image.open(os.path.join(SITE, icon(item_id))).convert('RGBA').resize((size, size), Image.NEAREST)
+        sh = Image.new('RGBA', ic.size, (0, 0, 0, 0))
+        sh.putalpha(ic.getchannel('A').point(lambda a: int(a * 0.55)))
+        base.alpha_composite(sh, (x - size // 2 + 5, y - size // 2 + 6))
+        base.alpha_composite(ic, (x - size // 2, y - size // 2))
+
+    for item_id, (x, y) in zip(items, spots):
+        put(item_id, x, y, 84)
+    # catalisador no altar, com um brilho roxo em volta
+    glow = Image.new('RGBA', base.size, (0, 0, 0, 0))
+    gp = glow.load()
+    for yy in range(c - 80, c + 80):
+        for xx in range(c - 80, c + 80):
+            d = ((xx - c) ** 2 + (yy - c) ** 2) ** 0.5
+            if d < 80:
+                gp[xx, yy] = (200, 120, 255, int(110 * (1 - d / 80.0)))
+    base.alpha_composite(glow)
+    put(catalyst, c, c, 104)
+    out = os.path.join(RIT_DIR, rid + '.png')
+    base.convert('RGB').save(out, optimize=True)
+    return 'img/rituais/%s.png' % rid
+
+
+def rituals_page():
+    side = ''.join('<a href="#%s"><img src="%s" alt="">%s</a>' % (rid.replace('_', '-'), icon(cat), html.escape(nome))
+                   for rid, nome, cat, *_ in RITUAIS)
+    cards = ''
+    for rid, nome, cat, cross, diag, energy, out, effect, obs in RITUAIS:
+        img = ritual_image(rid, cat, cross, diag)
+        counts = {}
+        for it in list(cross) + list(diag or []):
+            counts[it] = counts.get(it, 0) + 1
+        peds = ''.join('<li>%s<span>%dx %s</span></li>' % (slot(it), n, html.escape(name(it))) for it, n in counts.items())
+        res = ('<p class="rit-out">Resultado: %s <b>%s</b></p>' % (slot(out), html.escape(name(out)))) if out else ''
+        cards += ('<article class="entry ritual" id="%s" data-name="%s"><div class="rit-img"><img src="%s" alt="%s visto de cima" loading="lazy"></div>'
+                  '<div class="rit-info"><h3>%s</h3><p>%s</p>'
+                  '<p class="rit-cat">No altar: %s <b>%s</b></p><p class="rit-lbl">Nos pedestais%s:</p><ul class="rit-list">%s</ul>'
+                  '<p class="rit-energy">Energia de natureza: <b>%s</b></p>%s%s</div></article>') % (
+            rid.replace('_', '-'), html.escape(nome.lower()), img, html.escape(nome), html.escape(nome), effect,
+            slot(cat), html.escape(name(cat)), ' (os 8: em cruz e nas diagonais)' if diag else ' (os 4 em cruz)', peds,
+            '{:,}'.format(energy).replace(',', '.'), res, ('<p class="tip">%s</p>' % obs) if obs else '')
+    intro = ('<div class="callout"><b>Como montar:</b> coloque o <b>Altar de Rituais</b> e <b>4 Pedestais</b> a 3 blocos dele '
+             '(norte, sul, leste e oeste), na mesma altura. Rituais de 8 itens usam também <b>4 pedestais nas diagonais</b>, a 2 blocos. '
+             'Ligue o altar à energia de natureza pelos cabos, clique no altar com o <b>catalisador</b>, ponha os itens nos pedestais '
+             '(qualquer ordem) e clique no altar de <b>mão vazia</b>. Um funil embaixo do altar recebe o resultado.</div>')
+    body = ('<div class="layout"><aside class="side"><input id="busca" type="search" placeholder="Buscar..." aria-label="Buscar">'
+            '<div class="side-list">%s</div></aside><main><h1>Rituais</h1><p class="sub">Todos os rituais do Altar, vistos de cima: '
+            'cada item aparece em cima do pedestal onde vai.</p>%s%s</main></div>') % (side, intro, cards)
+    return page('Rituais', body, 'rituais')
+
+
+# ===================================================================== integracoes (aba propria)
+
+INTEGRACOES = [
+    ('jei', 'JEI (Just Enough Items)', 'magicblocks:nature_workbench',
+     'Todas as receitas especiais do Magic &amp; Blocks aparecem no JEI, além das receitas normais de bancada e fornalha.',
+     [table([('Nature Infuser', 'Todas as conversões e infusões: entrada + catalisador &rarr; resultado, com o tempo. Clique na <b>seta</b> do Nature Infuser para abrir as receitas dele.'),
+             ('Altar de Rituais', 'Os 15 rituais vistos de cima, como no jogo: o catalisador no altar, os itens em volta nos pedestais (em cruz e nas diagonais), o resultado e a energia. Rituais de clima e evento mostram o efeito.'),
+             ('Como abrir', 'Aperte <b>R</b> (receita) ou <b>U</b> (usos) em cima do Nature Infuser, do Altar, do Pedestal ou de qualquer item do mod.')],
+            head=('Categoria', 'O que mostra'))]),
+    ('tinkers', 'Tinkers\' Construct', 'magicblocks:molten_manilium_bucket',
+     'Com o Tinkers\' Construct instalado, o Manilium e o Leviatã viram materiais de ferramentas, armaduras e escudos, e o Manilium derrete na fornalha.',
+     [table([('Manilium', 'Barra, bloco', 'Durabilidade 1800, ataque 4,5, mineração 9, nível netherita', 'Enderference e Experienced; armaduras: Proteção Mágica'),
+             ('Leviatã', 'Escama (1) e Garra (2)', 'Durabilidade 1500, ataque 5, mineração 7, nível netherita', 'Jagged e Lightweight; espadas, cutelos e adagas com Leviatã ficam <b>duas mãos</b> e entram na <b>Fúria da Besta</b>')],
+            head=('Material', 'Feito com', 'Ponta de ferramenta', 'Traços')),
+      '<h4>Manilium Derretido</h4>',
+      table([('Temperatura', '950° (a fornalha com lava comum já derrete)'),
+             ('Barra / Bloco', '90 mb / 810 mb'),
+             ('Escama / Garra de Leviatã', '45 mb / 90 mb'),
+             ('O líquido', 'Galáxia animada; machuca como o void (sem fogo) e não queima itens')], head=('', 'Manilium Derretido'))]),
+    ('silentgear', 'Silent Gear', 'magicblocks:manilium_ingot',
+     'Com o Silent Gear instalado, cinco itens do mod viram materiais para peças de ferramentas, armas e armaduras.',
+     [table([('Barra de Manilium', 'Stellar, Renew e Magnetic', 'Muito encantável, a mais rara'),
+             ('Barra do Vazio', 'Void Ward, Hard e Adamant', 'A mais resistente (2600 de durabilidade)'),
+             ('Escama de Leviatã', '<b>Besta</b> e Light', 'Besta: espadas, adagas, facas, katanas e machetes ficam duas mãos e entram na Fúria da Besta'),
+             ('Cristal Abissal', '<b>Rasgo do Vazio</b>', 'Os golpes aplicam Wither'),
+             ('Cristal Instável', '<b>Surto de Mana</b> e Brittle', 'Cada golpe tem 5% por nível de devolver 1 de mana')],
+            head=('Material', 'Traços', 'Destaque'))]),
+    ('curios', 'Curios', 'magicblocks:soul_converter',
+     'Com o Curios instalado, alguns itens podem ir nos slots extras de acessório (e continuam funcionando).',
+     [table([('Conversor de Almas', 'Amuleto (necklace)', 'Paga a mana com XP quando ela acaba'),
+             ('Talismã dos Blocos', 'Cinto (belt)', 'A roda de blocos continua funcionando'),
+             ('Lanterna de Mana', 'Cinto (belt)', 'Continua iluminando')], head=('Item', 'Slot', 'Efeito'))]),
+]
+
+
+def integrations_page():
+    side = ''.join('<a href="#%s"><img src="%s" alt="">%s</a>' % (k, icon(ic), html.escape(n.replace('\\', ''))) for k, n, ic, _, _ in INTEGRACOES)
+    cards = ''
+    for key, nome, ic, intro, extras in INTEGRACOES:
+        cards += ('<article class="entry" id="%s" data-name="%s"><div class="head"><span class="slot big"><img src="%s" alt=""></span>'
+                  '<div><h3>%s</h3><p>%s</p></div></div>%s</article>') % (key, html.escape(nome.lower()), icon(ic), nome, intro, ''.join(extras))
+    body = ('<div class="layout"><aside class="side"><input id="busca" type="search" placeholder="Buscar..." aria-label="Buscar">'
+            '<div class="side-list">%s</div></aside><main><h1>Integrações</h1><p class="sub">Mods que conversam com o Magic &amp; Blocks. '
+            'Todos são <b>opcionais</b>: sem eles nada disso aparece e o mod funciona normalmente.</p>%s</main></div>') % (side, cards)
+    return page('Integrações', body, 'integracoes')
+
+
 def home():
     cards = ''
     for slug, title, sub, entries in PAGES:
@@ -843,7 +1162,7 @@ def home():
     body = ('<main class="home"><img class="logo" src="img/logo.png" alt="Magic & Blocks">'
             '<p class="lead">A wiki oficial do <b>Magic &amp; Blocks</b>: blocos mágicos que flutuam na mão, mana, o Nature Infuser, '
             'equipamento de Manilium, magos e muito mais para Minecraft 1.20.1 (Forge).</p>'
-            '<div class="pills"><span>Minecraft 1.20.1</span><span>Forge 47</span><span>Curios (opcional)</span><span>PT-BR / EN</span></div>'
+            '<div class="pills"><span>Minecraft 1.20.1</span><span>Forge 47</span><span><a href="integracoes.html">JEI, Tinkers, Silent Gear e Curios</a></span><span>PT-BR / EN</span></div>'
             '<div class="topics">%s</div>'
             '<section class="support"><h2>Apoie o mod</h2><p>Curtiu? Seu apoio ajuda a criar novos blocos, criaturas e atualizações.</p>'
             '<a class="btn" href="%s" target="_blank" rel="noopener">&#10084; Apoiar pelo LivePix</a></section></main>') % (cards, SUPPORT)
@@ -860,3 +1179,8 @@ write('index.html', home())
 for slug, title, sub, entries in PAGES:
     write(slug + '.html', category_page(slug, title, sub, entries))
 write('balanceamento.html', balance_page())
+write('rituais.html', rituals_page())
+write('integracoes.html', integrations_page())
+
+if MISSING_RECIPES:
+    print('receitas que nao existem mais (puladas):', ', '.join(MISSING_RECIPES))
