@@ -188,6 +188,7 @@ ICON_BUILDERS = {
     'magicblocks:fire_spirit_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (138, 42, 10)), vtex('item/spawn_egg_overlay'), (255, 176, 46))),
     'magicblocks:arcane_sentinel_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (43, 36, 56)), vtex('item/spawn_egg_overlay'), (180, 92, 255))),
     'magicblocks:fractured_colossus_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (36, 32, 44)), vtex('item/spawn_egg_overlay'), (180, 106, 240))),
+    'magicblocks:solar_empress_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (244, 238, 220)), vtex('item/spawn_egg_overlay'), (255, 210, 74))),
     'magicblocks:star_slug_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (42, 74, 140)), vtex('item/spawn_egg_overlay'), (159, 240, 255))),
     'magicblocks:mana_log': lambda: iso(mtex('block/mana_log_top'), mtex('block/mana_log')),
     'magicblocks:mana_planks': lambda: iso(mtex('block/mana_planks'), mtex('block/mana_planks')),
@@ -374,6 +375,11 @@ def smithing(base, out):
     return ('<div class="recipe"><div class="label">Mesa de ferraria</div><div class="craft">%s%s%s'
             '<span class="arrow">&#10140;</span>%s</div></div>') % (
         slot('magicblocks:manilium_upgrade_smithing_template'), slot(base), slot('magicblocks:manilium_ingot'), slot(out, True))
+
+
+def smithing3(template, base, addition, out):
+    return ('<div class="recipe"><div class="label">Mesa de ferraria</div><div class="craft">%s%s%s'
+            '<span class="arrow">&#10140;</span>%s</div></div>') % (slot(template), slot(base), slot(addition), slot(out, True))
 
 
 def note(text):
@@ -684,6 +690,12 @@ MAGICOS = [
          ('Bloco de Água Corrompido', 'Ruínas Submersas (grande / pequena)', '30% / 15%'),
          ('Bloco de Gelo Corrompido', 'Iglu', '50%'),
          ('Bloco de TNT Corrompido', 'Pirâmide do Deserto', '30%')], head=('Bloco', 'Onde achar', 'Chance por baú'))]),
+    ('magicblocks:sun_block', 'Um <b>pequeno sol</b> que flutua sobre a mão. Na mão (ou num <b>pedestal</b>) ilumina em volta e faz as <b>plantações crescerem 20% mais rápido</b> num raio de 8 blocos. <b>De dia</b> tudo fica uns <b>15% mais forte</b>.',
+     [table([('Bater', 'Dispara um <b>laser</b> de 96 blocos que <b>atravessa</b> todas as criaturas na linha (14 de dano e fogo)', '1'),
+             ('Shift + bater', '<b>Explosão solar</b> em volta (9 blocos): queima, cega e empurra os monstros', '3'),
+             ('Segurar o direito', '<b>Feixe de luz contínuo</b> de 64 blocos que atravessa tudo e <b>esquenta</b>: fica mais grosso e mais forte quanto mais tempo você segura', '2 a cada 2s'),
+             ('Shift + segurar o direito', 'Carrega <b>3 segundos</b> uma <b>bola de sol</b> sobre a cabeça; ao soltar ela voa <b>3x mais rápido</b> que a do Bloco de Fogo e explode num raio <b>5 blocos maior</b>, sem fogo no chão (e sem acertar você)', '4')]),
+      note('<b>Altar de Rituais</b>: o <b>Coração da Luz</b> (o núcleo do sol, troféu da Guardiã do Sol) no altar, <b>4 Blocos de Fogo Verdadeiros</b> e <b>4 Orbes de Mana</b> (pedestais também nas diagonais).')]),
 ]
 
 ARMAS = [
@@ -798,7 +810,7 @@ ARMAS.extend([
              ('4 peças', '<b>Nenhum dano do void</b>: nem o void normal nem o ar da dimensão do Vazio machucam')], head=('Vestindo', 'Efeito')),
       '<h4>Armadura Elemental de Leviatã</h4><p>No <b>Nature Infuser</b>, uma peça da <a href="#elemental-chestplate">Armadura Elemental</a> na entrada e uma <b>Escama de Leviatã</b> na alimentação. A peça mantém o <b>elemento e os encantamentos</b>, ganha +2 de armadura, +1,5 de resistência e conta como peça de Leviatã (os 15% por peça e a proteção do void com as 4).</p>',
       infuser('magicblocks:elemental_chestplate', 'magicblocks:leviathan_scale', 'magicblocks:elemental_chestplate')]),
-    ('magicblocks:abyssal_chestplate', 'Armadura do Vazio feita na bancada com <b>Cristal Abissal</b> e <b>Fragmento do Vazio</b>. Tem os mesmos números da <b>netherita</b> (não queima na lava). Com as <b>4 peças</b>, o void normal não machuca e o ar da dimensão do Vazio só tira <b>meio coração por minuto</b>.',
+    ('magicblocks:abyssal_chestplate', 'Armadura do Vazio feita na bancada com <b>Cristal Abissal</b> e <b>Fragmento do Vazio</b>. Tem os mesmos números da <b>netherita</b> (não queima na lava). Cada peça tira <b>25%</b> do dano do void e do ar do Vazio (dá para misturar com outras peças que resistem ao void); com <b>4 peças</b>, nenhum dano.',
      ['<div class="pieces">%s</div>' % ''.join(slot('magicblocks:abyssal_' + p) for p in ['helmet', 'chestplate', 'leggings', 'boots']),
       crafting('abyssal_helmet'), crafting('abyssal_chestplate'), crafting('abyssal_leggings'), crafting('abyssal_boots')]),
     ('magicblocks:beast_sword', 'Uma adaga de garra do Leviatã com <b>50 de dano</b>, feita com 2 Garras sobre 1 Escama. Na <b>segunda mão</b>, o botão direito bate exatamente como na principal (dano, encantamentos, crítico), e cada mão tem a <b>própria recarga</b>: dá para alternar direita e esquerda.',
@@ -811,7 +823,26 @@ ARMAS.extend([
     ('magicblocks:manilium_beast_sword', 'A Espada da Besta com Manilium: <b>60 de dano</b> e lâmina roxa-escura com galáxia. Feita no <b>Nature Infuser</b> (mantém encantamentos e nome). Durante a Fúria da Besta a galáxia fica vermelha.',
      [infuser('magicblocks:beast_sword', 'magicblocks:manilium_ingot', 'magicblocks:manilium_beast_sword')]),
     ('magicblocks:chaos_blade', 'A lâmina negra-carmesim com galáxia: <b>65 de dano</b> e sobe com Estrelas igual à Espada de Manilium. Feita no <b>Altar de Rituais</b>: a Espada da Besta (comum ou Celestial) no altar e <b>4 Barras de Manilium + 4 Cristais Instáveis</b> nos pedestais. Como são 8 itens, o altar aceita também 4 pedestais nas <b>diagonais</b>, a 2 blocos dele.',
-     ['<p class="tip">Funciona com a Fúria da Besta como as outras adagas.</p>']),
+     ['<p class="tip">Funciona com a Fúria da Besta como as outras adagas.</p>',
+      '<p class="tip"><b>Skin acorrentada</b>: no Nature Infuser, a Lâmina do Caos com uma <b>Corrente</b> vira a Lâmina do Caos Acorrentada (veios vermelhos incandescentes que viram galáxia vermelha na Fúria).</p>']),
+    ('magicblocks:solar_chestplate', 'A armadura que a <b>Guardiã do Sol</b> veste, no estilo das estátuas antigas: elmo espartano com a abertura em T (o seu rosto aparece) e uma <b>crista de chifres em V</b>, asinhas brancas dos lados, ombreiras grandes em camadas com espinhos, peitoral em divisas com o <b>sol</b> no meio, saiote de placas e grevas pontudas. As placas são de aço escuro, com <b>detalhes brancos</b> e <b>pontas douradas</b>. Feita na <b>Mesa de Ferraria</b>: o <b>Molde de Melhoria do Sol</b>, uma peça da <a href="#abyssal-chestplate">Armadura Abissal</a> e uma <b>Barra de Metal Solar</b> (mantém os encantamentos).',
+     ['<div class="pieces">%s</div>' % ''.join(slot('magicblocks:solar_' + p) for p in ['helmet', 'chestplate', 'leggings', 'boots']),
+      crafting('solar_upgrade_smithing_template'),
+      smithing3('magicblocks:solar_upgrade_smithing_template', 'magicblocks:abyssal_chestplate', 'magicblocks:sunsteel_ingot', 'magicblocks:solar_chestplate'),
+      table([('Cada peça', 'A proteção da Armadura da Besta <b>+2</b> e corta <b>19% do dano</b>; quem bate em você <b>pega fogo</b>'),
+             ('4 peças', '<b>Imune a fogo</b>, ao <b>void</b> e ao ar do Vazio; a esquiva (R) vira o <b>dash amarelo</b> da Guardiã, que corta quem estiver no caminho')], head=('Vestindo', 'Efeito')),
+      '<p class="tip"><b>Pintura</b> (Mesa de Ferraria, sem molde): um <b>corante</b> tinge as placas de aço e um <b>minério</b> (ou gema/barra: diamante, esmeralda, redstone, lápis, ametista...) pinta as <b>pontas douradas</b>. A Barra de Metal Solar volta para o dourado.</p>']),
+    ('magicblocks:solar_dagger', 'Adaga de <b>Metal Solar</b> com <b>60 de dano</b> que <b>bota fogo</b> em quem acerta. Como as adagas da Besta, é <b>duas mãos</b> (na segunda mão o botão direito golpeia) e, com uma em cada mão, <b>Shift + segurar o direito</b> por 3s entra na <b>Fúria</b>, só que <b>amarela</b>: aura, onda e dash amarelos.',
+     [crafting('solar_dagger'),
+      '<p class="tip">As partes douradas das adagas, da lança, do escudo e das espadas também pintam com minério na Mesa de Ferraria.</p>']),
+    ('magicblocks:solar_spear', 'Lança de <b>Metal Solar</b>: <b>65 de dano</b>, alcance <b>1,5 bloco maior</b> e bota fogo. <b>Segure o botão direito</b> para carregar o <b>arremesso de luz</b> (o mesmo da Guardiã): um círculo amarelo mostra onde vai cair (cresce com a carga, até 48 blocos) e, ao soltar, a lança de luz explode em área com fogo (até 38 de dano; 3 de mana).',
+     [crafting('solar_spear')]),
+    ('magicblocks:solar_shield', 'Escudo redondo com o sol no meio. Defende como um escudo comum e, <b>enquanto defende</b>, <b>projéteis</b> (flechas, bolas de fogo...) e <b>magias</b> que vêm de frente <b>voltam para quem atirou</b>. <b>Defendendo, aperte o botão esquerdo para aparar</b>: no próximo <b>1 segundo</b> um golpe corpo a corpo volta inteiro no atacante (e bota fogo). Aparar gasta <b>1 de mana</b> e desativa o escudo por <b>3 segundos</b>.',
+     [note('<b>Altar de Rituais</b>: um escudo comum no altar, <b>4 Barras de Metal Solar</b> nos pedestais normais e <b>4 Barras do Vazio</b> nas diagonais. Veja a aba <a href="rituais.html#solar-shield">Rituais</a>.')]),
+    ('magicblocks:solar_sword', 'Espada de <b>Metal Solar</b> com <b>70 de dano</b> que bota fogo. Como a Espada de Manilium, guarda um <b>Bloco Mágico</b> (no Nature Infuser) e usa as habilidades dele.',
+     [crafting('solar_sword'), infuser('magicblocks:solar_sword', 'magicblocks:fire_block', 'magicblocks:solar_sword')]),
+    ('magicblocks:radiant_sword', 'A Espada de Metal Solar abençoada pelas mariposas: igual a ela (70 de dano, fogo, guarda um Bloco Mágico), mas cada golpe tem <b>20% de chance</b> de invocar uma <b>Mariposa Radiante</b> que voa até o alvo e morde (<b>2 corações</b> por mordida). No máximo <b>10 mariposas</b> por jogador; cada uma dura 30 segundos.',
+     [note('<b>Altar de Rituais</b>: a Espada de Metal Solar no altar, <b>2 Almas Radiantes</b> e <b>2 Asas de Mariposa</b> nos pedestais. Mantém o bloco guardado, a pintura e os encantamentos.')]),
     ('magicblocks:molten_manilium_bucket', 'Com o <b>Tinkers\' Construct</b> instalado, o Manilium vira material de ferramentas, armaduras e escudo. Ele derrete na fornalha virando <b>Manilium Derretido</b>, um líquido com uma <b>galáxia animada</b>. Derrete a <b>950°</b>, então a fornalha com lava comum já funciona. Escamas (45 mb) e Garras (90 mb) de Leviatã também derretem no mesmo líquido, e o novo material <b>Leviatã</b> deixa as espadas do Tinkers "duas mãos" e com a Fúria da Besta. O líquido machuca como o void (sem fogo) e não queima itens. Com o <b>Silent Gear</b> instalado, Manilium e Barra do Vazio viram materiais com encantabilidade alta.',
      [table([('Ferramentas (Tinkers)', 'Nível netherita, Enderference e Experienced'),
              ('Armaduras (Tinkers)', 'Proteção Mágica'),
@@ -823,24 +854,25 @@ ARMAS.extend([
 VAZIO = [
     ('magicblocks:gray_grass', 'Uma dimensão de <b>ilhas flutuantes</b> cinzentas embaixo do mundo. Só se entra pelo <b>void do Overworld</b>: quem cair e passar da <b>camada -100</b> vai para lá (antes do dano do void normal, ninguém morre no caminho) (o void do Nether, do End e do próprio Vazio não leva). Ao chegar aparece o <b>Pedestal do Retorno</b>, inquebrável, com um portal que leva ao seu ponto de spawn. O céu é escuro e cheio de buracos negros, e lá é bem mais fácil achar Orbes de Mana.',
      [table([('Planícies do Vazio', 'Ilhas enormes e inteiras'), ('Abismos do Vazio', 'As mesmas planícies cortadas por ravinas até o fundo'),
-             ('Ilhas do Vazio', 'Várias ilhas separadas'), ('Planícies de Luz', 'Douradas e iluminadas: árvores e arbustos dourados, Gira-Sóis, mariposas brilhantes'), ('Pântano Abissal', 'Lama, lagos de água roxa, árvores de mangue com vinhas, vitórias-régias e Lesmas Estelares')], head=('Bioma', 'Como é')),
+             ('Ilhas do Vazio', 'Várias ilhas separadas'), ('Planícies de Luz', 'Douradas e iluminadas: árvores e arbustos dourados, Gira-Sóis, mariposas brilhantes, o raro Minério de Metal do Sol e o Templo Solar'), ('Pântano Abissal', 'Floresta de mangues com raízes sobre lama funda, lagos roxos com algas e vitórias-régias, manchas de sculk, carpete de musgo, ametistas, luzes perolizadas e líquen brilhante; Lesmas Estelares e, raramente, o Colosso Fraturado')], head=('Bioma', 'Como é')),
       '<p class="tip">No céu de todos os biomas do Vazio podem aparecer <b>Ruínas Flutuantes</b>: ilhotas de pedra com pilares quebrados, ligadas por correntes, com um baú de tesouros na do meio.</p>',
       '<h4>O ar do Vazio</h4>',
-      table([('Sem proteção', '5 corações a cada 15 segundos (ignora armadura)'),
-             ('Bloco de Void na mão, 4 peças Elementais de Void ou 4 peças Abissais', 'Meio coração por minuto'),
+      table([('Sem proteção', '<b>25% da sua vida</b> a cada 20 segundos (ignora armadura)'),
+             ('Cada peça que resiste ao void (Besta, Besta Celestial, Abissal, Metal Solar ou Elemental de Void; dá para misturar)', 'Tira <b>25%</b> desse dano e do dano do void normal'),
+             ('4 peças (o Bloco de Void na mão vale 2)', 'Nenhum dano'),
              ('Camadas -20 a -50 (Abismo Verdadeiro)', 'Dano pesado, Fraqueza e Escuridão; nada protege. Só a Âncora Abissal te puxa de volta'),
              ('Abaixo da camada -50', 'O buraco negro vermelho gigante te engole: morte, como no void normal')], head=('Situação', 'Dano'))]),
     ('magicblocks:void_mana_ore', 'Os minérios das ilhas do Vazio.',
      [table([('Minério de Mana do Vazio', 'O mais comum', '1 a 2 Orbes de Mana (Fortuna aumenta)'),
              ('Minério de Vazio', 'Picareta de ferro', '1 a 3 Fragmentos do Vazio'),
              ('Minério de Cristal Abissal', 'Picareta de diamante', 'Cristal Abissal'),
-             ('Minério de Vazio Profundo', 'Raro, picareta de diamante', '1 a 3 Pepitas do Vazio (Fortuna aumenta)')], head=('Minério', 'Como', 'Solta'))]),
+             ('Minério de Vazio Profundo', 'Raro e sempre sozinho, picareta de diamante', '1 Pepita do Vazio (com Fortuna, no máximo 2)')], head=('Minério', 'Como', 'Solta'))]),
     ('magicblocks:void_shard', 'Cai do <b>Minério de Vazio</b>, sai de <b>9 Pepitas do Vazio</b> e aparece no baú da Forja. 4 fragmentos viram 1 Essência do Void. Na <b>Fornalha Natural</b>, depois de <b>120 segundos</b>, vira uma <b>Barra do Vazio</b> (a fornalha comum não aceita; coloque com o mouse ou por funil).',
      [crafting('void_shard_from_nuggets'), crafting('void_essence_from_shards')]),
     ('magicblocks:void_bar', 'Feita na <b>Fornalha Natural</b> com um Fragmento do Vazio (120 segundos). Também cai do Leviatã. É material do Silent Gear.',
      [note('Fragmento do Vazio na Fornalha Natural (120s) ou drop do Leviatã.')]),
-    ('magicblocks:void_star', 'No <b>Nature Infuser</b>: Estrela de Mana Despertada + Fragmento do Vazio. Depois da Despertada, cada Estrela do Vazio dá <b>+1</b> na armadura de Manilium (até <b>+15</b>) ou na espada (até <b>+150</b>). Jogada no buraco da <a href="#void-leviathan-spawn-egg">Toca do Abismo</a>, chama o Leviatã.',
-     [infuser('magicblocks:awakened_mana_star', 'magicblocks:void_shard', 'magicblocks:void_star')]),
+    ('magicblocks:void_star', 'No <b>Nature Infuser</b>: Estrela de Mana Despertada + Barra do Vazio. Depois da Despertada, cada Estrela do Vazio dá <b>+1</b> na armadura de Manilium (até <b>+15</b>) ou na espada (até <b>+150</b>). Jogada no buraco da <a href="#void-leviathan-spawn-egg">Toca do Abismo</a>, chama o Leviatã.',
+     [infuser('magicblocks:awakened_mana_star', 'magicblocks:void_bar', 'magicblocks:void_star')]),
     ('magicblocks:abyss_rock', 'A "madeira" do Vazio: formações de pedra tortas espalhadas pelas ilhas, com um <b>Núcleo do Abismo</b> escondido na base. Enquanto o núcleo existir, a formação devolve <b>1 bloco a cada 30 segundos</b>. Quebrando o núcleo (picareta de ferro) ela para de crescer, e o núcleo faz a <b>Lanterna do Abismo</b>: um lampião com um mini buraco negro girando dentro (luz 15).',
      [crafting('abyss_lantern')]),
     ('magicblocks:abyssal_anchor', 'Se você cair no <b>Abismo Verdadeiro</b> (camadas -20 a -50 do Vazio), ela te puxa de volta ao último chão firme e se quebra.',
@@ -875,6 +907,27 @@ VAZIO = [
     ('magicblocks:star_slug_spawn_egg', 'A <b>Lesma Estelar</b> é passiva e bem lenta, com estrelinhas piscando dentro do corpo. Por onde passa deixa um <b>Rastro Estelar</b> brilhante que some sozinho depois de uns 15 segundos. Vive nas Planícies de Luz e no Pântano Abissal e solta <b>Gosma Estelar</b> (1 gosma = 2 Bolsas de Tinta Brilhante).', []),
     ('magicblocks:sunturn', 'O <b>Gira-Sol</b> nasce nas Planícies de Luz: a flor vira a cabeça para o jogador mais perto e dá <b>Visão Noturna</b> a quem estiver a até 6 blocos. Brilha e pode ser replantado em grama, terra ou Grama Luminosa.', []),
     ('magicblocks:golden_door', 'A <b>Madeira Dourada</b> das árvores das Planícies de Luz (brilha de leve): tábuas, escadas, laje, cerca, portão, porta, alçapão, botão, placa de pressão, madeira e as versões descascadas (machado no tronco).', []),
+    ('magicblocks:solar_empress_spawn_egg', 'O <b>Templo Solar</b> aparece (raro) nas <b>Planícies de Luz</b>: uma plataforma redonda de quartzo com raios de ouro e 8 colunas. Acima do meio flutua o <b>Núcleo Solar</b>, um buraco negro amarelo cujo centro é um bloco de pedra luminosa. Ponha <b>Asas de Mariposa</b> nos pedestais das pontas e uma <b>Alma Radiante</b> no do meio: o templo se desfaz e vira uma <b>arena de 9 ilhas</b> sobre o void, o buraco negro reage e nasce a <b>Guardiã do Sol</b>: uma guerreira toda de <b>Armadura de Metal Solar</b>, com asas de luz e um sol inteiro atrás das costas.',
+     ['<p>Ela tem <b>3 fases de 1500 de vida</b>, numa <b>ordem sorteada</b>. Cada fase é uma arma; na troca ela joga a arma anterior fora e pega a nova. Todo ataque é <b>avisado em amarelo</b> no chão antes (círculos e faixas com borda escura).</p>',
+      table([('Golpes', 'De perto, uma adaga de cada vez (faixa amarela na frente dela)'),
+             ('Giro', 'Um disco amarelo em volta dela; depois gira com as adagas perseguindo você entre as ilhas'),
+             ('Raios do céu', 'Levanta a mão direita: <b>círculos amarelos</b> em você e em volta; depois caem raios de luz'),
+             ('Dash entre ilhas', 'Uma <b>faixa amarela</b> mostra o caminho e ela corta até a sua ilha (nunca cai no void)'),
+             ('Fúria (metade da vida)', 'Vai para o centro, carrega e solta uma onda; fica com a <b>aura amarela</b>, mais rápida e mais forte')],
+            head=('Adagas Solares', 'Como é')),
+      table([('Voo', 'Voa em volta da arena sempre olhando para você. A cada <b>3 ataques</b> desce ao centro para <b>descansar</b> (leva 50% a mais de dano)'),
+             ('Investida', 'Faixa amarela e um círculo onde vai cair: ela sobe e desce em cima de você'),
+             ('Lança arremessada', 'Ergue a lança; um <b>círculo amarelo grande</b> segue você e trava; a lança cai e explode em área com fogo'),
+             ('Raios do céu', 'A mesma chuva de raios, espalhada pela arena (3 ondas)')], head=('Lança', 'Como é')),
+      table([('Escudo', 'Levanta o escudo na frente do corpo e uma <b>cúpula dourada de hexágonos</b> aparece em volta dela (com um som de sino): <b>não bata!</b> Quem bate leva de volta o mesmo dano; projéteis são bloqueados (magias passam)'),
+             ('Corte de luz', 'Faixa amarela comprida no chão; um corte de luz corre por ela'),
+             ('Raios do céu', 'A mesma chuva de raios (3 ondas)')], head=('Espada e Escudo', 'Como é')),
+      '<p>Golpes <b>físicos</b> (espada, machado, flecha, tridente) tiram no máximo <b>10</b>; <b>magias</b> (cajados, Blocos Mágicos...) tiram o dano normal. Os golpes dela <b>botam fogo</b>.</p>',
+      '<p>Ao morrer ela é <b>sugada para o buraco negro</b> do Núcleo Solar, gira, encolhe e <b>explode</b>, soltando o <b>Coração da Luz</b>, 10 a 20 barras e 2 a 4 blocos de <b>ouro</b> e 3 a 5 <b>Minérios de Metal do Sol</b>. Quando ela nasce os pedestais somem; depois da luta eles voltam na ilha do meio e dá para chamá-la de novo.</p>',
+      '<div class="pieces">%s</div>' % ''.join(slot(i) for i in ['magicblocks:moth_wing', 'magicblocks:radiant_soul', 'magicblocks:moth_wing', 'magicblocks:light_heart']),
+      '<p class="tip">Para gerar um templo onde você está (operador): <code>/magicblocks structure solar</code>.</p>']),
+    ('magicblocks:radiant_soul', 'A <b>Alma Radiante</b> cai das <b>Mariposas</b> (cinzenta e brilhante) com <b>1% de chance</b> quando um jogador as mata. Vai no pedestal do meio do Templo Solar.', []),
+    ('magicblocks:sunsteel_ore', 'O <b>Minério de Metal do Sol</b> só aparece nas <b>Planícies de Luz</b>, dentro da pedra do vazio, e é bem raro (picareta de diamante). A Guardiã do Sol também solta. Na <b>fornalha</b> (ou no alto-forno) vira a <b>Barra de Metal Solar</b>.', []),
 ]
 
 
@@ -921,7 +974,7 @@ def display_name(item_id):
 
 def topbar(active):
     tabs = ''.join('<a href="%s.html"%s>%s</a>' % (slug, ' class="on"' if slug == active else '', title)
-                   for slug, title, _, _ in PAGES) + ('<a href="rituais.html"%s>Rituais</a>' % (' class="on"' if active == 'rituais' else '')) + ('<a href="integracoes.html"%s>Integrações</a>' % (' class="on"' if active == 'integracoes' else '')) + ('<a href="balanceamento.html"%s>Balanceamento</a>' % (' class="on"' if active == 'balanceamento' else ''))
+                   for slug, title, _, _ in PAGES) + ('<a href="rituais.html"%s>Rituais</a>' % (' class="on"' if active == 'rituais' else '')) + ('<a href="infusor.html"%s>Infusor</a>' % (' class="on"' if active == 'infusor' else '')) + ('<a href="integracoes.html"%s>Integrações</a>' % (' class="on"' if active == 'integracoes' else '')) + ('<a href="balanceamento.html"%s>Balanceamento</a>' % (' class="on"' if active == 'balanceamento' else ''))
     return ('<header class="top"><a class="brand" href="index.html"><img src="img/logo.png" alt="">Magic &amp; Blocks <small>wiki</small></a>'
             '<nav class="tabs">%s</nav><a class="btn small" href="%s" target="_blank" rel="noopener">&#10084; Apoiar</a></header>') % (tabs, SUPPORT)
 
@@ -1035,11 +1088,18 @@ RITUAIS = [
     ('chaos_blade', 'Lâmina do Caos', 'magicblocks:beast_sword', ['magicblocks:manilium_ingot'] * 4, ['magicblocks:elemental_diamond'] * 4, 30000,
      'magicblocks:chaos_blade', 'Transforma a Espada da Besta (comum ou Celestial) na <b>Lâmina do Caos</b> (mantém encantamentos).', ''),
     ('structure_compass', 'Bússola de Estruturas', 'minecraft:compass', ['magicblocks:mana_essence'] * 4, ['minecraft:cobweb'] * 4, 8000,
-     'minecraft:compass', 'Cria a <b>Bússola Encantada de Estruturas</b>: botão direito abre uma lista com busca de todas as estruturas '
+     'minecraft:compass', 'Cria a <b>Bússola Encantada de Estruturas</b> (caixa de ametista; com ela na mão a <b>distância até o alvo</b> aparece acima da hotbar): botão direito abre uma lista com busca de todas as estruturas '
      '(do jogo e de outros mods); escolha uma e ela aponta para a mais perto.', ''),
     ('biome_compass', 'Bússola de Biomas', 'minecraft:compass', ['magicblocks:mana_essence'] * 4, ['minecraft:oak_leaves'] * 4, 8000,
      'minecraft:compass', 'Cria a <b>Bússola Encantada de Biomas</b>: lista com busca de todos os biomas; escolha um e ela aponta para o mais perto.',
      'Qualquer folha serve (na imagem, Carvalho).'),
+    ('solar_shield', 'Escudo Solar', 'minecraft:shield', ['magicblocks:sunsteel_ingot'] * 4, ['magicblocks:void_bar'] * 4, 30000,
+     'magicblocks:solar_shield', 'Cria o <b>Escudo Solar</b> (aparar com o botão esquerdo defendendo).', ''),
+    ('radiant_sword', 'Espada Radiante', 'magicblocks:solar_sword',
+     ['magicblocks:radiant_soul', 'magicblocks:radiant_soul', 'magicblocks:moth_wing', 'magicblocks:moth_wing'], None, 25000,
+     'magicblocks:radiant_sword', 'Transforma a Espada de Metal Solar na <b>Espada Radiante</b> (mantém bloco, pintura e encantamentos).', ''),
+    ('sun_block', 'Bloco Solar', 'magicblocks:light_heart', ['magicblocks:fire_block'] * 4, ['magicblocks:mana_orb'] * 4, 40000,
+     'magicblocks:sun_block', 'Cria o <b>Bloco Solar</b>.', 'Os 4 Blocos de Fogo precisam ser <b>Verdadeiros</b> (os que o golem de fogo devolve).'),
 ]
 
 RIT_DIR = os.path.join(SITE, 'img', 'rituais')
@@ -1106,6 +1166,108 @@ def rituals_page():
     return page('Rituais', body, 'rituais')
 
 
+# ===================================================================== infusor (aba propria)
+
+# (ancora, nome, entrada, catalisador (None = conversao simples, sem catalisador), resultado, segundos, texto, observacao)
+INFUSOES = [
+    ('cristal-instavel', 'Cristal Instável', 'minecraft:diamond', None, 'magicblocks:elemental_diamond', 10,
+     'Conversão simples: só o diamante, sem catalisador. Gasta combustível vegetal.', ''),
+    ('estrela-de-mana', 'Estrela de Mana', 'minecraft:nether_star', 'magicblocks:mana_orb', 'magicblocks:mana_star', 30, 'Cria a <b>Estrela de Mana</b>.', ''),
+    ('estrela-do-vazio', 'Estrela do Vazio', 'magicblocks:awakened_mana_star', 'magicblocks:void_bar', 'magicblocks:void_star', 40,
+     'A Estrela de Mana Despertada vira a <b>Estrela do Vazio</b>.', ''),
+    ('reforco-armadura', 'Reforço da Armadura de Manilium', 'magicblocks:manilium_chestplate', 'magicblocks:mana_star', 'magicblocks:manilium_chestplate', 15,
+     '<b>+1 de defesa</b> por estrela, até +5. Com a <b>Estrela Despertada</b> vai de +5 até +10, e com a <b>Estrela do Vazio</b> de +10 até +15.',
+     'Vale para qualquer peça de Manilium e para a armadura da Besta Celestial.'),
+    ('reforco-espada', 'Reforço da Espada', 'magicblocks:manilium_sword', 'magicblocks:mana_star', 'magicblocks:manilium_sword', 15,
+     '<b>+1 de dano</b> por estrela, até +50. Com a <b>Estrela Despertada</b> vai até +120 e com a <b>Estrela do Vazio</b> até +150.',
+     'Vale para a Espada de Manilium e a Lâmina do Caos.'),
+    ('espada-com-bloco', 'Espada com Bloco Mágico', 'magicblocks:manilium_sword', 'magicblocks:fire_block', 'magicblocks:manilium_sword', 15,
+     'A Espada de Manilium vazia recebe o <b>Bloco Mágico</b> na guarda e ganha os poderes dele.', 'Qualquer Bloco Mágico serve (na imagem, Fogo).'),
+    ('espada-duas-maos', 'Espada Duas Mãos', 'magicblocks:manilium_sword', 'magicblocks:leviathan_claw', 'magicblocks:manilium_sword', 20,
+     'A Espada de Manilium fica <b>duas mãos</b>: na segunda mão, o botão direito bate como na principal.', ''),
+    ('espada-besta-celestial', 'Espada da Besta Celestial', 'magicblocks:beast_sword', 'magicblocks:manilium_ingot', 'magicblocks:manilium_beast_sword', 30,
+     'A Espada da Besta vira a <b>Espada da Besta Celestial</b> (60 de dano, galáxia roxa). Mantém encantamentos e nome.', ''),
+    ('lamina-do-caos-acorrentada', 'Lâmina do Caos Acorrentada', 'magicblocks:chaos_blade', 'minecraft:chain', 'magicblocks:chaos_blade', 20,
+     'Skin da Lâmina do Caos no estilo das <b>Lâminas do Caos</b>: lâmina curva escura com <b>veios vermelhos incandescentes</b>, cabo enrolado e uma corrente pendurada. Na <b>Fúria</b> os veios viram uma <b>galáxia vermelha</b>. Mantém dano, encantamentos e nome.', ''),
+    ('cajado-com-bloco', 'Cajado com Bloco Mágico', 'magicblocks:ancestral_staff', 'magicblocks:fire_block', 'magicblocks:ancestral_staff', 15,
+     'O Cajado Ancestral vazio recebe o <b>Bloco Mágico</b> e ganha o poder dele.', 'Qualquer Bloco Mágico menos Baú e Slime (na imagem, Fogo).'),
+    ('cajado-arcano', 'Cajado Arcano', 'magicblocks:ancestral_staff', 'magicblocks:mana_stone', 'magicblocks:arcane_staff', 30,
+     'O Cajado Ancestral vira o <b>Cajado Arcano</b>: carrega mais rápido e pode devolver mana. Mantém o bloco e os encantamentos.', ''),
+    ('armadura-elemental-leviata', 'Armadura Elemental de Leviatã', 'magicblocks:elemental_chestplate', 'magicblocks:leviathan_scale', 'magicblocks:elemental_chestplate', 25,
+     'A peça Elemental ganha <b>+2 de armadura, +1,5 de resistência</b> e conta como peça de Leviatã. Mantém o elemento e os encantamentos.', ''),
+    ('peitoral-conversor', 'Peitoral com Conversor de Almas', 'minecraft:iron_chestplate', 'magicblocks:soul_converter', 'minecraft:iron_chestplate', 15,
+     'O <b>Conversor de Almas</b> fica embutido no peitoral.', 'Qualquer peitoral serve.'),
+    ('molde-manilium', 'Molde de Melhoria de Manilium', 'minecraft:netherite_upgrade_smithing_template', 'magicblocks:mana_essence',
+     'magicblocks:manilium_upgrade_smithing_template', 20, 'Cria o <b>Molde de Melhoria de Manilium</b>.', ''),
+    ('molde-esmeralda-real', 'Molde de Esmeralda Real', 'minecraft:netherite_upgrade_smithing_template', 'magicblocks:emerald_heart',
+     'magicblocks:royal_emerald_template', 30, 'Cria o <b>Molde de Esmeralda Real</b>.', ''),
+    ('spawner-manilium', 'Spawner de Manilium', 'magicblocks:lifeless_spawner', 'magicblocks:manilium_ingot', 'magicblocks:manilium_spawner', 30,
+     'O Spawner sem Vida vira o <b>Spawner de Manilium</b>.', ''),
+    ('melhoria-velocidade', 'Melhoria de Velocidade (Spawner)', 'minecraft:smooth_stone', 'minecraft:sugar', 'magicblocks:spawner_upgrade_speed', 15,
+     'Melhoria do Spawner de Manilium: <b>mais rápido</b>.', ''),
+    ('melhoria-area', 'Melhoria de Área (Spawner)', 'minecraft:smooth_stone', 'minecraft:beacon', 'magicblocks:spawner_upgrade_chunk', 30,
+     'Melhoria do Spawner de Manilium: <b>funciona sem jogador perto</b>.', ''),
+    ('melhoria-quantidade', 'Melhoria de Quantidade (Spawner)', 'minecraft:smooth_stone', 'minecraft:zombie_head', 'magicblocks:spawner_upgrade_count', 20,
+     'Melhoria do Spawner de Manilium: <b>mais criaturas</b> por vez.', 'Qualquer cabeça de criatura serve.'),
+    ('fogo-vermelho', 'Bloco de Fogo Vermelho', 'magicblocks:fire_block', 'minecraft:redstone_block', 'magicblocks:fire_block', 15,
+     'O Bloco de Fogo fica na <b>variante vermelha</b>: todos os ataques ficam vermelhos.', ''),
+    ('tnt-ativa', 'Bloco de TNT Ativo', 'magicblocks:tnt_block', 'minecraft:tnt', 'magicblocks:tnt_block', 20,
+     'O Bloco de TNT fica <b>ativo</b>: a TNT arremessada e a nuclear quebram blocos.', ''),
+    ('bloco-de-gelo', 'Bloco de Gelo', 'magicblocks:water_block', 'minecraft:blue_ice', 'magicblocks:ice_block', 20,
+     'O Bloco de Água vira o <b>Bloco de Gelo</b>.', ''),
+    ('muda-de-mana', 'Muda de Mana', 'minecraft:oak_sapling', 'magicblocks:mana_essence', 'magicblocks:mana_sapling', 15,
+     'Qualquer muda vira a <b>Muda de Mana</b>.', 'Qualquer muda serve (menos a própria Muda de Mana).'),
+]
+
+INF_DIR = os.path.join(SITE, 'img', 'infusor')
+
+
+def infuser_image(key, inp, cat, out):
+    """A tela do Nature Infuser (da textura do mod) com a seta cheia e os itens nos slots: entrada em cima, catalisador
+    embaixo (na alimentacao) e o resultado a direita."""
+    os.makedirs(INF_DIR, exist_ok=True)
+    tex = Image.open(os.path.join(MOD, 'assets', 'magicblocks', 'textures', 'gui', 'nature_infuser.png')).convert('RGBA')
+    gui = tex.crop((0, 0, 176, 78))
+    border = tex.crop((0, 0, 176, 3)).transpose(Image.FLIP_TOP_BOTTOM)
+    gui.alpha_composite(border, (0, 75))
+    gui.alpha_composite(tex.crop((176, 0, 200, 11)), (76, 39))   # seta cheia
+    s = 4
+    img = gui.resize((176 * s, 78 * s), Image.NEAREST)
+
+    def put(item_id, x, y):
+        ic = Image.open(os.path.join(SITE, icon(item_id))).convert('RGBA').resize((16 * s, 16 * s), Image.NEAREST)
+        img.alpha_composite(ic, (x * s, y * s))
+
+    put(inp, 44, 20)
+    if cat:
+        put(cat, 44, 54)
+    put(out, 116, 37)
+    img.convert('RGB').save(os.path.join(INF_DIR, key + '.png'), optimize=True)
+    return 'img/infusor/%s.png' % key
+
+
+def infuser_page():
+    side = ''.join('<a href="#%s"><img src="%s" alt="">%s</a>' % (k, icon(o), html.escape(n)) for k, n, _, _, o, *_ in INFUSOES)
+    cards = ''
+    for key, nome, inp, cat, out, secs, text, obs in INFUSOES:
+        img = infuser_image(key, inp, cat, out)
+        cards += ('<article class="entry ritual infusion" id="%s" data-name="%s"><div class="rit-img"><img src="%s" alt="%s no Nature Infuser" loading="lazy"></div>'
+                  '<div class="rit-info"><h3>%s</h3><p>%s</p>'
+                  '<p class="rit-cat">Entrada: %s <b>%s</b></p>%s<p class="rit-out">Resultado: %s <b>%s</b></p>'
+                  '<p class="rit-energy">Tempo: <b>%d segundos</b></p>%s</div></article>') % (
+            key, html.escape(nome.lower()), img, html.escape(nome), html.escape(nome), text, slot(inp), html.escape(name(inp)),
+            ('<p class="rit-cat">Catalisador (embaixo): %s <b>%s</b></p>' % (slot(cat), html.escape(name(cat)))) if cat else '',
+            slot(out), html.escape(name(out)), secs, ('<p class="tip">%s</p>' % obs) if obs else '')
+    intro = ('<div class="callout"><b>Como usar:</b> ponha o item no slot de <b>cima</b> e o catalisador no slot de <b>baixo</b> '
+             '(o da alimentação). O Nature Infuser precisa de <b>natureza em volta</b> (plantas, folhas e grama perto). '
+             'Na infusão ele gasta 1 catalisador e a entrada e não queima combustível; a conversão simples (sem catalisador) '
+             'usa combustível vegetal no slot de baixo. O resultado mantém encantamentos, dano e nome da entrada.</div>')
+    body = ('<div class="layout"><aside class="side"><input id="busca" type="search" placeholder="Buscar..." aria-label="Buscar">'
+            '<div class="side-list">%s</div></aside><main><h1>Nature Infuser</h1><p class="sub">Todas as receitas do Infusor, como '
+            'aparecem na tela dele: entrada em cima, catalisador embaixo e o resultado à direita.</p>%s%s</main></div>') % (side, intro, cards)
+    return page('Infusor', body, 'infusor')
+
+
 # ===================================================================== integracoes (aba propria)
 
 INTEGRACOES = [
@@ -1113,6 +1275,8 @@ INTEGRACOES = [
      'Todas as receitas especiais do Magic &amp; Blocks aparecem no JEI, além das receitas normais de bancada e fornalha.',
      [table([('Nature Infuser', 'Todas as conversões e infusões: entrada + catalisador &rarr; resultado, com o tempo. Clique na <b>seta</b> do Nature Infuser para abrir as receitas dele.'),
              ('Altar de Rituais', 'Os 15 rituais vistos de cima, como no jogo: o catalisador no altar, os itens em volta nos pedestais (em cruz e nas diagonais), o resultado e a energia. Rituais de clima e evento mostram o efeito.'),
+             ('Receitas especiais', 'Aparência do Bloco de Folha e do Bloco de Baú, formato do Bloco de Slime, cor do Spawner e tirar o bloco da Espada de Manilium aparecem como receitas de bancada; a pintura das armaduras da Besta aparece na Mesa de Ferraria.'),
+             ('Informações', 'Todo item do mod com descrição no livro-guia ganha uma página de informação no JEI (máquinas, mecânicas, criaturas...).'),
              ('Como abrir', 'Aperte <b>R</b> (receita) ou <b>U</b> (usos) em cima do Nature Infuser, do Altar, do Pedestal ou de qualquer item do mod.')],
             head=('Categoria', 'O que mostra'))]),
     ('tinkers', 'Tinkers\' Construct', 'magicblocks:molten_manilium_bucket',
@@ -1180,6 +1344,7 @@ for slug, title, sub, entries in PAGES:
     write(slug + '.html', category_page(slug, title, sub, entries))
 write('balanceamento.html', balance_page())
 write('rituais.html', rituals_page())
+write('infusor.html', infuser_page())
 write('integracoes.html', integrations_page())
 
 if MISSING_RECIPES:

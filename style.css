@@ -148,3 +148,5 @@ table.tbl td:last-child { white-space: normal; color: var(--text); font-weight: 
 .rit-list{list-style:none;padding:0;margin:0 0 10px;display:flex;flex-direction:column;gap:6px}
 .rit-list li{display:flex;align-items:center;gap:10px}
 @media (max-width:760px){.entry.ritual{grid-template-columns:1fr}}
+
+.entry.infusion{grid-template-columns:minmax(0,420px) 1fr}
