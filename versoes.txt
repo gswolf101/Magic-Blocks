@@ -1,0 +1,123 @@
+MAGIC BLOCKS - HISTÓRICO DE VERSÕES (Forge 1.20.1)
+==================================================
+Resumo curto do que entrou em cada .jar. Algumas versões seguidas foram agrupadas quando
+eram ajustes da mesma novidade.
+
+1.0.0 – 1.0.7    Base do mod: Minério de Mana, mana do jogador, Bancada da Natureza, os primeiros
+                 Blocos Mágicos (Fogo, Água, Folha, Trovão, Dourado...) e o Bloco de Spawner.
+1.0.8            Bloco de Spawner invoca um esqueleto com a armadura e a arma do jogador; mod
+                 passado para o Minecraft 1.20.1.
+1.0.9            Espada de Manilium (sobe 1 de dano por Orbe e guarda um Bloco Mágico); a Bancada
+                 da Natureza vira o Nature Infuser.
+1.0.10           Bloco de TNT (arremesso com barra de tempo, Nuke); Nature Charger gera energia
+                 sozinho pelo ambiente.
+1.0.11           Nuke com cogumelo na explosão; animações de ataque da TNT.
+1.0.12           Animações para os outros blocos; poções de enxergar minérios; Charger 70% mais lento.
+1.0.13           Bloco de TNT Ativa (infusor), visão de minérios através das paredes, animação
+                 própria para cada bloco.
+1.0.14           Correção de erro e Nuke maior e mais funda.
+1.0.15           Bloco de Slime (vira a ferramenta certa).
+1.0.16 – 1.0.17  Armadura de Manilium em 3D, Bloco de Slime melhorado, bordas de galáxia nos itens
+                 de Manilium.
+1.0.18 – 1.0.21  Bloco de Redstone (laser e Kamehameha com carga), Blocos Verdadeiros (evolução
+                 dada pelos chefes), mais ataques nos Golens, gasto de mana do Redstone, torretas.
+1.0.22 – 1.0.23  Animações dos Golens mais fluidas, avisos de ataque melhores, segundas fases,
+                 modelos 3D e músicas de chefe.
+1.0.24           Animações do jogador com os blocos; Orbes de Mana Condensada (instável/estável).
+1.0.25 – 1.0.27  Itens e criaturas de meio de jogo, Espíritos Elementais refeitos, rolar (tecla R)
+                 e árvore de habilidades corrigidos.
+1.0.28 – 1.0.29  Mesa de Maestria com uma árvore por bloco; atributos estilo D&D; entrada épica
+                 dos Golens.
+1.0.30 – 1.0.31  Orbe Temporal, novos itens, texturas místicas das máquinas, Varinha com projétil
+                 de verdade, Armaduras Elementais de mago.
+1.0.32 – 1.0.33  Revisão de bugs e balanceamento geral.
+1.0.34 – 1.0.38  Texturas próprias das máquinas de energia, Lua Roxa, Bloco de Manilium, Lanterna,
+                 Bateria que guarda a energia, infusor exigindo energia.
+1.0.39 – 1.0.41  Orbe de Mana só no Altar, /apelar corrigido, Diamante Instável; Caverna de
+                 Esmeralda com o chefe Esmeralda Colossal.
+1.0.42 – 1.0.46  Chefe de esmeralda mais difícil, Armaduras Elementais por bloco (Altar), Picareta
+                 de Esmeralda, Bloco do Vazio melhorado.
+1.0.47           "Shaders" nos ataques dos Blocos Verdadeiros (fogo de blocos transparentes).
+1.0.48           Talismã dos Blocos (liga/desliga habilidades).
+1.0.49           Avisos de ataque dos chefes sem atraso em servidores.
+1.0.50 – 1.0.55  Túnel de 100 blocos da Picareta de Esmeralda, Madeira de Mana (placas, troncos
+                 descascados), partículas de fogo em cubos, livro-guia atualizado.
+1.0.56 – 1.0.62  Bloco de Slime na espada (ferramentas de Manilium), tirar o bloco da espada, Bloco
+                 de Baú, Picareta Real e o Rei Esmeralda com mais ataques.
+1.0.63 – 1.0.79  O Leviatã (chefe dragão) e as armas e armaduras da Besta, adagas duas mãos, Fúria
+                 da Besta, Cajado Ancestral, integração com Tinkers e Silent Gear, Manilium líquido.
+1.0.80 – 1.0.82  Mira da câmera de ombro precisa; fragmentos do vazio corrigidos; wiki atualizada.
+1.0.83           Orbe de Mana Infestada (Bloco do Warden), ícone da Fúria da Besta.
+1.0.84 – 1.0.86  Gira-sol, Colosso Fraturado (mini-chefe), Lesma Brilhante, ruínas flutuantes,
+                 bonecos de treino; armaduras da Besta contra o dano do Vazio.
+1.0.87 – 1.0.91  Receita da armadura elemental do Vazio, aba de Rituais e de Integrações no site,
+                 receitas no JEI, guia só na primeira entrada, Estrela do Vazio.
+1.0.92 – 1.0.99  Guardiã Solar (valquíria), equipamento de Metal Solar, Bloco de Sol, Bússolas
+                 Encantadas, resistência ao Vazio por peça, Crawler com jumpscare.
+1.0.100          Animações de todos os chefes mais fluidas e épicas.
+1.0.101 – 1.0.103 Acampamento do Caçador (trava a mira, tecla Z), Totem da Imortalidade de Mana e
+                 itens vinculados à alma.
+1.0.104          Lobisomem Alfa (caverna), Amuleto Alfa e a transformação em lobisomem.
+1.0.105 – 1.0.108 Joias encaixáveis, Manopla Solar, Bloco de Sculk Roxo, cor dos olhos do lobisomem,
+                 adagas dos minérios vanilla.
+1.0.109 – 1.0.111 Aldeia Goblin (classes, Rei Goblin, comércio com moedas de madeira, ladino de
+                 adagas, desafio ao Rei).
+1.0.112          Blocos e telas na vibe de natureza.
+1.0.113 – 1.0.120 Atalho .bat para testar, Retrogen (estruturas novas em mundos antigos, sem tocar em
+                 construções) e o comando /magicblocks regenerate.
+1.0.121          Retrogen desligado por padrão; Árvore das Adagas (Giro das Lâminas e outras).
+1.0.122          Dimensão da Forja (planície vermelha, anões).
+1.0.123          Textura do buraco negro solar, bandos de goblins, Dojo do Ronin.
+1.0.124 – 1.0.125 Ronin e suas provações, técnicas Imbuir Mana e Aparar, forja do ferreiro goblin,
+                 Katana do Ronin, sem morph do Mímico, ossos de ork melhorados.
+1.0.126 – 1.0.128 Mana imbuída em cubos azuis, Arena e chefe Pantan0 com 3 provações, Sopa e
+                 Adaga Abissais, Fúria da Besta virou habilidade, pulo duplo, compatibilidade com shaders.
+1.0.129          Bloco de Redstone Instável (laser gigante do céu que quebra blocos, céu escurecendo).
+1.0.130          Animação do cajado ao lançar, Ronin e Pantan0 mais animados, missão do Rei Goblin,
+                 Coroa do Príncipe, tarefas dos goblins, Construtor (Mina e Pomar), pontes na água,
+                 lanças dos 7 materiais, avisos de ataque com shaders.
+1.0.131          Árvores do Machado, da Lança e do Arco; Lâmina de Vento, Golpe Sísmico, Salto do
+                 Dragão, Estocada da Lança (também montado), Disparo Preciso; Machados de Batalha
+                 (Osso de Ork, Metal Solar, Manilium); Lança de Osso de Ork; espaço de Transformação
+                 (tecla V) com Fúria e Foco; revanche do Pantan0 e Óculos Escuros; Exaustão de Mana;
+                 orbes gastas antes da mana; Flor do Escolhido corrigida; Mini Golens; Tecido Mágico
+                 Selvagem; Cabo da Espada do Apocalipse.
+1.0.132          Capivaras, Vaga-lumes (e o Pote de Vaga-lumes), Golem de Musgo; Lobisomem da Neve
+                 (colar + bloco de neve no infusor); Crawler mais frequente e no Overworld depois da
+                 Guardiã do Sol; Kraken no Atol do Kraken (altar + Isca do Kraken), com bico,
+                 tentáculo, tinta e pérola; texturas próprias do Kraken e da Capivara.
+1.0.133          Kraken refeito: 2 fases (1.500 + 1.000 de vida), no máximo 35 de dano por golpe,
+                 cabeça só leva magias/projéteis, tentáculos que desabam em lugares aleatórios da
+                 ilha para bater corpo a corpo, quem entra na lagoa é agarrado e jogado na areia
+                 (perde metade da vida), avisos de ataque visíveis, barra de vida temática, modelo
+                 maior e mais fluido. Vida máxima dos chefes acima de 1024 (Kraken, Pantan0).
+                 Kraken e Golens voltam à fase 1 se recuperarem vida acima do limite.
+1.0.134          Wyrm do Eclipse (serpe medieval, chefe voador do Vazio): Olho do Eclipse, 3 fases
+                 (voando com rasantes e chuva de estrelas; fendas no chão que se fecham depois;
+                 pousado com raio do vazio giratório, golpe de cauda e o Eclipse que cega quem
+                 está sem lanterna), barra de vida temática, Escama e Coração do Eclipse.
+                 Texturas novas das lanças e dos machados de batalha.
+1.0.135          Wyrm do Eclipse dorme no Ninho do Eclipse (raro, planícies do Vazio; não é mais
+                 invocado), modelo bem maior e mais assustador e pele de escamas nova. Transformação
+                 por carga (Shift + direito segurado, só com ela equipada) com pose de explosão no fim;
+                 Pantan0 grita 1s a mais com a tela tremendo. Golpe Sísmico no ar. Machado de manilium
+                 com galáxia. Texturas novas: itens do Kraken, Barra Abissal, Armadura de Lobo. Chapéu do
+                 Ronin cônico, Pote de Vaga-lumes animado, Cabo do Apocalipse em 3D. Vida acima de 1024.
+1.0.136          Criativo em 4 abas (Materiais e Blocos, Máquinas e Magia, Armas e Armaduras,
+                 Criaturas e Chefes) e baterias já carregadas. Tablet de Mana (abre o armazenamento de
+                 longe). Orbes de Construção (ferro, ouro, diamante, netherita; até 64 blocos por
+                 clique, com prévia). Cabo de itens com textura nova. Skills da espada do Rei Goblin
+                 funcionando transformado em lobisomem.
+1.0.137          Jonkey, o gorila chefe da Clareira do Jonkey (florestas): dorme no centro, acorda
+                 batendo no peito; Golpe Sísmico, Berro (fumaça verde, veneno), Investida, Arremesso de
+                 blocos e Giro; com 30% sobe nas árvores e joga blocos (escorrega a cada 3). Dropa o
+                 Colar de Primata Quebrado. Pedreira para ao chegar no bedrock.
+1.0.138          Colar de Primata (o colar quebrado do Jonkey + Pedra de Mana): transformação em
+                 gorila (2,5 x 2 blocos), aparece batendo no peito; árvore com Berro, Soco no Chão,
+                 Investida, Selva (escala paredes) e a forma Costas-Prateadas.
+1.0.139
+1.0.140
+1.0.141
+1.0.142
+1.0.143
+1.0.144
