@@ -115,9 +115,21 @@ eram ajustes da mesma novidade.
 1.0.138          Colar de Primata (o colar quebrado do Jonkey + Pedra de Mana): transformação em
                  gorila (2,5 x 2 blocos), aparece batendo no peito; árvore com Berro, Soco no Chão,
                  Investida, Selva (escala paredes) e a forma Costas-Prateadas.
-1.0.139
-1.0.140
-1.0.141
-1.0.142
-1.0.143
-1.0.144
+1.0.139          Versão intermediária do Herfestus novo (ver 1.0.141).
+1.0.140          Versão intermediária do Herfestus novo (ver 1.0.141).
+1.0.141          Herfestus refeito (armadura própria, marreta 3D, bigorna 3x3x3); Marreta, Coração da
+                 Forja e Diário de Herfestus; Mesa de Herfestus (encantar com XP); Opala, Minério de
+                 Joias e joias caindo de monstros.
+1.0.142          Mímico das Sombras (chefe que vira outras criaturas) e Manequim das Sombras (treino
+                 contra qualquer criatura com vida escolhida).
+1.0.143          Correção: servidor dedicado caía ao carregar o mod (Espelho da Alma).
+1.0.144          Avisos de ataque com poeira colorida quando há shaderpack; Manequim só imita criaturas
+                 com aviso.
+1.0.145          Avisos com shaders do OptiFine; Sombras Errantes com a Adaga dos Viajantes; Devoradores
+                 com laser e o Rifle do Vazio; águas-vivas no céu do Vazio; guia de duas páginas;
+                 armazenamento menor.
+1.0.146          Lutas mais épicas do Ronin, Herfestus e Rei Goblin; anões Guerreiro, Mineiro e Mercador;
+                 aldeias goblins com paliçada e torres; exploradores goblins em qualquer bioma.
+1.0.147          Jonkey refeito (modelo, textura, animações e efeitos de terra); arenas do Pantan0 e do
+                 Ronin do tamanho da do Leviatã; animações dos chefes e Giro das Adagas sem travar em
+                 servidor.
