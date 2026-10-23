@@ -133,3 +133,5 @@ eram ajustes da mesma novidade.
 1.0.147          Jonkey refeito (modelo, textura, animações e efeitos de terra); arenas do Pantan0 e do
                  Ronin do tamanho da do Leviatã; animações dos chefes e Giro das Adagas sem travar em
                  servidor.
+1.0.148          Forja de Herfestus na superfície do terreno e sem árvores por cima; Rubi dá +5% de dano por joia (era +2);
+                 lobisomem volta ao normal assim que a mana acaba.

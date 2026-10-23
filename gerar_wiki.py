@@ -1131,7 +1131,7 @@ MAGICOS.extend([
 ARMAS.extend([
     ('magicblocks:gem_bench', 'Joias encaixáveis: armas, cajados e a Espada de Manilium têm <b>2 encaixes</b>, cada peça de armadura <b>1</b> e a Manopla Solar <b>5</b>. Na <b>Bancada de Joias</b>, coloque o item no slot da esquerda e as joias nos encaixes da direita (tirar a joia devolve ela). As joias são feitas no <b>Nature Infuser</b>: um <b>Diamante</b> na entrada e o catalisador na alimentação.',
      [crafting('gem_bench'),
-      table([('Rubi', 'Pó de Blaze', '+2 de dano por joia e o alvo pega fogo'),
+      table([('Rubi', 'Pó de Blaze', '+5% de dano por joia e o alvo pega fogo'),
              ('Safira', 'Gelo Compactado', 'O alvo fica lento (Lentidão II, 1,5s por joia)'),
              ('Topázio', 'Barra de Cobre', '10% por joia de um choque (+5 de dano)'),
              ('Ônix', 'Barra do Vazio', '-8% de dano recebido por joia (até 40%)'),

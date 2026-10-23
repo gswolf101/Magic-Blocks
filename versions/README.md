@@ -5,6 +5,7 @@ Algumas versões seguidas foram agrupadas quando eram ajustes da mesma novidade.
 
 | Versão | O que mudou |
 |---|---|
+| [1.0.148](1.0.148.md) | Forja de Herfestus na superfície do terreno e sem árvores por cima; Rubi dá +5% de dano por joia (era +2); lobisomem volta ao normal assim que a mana acaba. |
 | [1.0.147](1.0.147.md) | Jonkey refeito (modelo, textura, animações e efeitos de terra); arenas do Pantan0 e do Ronin do tamanho da do Leviatã; animações dos chefes e Giro das Adagas sem travar em servidor. |
 | [1.0.146](1.0.146.md) | Lutas mais épicas do Ronin, Herfestus e Rei Goblin; anões Guerreiro, Mineiro e Mercador; aldeias goblins com paliçada e torres; exploradores goblins em qualquer bioma. |
 | [1.0.145](1.0.145.md) | Avisos com shaders do OptiFine; Sombras Errantes com a Adaga dos Viajantes; Devoradores com laser e o Rifle do Vazio; águas-vivas no céu do Vazio; guia de duas páginas; armazenamento menor. |

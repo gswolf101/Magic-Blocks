@@ -90,3 +90,8 @@ Versão intermediária da atualização do Herfestus. Tudo o que começou aqui f
 - **Movimento aos solavancos:** pulos, investidas e quedas dos chefes são enviados a cada tick.
 - **Giro e Dança das Adagas engasgando:** a animação usa um relógio local que não pula, e quem move o jogador durante o giro é o próprio cliente. O mesmo relógio vale para espada, rolagem, lobisomem, raios e anéis.
 - **OptiFine:** detecção dos shaders mais confiável (duas formas de perguntar ao OptiFine).
+
+## 1.0.148
+- **Forja de Herfestus:** agora nasce na superfície, na altura média do terreno em volta. Antes a altura era limitada a 20 blocos acima do mar e, em terreno alto, a arena ficava enterrada num buraco dentro do morro. Ela também passou a ser gerada depois da floresta, então as árvores vermelhas não crescem mais por cima do piso. Só forjas geradas daqui para a frente mudam.
+- **Rubi:** +5% de dano por joia (antes era +2 de dano fixo). Continua incendiando o alvo.
+- **Lobisomem:** volta ao normal assim que a barra de mana chega a zero (antes só conferia na cobrança de 15 em 15 segundos). Também não dá para se transformar com a barra de mana vazia.
