@@ -193,3 +193,9 @@ eram ajustes da mesma novidade.
                  acompanham os golpes.
 1.0.163          Soco sem a "ombrada" (o braço estica e o tronco gira pouco); Luva de Metal e Manopla do Vazio
                  com os nós lisos (sem espetos); Manopla do Vazio nas cores da Armadura Abissal.
+1.0.164          Javali de Brasa nas planícies e deltas da Forja (investida, pancada e pisada com anel de fogo
+                 como o Golem de Fogo; solta a Presa de Javali, peça da Espada do Apocalipse); vulcões gigantes
+                 na planície da Forja (cratera de lava e rios de magma); transformações das manoplas (Shift +
+                 direito com a manopla): Punhos Cerrados (+15% de dano, Velocidade I, Resistência I) e a
+                 melhoria Espírito de Luta (+25%, Velocidade II, Resistência II, o corpo todo com mana); a
+                 Fúria do Lutador também virou transformação; o Soco Carregado joga o jogador para a frente.

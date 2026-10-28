@@ -1275,6 +1275,25 @@ ARMAS.extend([
      [crafting('void_gauntlet')]),
 ])
 
+
+# ---- entradas 1.0.164 ----
+ARMAS.extend([
+    ('magicblocks:leather_gauntlet', 'Transformações das manoplas: segure <b>Shift + botão direito</b> com uma manopla na mão por 3s e solte. <b>Punhos Cerrados</b> imbui mana nas manoplas (+15% de dano, Velocidade I e Resistência I; 1 de mana a cada 20s) e a melhoria <b>Espírito de Luta</b> envolve o corpo inteiro em mana (+25% de dano, Velocidade II e Resistência II; 1 de mana a cada 10s). A <b>Fúria do Lutador</b> também virou transformação, e o <b>Soco Carregado</b> agora joga o jogador para a frente junto com a rajada.',
+     [table([('Punhos Cerrados', '+15% de dano, Velocidade I, Resistência I, 1 de mana a cada 20s'),
+             ('Espírito de Luta', '+25% de dano, Velocidade II, Resistência II, 1 de mana a cada 10s')], head=('Transformação', 'Efeito'))]),
+])
+CRIATURAS.extend([
+    ('magicblocks:ember_boar_spawn_egg', 'O <b>Javali de Brasa</b> vive nas planícies e deltas da <b>Forja Primordial</b>, perto dos <b>vulcões gigantes</b> (cones de basalto e pedra-negra de até 42 blocos, com cratera de lava e rios de magma). Tem 90 de vida, pelo carvão com rachaduras de lava acesas e é imune a fogo. Todos os golpes são marcados no chão antes.',
+     [table([('Pancada', 'De perto: cabeçada com as presas que joga para cima e queima'),
+             ('Investida', 'Faixa no chão: abaixa a cabeça, raspa o chão e dispara em linha reta; se bater numa parede, fica tonto'),
+             ('Pisada', 'Disco em volta: empina e bate no chão como o Golem de Fogo, soltando um anel de fogo (pule por cima)')],
+            head=('Ataque', 'Como funciona'))]),
+])
+RECURSOS.extend([
+    ('magicblocks:boar_tusk', 'A <b>Presa de Javali</b> cai do Javali de Brasa (50%, +10% por nível de Pilhagem). É uma peça da futura <b>Espada do Apocalipse</b>.',
+     []),
+])
+
 PAGES = [
     ('recursos', 'Recursos', 'Materiais, essências e itens úteis.', RECURSOS),
     ('blocos', 'Blocos', 'Blocos que você coloca no mundo.', BLOCOS),
