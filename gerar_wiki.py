@@ -215,6 +215,15 @@ for block in ['iron_block', 'obsidian', 'ice', 'sponge', 'moss_block', 'gold_blo
         ICON_BUILDERS['minecraft:beehive'] = lambda: iso(vtex('block/beehive_end'), vtex('block/beehive_front'), vtex('block/beehive_side'))
     else:
         ICON_BUILDERS['minecraft:' + block] = (lambda b: lambda: iso(vtex('block/' + b), vtex('block/' + b)))(block)
+# blocos da Forja (1.0.152): cubos com as texturas do mod
+for _blk in ['mithril_ore', 'refined_forgestone', 'refined_forgestone_bricks', 'chiseled_refined_forgestone_bricks']:
+    ICON_BUILDERS['magicblocks:' + _blk] = (lambda b: lambda: iso(mtex('block/' + b), mtex('block/' + b)))(_blk)
+for _f in ['forge_furnace', 'herfestus_furnace']:
+    ICON_BUILDERS['magicblocks:' + _f] = (lambda f: lambda: iso(mtex('block/%s_top' % f), mtex('block/%s_front_on' % f), mtex('block/%s_side' % f)))(_f)
+for _base, _pre in [('refined_forgestone', 'refined_forgestone'), ('refined_forgestone_bricks', 'refined_forgestone_brick')]:
+    for _suf in ['_stairs', '_slab', '_wall']:
+        ICON_BUILDERS['magicblocks:' + _pre + _suf] = (lambda b: lambda: iso(mtex('block/' + b), mtex('block/' + b)))(_base)
+ICON_BUILDERS['magicblocks:forge_pedestal'] = lambda: iso(mtex('block/forge_pedestal_top'), mtex('block/forge_pedestal_rune'))
 for _b in ['fire', 'leaf', 'gilded', 'spawner', 'water', 'ice', 'tnt']:
     if 'magicblocks:%s_block' % _b in ICON_BUILDERS:
         def _corrupt(base=ICON_BUILDERS['magicblocks:%s_block' % _b]):
@@ -517,7 +526,8 @@ BLOCOS = [
              ('Spawner sem Vida', 'Barra de Manilium', 'Spawner de Manilium'),
              ('Bloco de Água', 'Gelo Azul', 'Bloco de Gelo'),
              ('Bloco de Fogo', 'Bloco de Redstone', 'Bloco de Fogo Vermelho'),
-             ('Bloco de TNT', 'TNT', 'Bloco de TNT Ativo')], head=('Entrada', 'Alimentação', 'Resultado')),
+             ('Bloco de TNT', 'TNT', 'Bloco de TNT Ativo'),
+             ('Bloco de Redstone', 'Bloco de TNT Ativo', 'Bloco de Redstone Instável')], head=('Entrada', 'Alimentação', 'Resultado')),
       '<h4>Energia</h4><p>A barra à direita guarda energia de natureza vinda de um <a href="#nature-charger">Nature Charger</a>. O infusor <b>só trabalha com energia</b>; a natureza em volta deixa mais rápido. Sem energia ele pausa (não perde o progresso).</p>']),
     ('magicblocks:nature_charger', 'Um ninho de raízes e troncos com um <b>grande cristal verde</b> que pulsa no meio e uma copa de folhas em cima. Gera <b>energia de natureza</b> só de estar no ambiente: <b>não precisa de itens</b>, basta ter natureza (grama, flores, folhas, colmeias...) <b>2 blocos para cada lado</b> (um cubo de 5x5x5 com ele no meio; 25 blocos de grama já dão o máximo da grama). As áreas de dois carregadores <b>não podem se sobrepor</b>, mas podem <b>encostar</b>: 5 blocos de centro a centro (X X C X X X X C X X). Segurando um Charger, as áreas dos que estão por perto aparecem em verde e a do novo, onde você vai colocar, em amarelo (vermelho se invadiria outra). Olhar para um Charger, Infuser, Grower, Poço de Mana, Minerador ou máquina nova também mostra a área dele. Quanto mais natureza, mais rápido gera (o cristal no meio da tela acende enquanto gera). Guarda até 20.000. A energia vai pelos Cabos de Natureza (ou direto para um infusor encostado).',
      ['<div class="prints"><figure><img src="img/prints/maquinas.jpg" alt="Um jardim de máquinas de natureza ligadas pelos cabos" loading="lazy"><figcaption>Um jardim de máquinas de natureza ligadas pelos cabos</figcaption></figure></div>', crafting('nature_charger'),
@@ -1131,13 +1141,15 @@ MAGICOS.extend([
 ARMAS.extend([
     ('magicblocks:gem_bench', 'Joias encaixáveis: armas, cajados e a Espada de Manilium têm <b>2 encaixes</b>, cada peça de armadura <b>1</b> e a Manopla Solar <b>5</b>. Na <b>Bancada de Joias</b>, coloque o item no slot da esquerda e as joias nos encaixes da direita (tirar a joia devolve ela). As joias são feitas no <b>Nature Infuser</b>: um <b>Diamante</b> na entrada e o catalisador na alimentação.',
      [crafting('gem_bench'),
-      table([('Rubi', 'Pó de Blaze', '+5% de dano por joia e o alvo pega fogo'),
-             ('Safira', 'Gelo Compactado', 'O alvo fica lento (Lentidão II, 1,5s por joia)'),
-             ('Topázio', 'Barra de Cobre', '10% por joia de um choque (+5 de dano)'),
-             ('Ônix', 'Barra do Vazio', '-8% de dano recebido por joia (até 40%)'),
-             ('Jade', 'Maçã Dourada', '+4 de vida máxima por joia'),
-             ('Ametista', 'Orbe de Mana', '+2 de mana máxima por joia'),
-             ('Pedra Solar', 'Barra de Metal Solar', '+6% de velocidade por joia')], head=('Joia', 'Catalisador', 'Efeito'))]),
+      table([('Rubi', 'Pó de Blaze', '+1 a 8% de dano e o alvo pega fogo'),
+             ('Safira', 'Gelo Compactado', 'O alvo fica lento por 0,5 a 3s'),
+             ('Topázio', 'Barra de Cobre', '4 a 15% de chance de um choque (+5 de dano)'),
+             ('Ônix', 'Barra do Vazio', '-1 a 8% de dano recebido (até 40% somando tudo)'),
+             ('Jade', 'Maçã Dourada', '+1 a 8 de vida máxima'),
+             ('Ametista', 'Orbe de Mana', '+1 a 4 de mana máxima'),
+             ('Pedra Solar', 'Barra de Metal Solar', '+2 a 10% de velocidade'),
+             ('Opala', 'Membrana de Phantom', '-4 a 16% de recarga da esquiva')], head=('Joia', 'Catalisador', 'Efeito')),
+      note('Cada joia <b>sorteia o valor</b> quando é pega (em passos de 0,5; quanto maior, mais rara). Na <b>bigorna</b>, duas joias iguais com o <b>mesmo valor</b> viram uma com <b>+0,5</b>.')]),
     ('magicblocks:solar_gauntlet', 'A <b>Manopla Solar</b>, de Metal Solar com o Coração da Luz, tem <b>5 encaixes</b> e aparece <b>vestida na mão</b> do jogador, com as joias nos nós dos dedos e a grande nas costas da mão, em primeira e terceira pessoa. Vai no slot de <b>mãos</b> do Curios, ou é só <b>segurar</b> (em qualquer mão) que ela se veste no braço. Os efeitos das joias dela <b>valem o tempo todo</b>; <b>sem o Curios instalado</b>, valem só de ela estar no <b>inventário</b>. Com <b>5 joias diferentes</b> vira o <b>Poder Infinito</b>: tudo vale 1,5x e as joias pulsam. Segurada, o soco com ela dá <b>4 de dano</b>; vestida no Curios (ou na segunda mão), o soco de mão vazia bate +6.',
      [crafting('solar_gauntlet')]),
     ('magicblocks:solar_wings', 'As <b>Asas Solares</b> são as asas de luz da Guardiã do Sol. Vão no slot do peito e <b>planam igual à elytra</b>, sem gastar durabilidade e <b>sem precisar de foguetes</b>: voando, aperte <b>R</b> para ganhar embalo (<b>1 de mana</b>). Só aparecem no jogador quando ele começa a voar: abrem, batem devagar (a onda corre da base até a ponta) e dobram um pouco a cada batida.',
@@ -1171,6 +1183,47 @@ VAZIO.extend([
     ('magicblocks:forgestone_bricks', 'A <b>Pedra da Forja</b> e o <b>Voidstone</b> (do Vazio) viram <b>tijolos</b>: 4 pedras em quadrado dão 4 tijolos. Com os tijolos dá para fazer <b>escadas</b>, <b>lajes</b> e <b>muros</b> (na bancada ou no cortador de pedra). Os de Pedra da Forja também são duros como obsidiana.',
      []),
     ('minecraft:glass', '<b>Armadura transparente</b>: qualquer peça de armadura + <b>Vidro</b> no <b>Nature Infuser</b> fica invisível no corpo (continua protegendo normalmente) e ganha <b>Transparente</b> no nome. Para voltar ao normal, coloque a peça com outro Vidro.',
+     []),
+])
+
+# ---- entradas 1.0.149 - 1.0.155 ----
+VAZIO.extend([
+    ('magicblocks:mithril_ore', 'O <b>Mithril</b> é raro como o diamante e só aparece na <b>dimensão da Forja</b>, dentro da Pedra da Forja (abaixo da altura 48). Precisa de picareta de diamante. O minério solta <b>Mithril Bruto</b>, que na fornalha vira uma <b>Pepita de Mithril</b>; <b>9 pepitas</b> fazem uma <b>Barra de Mithril</b>. A Forja agora também tem <b>cavernas e cânions</b> como os do Overworld.',
+     [crafting('mithril_ingot')]),
+    ('magicblocks:forge_furnace', 'A <b>Fornalha de Forja</b> cozinha <b>1,5x mais rápido</b> que a Fornalha Natural e só queima <b>Coração de Brasa</b> (cada um vale <b>10 itens</b>). Cozinha tudo o que a fornalha comum cozinha e é a única que transforma a <b>Pedra da Forja</b> em <b>Pedra da Forja Refinada</b>.',
+     [crafting('forge_furnace')]),
+    ('magicblocks:refined_forgestone_bricks', 'A <b>Pedra da Forja Refinada</b> (Pedra da Forja cozida na Fornalha de Forja) e os <b>Tijolos de Pedra Refinada</b>, com texturas próprias. Os dois têm <b>escadas</b>, <b>lajes</b> e <b>muros</b>, e os tijolos têm a versão <b>cinzelada</b> com uma runa de brasa.',
+     [crafting('refined_forgestone_bricks'), crafting('chiseled_refined_forgestone_bricks')]),
+    ('magicblocks:forge_pedestal', 'O <b>Pedestal da Forja</b> funciona como os outros pedestais (inclusive na formação de 8) e é o único aceito nos <b>rituais de nível 2</b>: <b>12 Pedestais da Forja</b> em volta do altar, cada item no seu lugar (vale também a formação girada 90°).',
+     [crafting('forge_pedestal'),
+      '<pre class="ritual">S _ _ M _ _ S\n_ X _ _ _ X _\nM _ _ A _ _ M\n_ X _ _ _ X _\nS _ _ M _ _ S</pre>',
+      note('<b>Fornalha de Herfestus</b>: a <b>Fornalha de Forja</b> no altar, <b>Barras de Metal Solar</b> nos cantos (S), <b>Barras de Mithril</b> no meio dos lados (M) e <b>Tijolos de Pedra da Forja</b> por dentro (X). Usa 20.000 de energia de natureza.')]),
+    ('magicblocks:herfestus_furnace', 'A <b>Fornalha de Herfestus</b> tem <b>duas entradas</b> que cozinham ao mesmo tempo, <b>2x mais rápido</b> que a Fornalha Natural. Queima <b>Coração de Brasa</b> (10 itens) ou <b>energia de natureza</b> pelos cabos (7.200 por item, 6x o gasto da Fornalha Natural). Com <b>Minério de Ignus</b> numa entrada e <b>Barra de Mithril</b> na outra, faz a <b>Barra de Ignus</b>.',
+     []),
+    ('magicblocks:ignus_ingot', 'O <b>Herfestus</b> solta <b>2 a 4 Minérios de Ignus</b>. Na Fornalha de Herfestus, junto com uma Barra de Mithril, vira a <b>Barra de Ignus</b>, o metal de fogo dele.',
+     []),
+])
+
+RECURSOS.extend([
+    ('magicblocks:mana_thread', 'A <b>Linha de Mana</b> é linha infundida com mana (sai 2 por vez). Faz a <b>Bolsa de Orbes de Mana</b>, a Bolsa Melhorada do ferreiro goblin e o <b>Arco de Mana</b>.',
+     [infuser('minecraft:string', 'magicblocks:mana_essence', 'magicblocks:mana_thread')]),
+    ('magicblocks:limit_breaker', 'O <b>Quebra-Limites</b> só existe no <b>criativo</b>. No inventário ou no slot de amuleto do Curios, seus golpes <b>ignoram o limite de dano por golpe dos chefes</b> (Kraken, Ronin, Pantan0, Lobisomem Alfa, Guardiã do Sol e Leviatã).',
+     []),
+    ('magicblocks:shade_crystal', 'O <b>Cristal do Vazio</b> cai das Sombras Errantes e agora também de <b>qualquer mob morto na dimensão do Vazio</b> (10% de chance, mais com Saque).',
+     []),
+])
+
+ARMAS.extend([
+    ('magicblocks:mana_bow', 'O <b>Arco de Mana</b> (Cristais Instáveis e Linha de Mana) atira normal quando há flechas. <b>Sem flechas</b>, gasta <b>1 de mana</b> por tiro e atira uma <b>Flecha de Mana</b> azul (<b>1,5x o dano</b> de uma flecha comum). A animação de puxar mostra a flecha comum ou a de mana.',
+     [crafting('mana_bow')]),
+    ('magicblocks:ronin_katana', 'Hierarquia das armas e armaduras (do mais fraco ao mais forte): Instáveis, Lobo e Coroa Goblin; Ork, Adaga dos Viajantes, Mago e Elemental; Abissal e Martelo Fraturado; Manilium; Leviatã; Metal Solar e Besta Celestial; Lâmina do Caos; Katana do Ronin (100), Adagas do Pantan0 (80) e Martelo de Herfestus (90). Os tiers de cima cortam um pouco mais do dano (até 18% com o conjunto de Metal Solar ou Besta Celestial), e os chefes causam <b>25% a mais</b> de dano.',
+     []),
+])
+
+CRIATURAS.extend([
+    ('magicblocks:eclipse_wyrm_spawn_egg', 'O <b>Wyrm do Eclipse</b> agora é um <b>monstro raro</b> do Vazio, não um chefe: aparece do nada voando (sem ninho), com uns <b>3 blocos de largura</b>. No ar dá <b>Rasantes</b> e <b>Chuva de Estrelas</b>; a cada 3 a 5 ataques <b>pousa</b> e dá 1 ou 2 <b>Investidas</b> ou <b>Cuspes de Laser</b>, e volta a voar. Todo golpe é marcado no chão.',
+     []),
+    ('magicblocks:primate_necklace', 'A <b>transformação em gorila</b> (Colar de Primata vestido; Shift + direito de mão vazia por 2s): o 3º soco seguido vira uma <b>Pancada</b> em área, o <b>R</b> dá uma cambalhota, e a árvore tem <b>Berro</b>, <b>Soco no Chão</b>, <b>Pedregulho Rolante</b> (um bloco gigante que sai rolando reto e atropela tudo no caminho) e <b>Investida</b>.',
      []),
 ])
 
@@ -1462,6 +1515,9 @@ INFUSOES = [
      'O Bloco de Fogo fica na <b>variante vermelha</b>: todos os ataques ficam vermelhos.', ''),
     ('tnt-ativa', 'Bloco de TNT Ativo', 'magicblocks:tnt_block', 'minecraft:tnt', 'magicblocks:tnt_block', 20,
      'O Bloco de TNT fica <b>ativo</b>: a TNT arremessada e a nuclear quebram blocos.', ''),
+    ('redstone-instavel', 'Bloco de Redstone Instável', 'magicblocks:redstone_block', 'magicblocks:tnt_block', 'magicblocks:redstone_block', 30,
+     'O Bloco de Redstone vira o <b>Instável</b>: os lasers quebram blocos.',
+     'A alimentação é o <b>Bloco de TNT Ativo</b> (faça antes: Bloco de TNT + TNT comum). O Bloco de TNT normal não serve.'),
     ('bloco-de-gelo', 'Bloco de Gelo', 'magicblocks:water_block', 'minecraft:blue_ice', 'magicblocks:ice_block', 20,
      'O Bloco de Água vira o <b>Bloco de Gelo</b>.', ''),
     ('muda-de-mana', 'Muda de Mana', 'minecraft:oak_sapling', 'magicblocks:mana_essence', 'magicblocks:mana_sapling', 15,

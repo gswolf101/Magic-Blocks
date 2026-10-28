@@ -5,6 +5,13 @@ Algumas versões seguidas foram agrupadas quando eram ajustes da mesma novidade.
 
 | Versão | O que mudou |
 |---|---|
+| [1.0.155](1.0.155.md) | Gorila: Pedregulho Rolante (bloco gigante rolando reto); Cristal do Vazio cai de 10% dos mobs do Vazio; guia atualizado (seção Metais da Forja e Rituais de Nível 2). |
+| [1.0.154](1.0.154.md) | Wyrm com asas menores (testado em jogo). |
+| [1.0.153](1.0.153.md) | Marreta na mão do Herfestus em pé, manoplas e luvas encaixadas no braço, óculos e coroa goblin refeitos, Adaga dos Viajantes nova, Jonkey e gorila menores com animações suaves (soco, cambalhota, Pancada), modelos mais leves. |
+| [1.0.152](1.0.152.md) | Mithril, Fornalha de Forja, Pedra da Forja Refinada e tijolos, Pedestal da Forja e rituais de nível 2, Fornalha de Herfestus e Barra de Ignus, Linha de Mana e Arco de Mana. |
+| [1.0.151](1.0.151.md) | Wyrm do Eclipse vira monstro raro (3 blocos, sem ninho, pousa para atacar); ferraria goblin maior com pátio de forja e o Martelo de Herfestus (+10% no que ele forja); balanceamento de armas e armaduras do mais fraco ao mais forte. |
+| [1.0.150](1.0.150.md) | Correções: Redstone Instável com qualquer Bloco de TNT, sopa abissal avisa só no primeiro gole, guardiões com nome, menos exploradores goblins (e nunca no spawn), adagas sem golpe engolido, árvores e cavernas na Forja, avisos de pular com shaders, mais peças contra o void; Combo em qualquer arma, Martelo de Herfestus na árvore do Machado, bosses +25% de dano, laser do céu do Redstone Instável da bedrock ao teto, joias com valores sorteados, Harvester com mudas em vasos, avisos nos ataques dos goblins, nova Sentinela Arcana, conquista #SWAMP e o Quebra-Limites (criativo). |
+| [1.0.149](1.0.149.md) | Itens de Manilium: a galáxia das bordas volta a se mexer quando o jogador gira a câmera. |
 | [1.0.148](1.0.148.md) | Forja de Herfestus na superfície do terreno e sem árvores por cima; Rubi dá +5% de dano por joia (era +2); lobisomem volta ao normal assim que a mana acaba. |
 | [1.0.147](1.0.147.md) | Jonkey refeito (modelo, textura, animações e efeitos de terra); arenas do Pantan0 e do Ronin do tamanho da do Leviatã; animações dos chefes e Giro das Adagas sem travar em servidor. |
 | [1.0.146](1.0.146.md) | Lutas mais épicas do Ronin, Herfestus e Rei Goblin; anões Guerreiro, Mineiro e Mercador; aldeias goblins com paliçada e torres; exploradores goblins em qualquer bioma. |
