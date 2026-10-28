@@ -1266,6 +1266,15 @@ ARMAS.extend([
      [crafting('enchanted_gauntlet')]),
 ])
 
+
+# ---- entradas 1.0.162 ----
+ARMAS.extend([
+    ('magicblocks:metal_gauntlet', 'A <b>Luva de Metal</b> só sai da forja do <b>ferreiro goblin</b> (aba Armas): 6 barras de ferro, 1 corrente e 6 ossos de ork. <b>15 de dano</b>, 900 de durabilidade, placas de ferro, anel de corrente e espetos de osso nos nós. Como todas as manoplas, bate sem tempo de espera em qualquer mão, e o soco da segunda mão tem o mesmo alcance da principal.',
+     []),
+    ('magicblocks:void_gauntlet', 'A <b>Manopla do Vazio</b> é feita com os materiais do Vazio (Fragmentos, Cristal Abissal, Barras e uma Pepita do Vazio). <b>28 de dano</b> e 1.800 de durabilidade: cada soco <b>puxa os inimigos</b> a 4 blocos do alvo para perto dele, e 20% abrem um <b>mini buraco negro</b> (+6 de dano mágico em volta).',
+     [crafting('void_gauntlet')]),
+])
+
 PAGES = [
     ('recursos', 'Recursos', 'Materiais, essências e itens úteis.', RECURSOS),
     ('blocos', 'Blocos', 'Blocos que você coloca no mundo.', BLOCOS),
