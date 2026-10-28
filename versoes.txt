@@ -199,3 +199,4 @@ eram ajustes da mesma novidade.
                  direito com a manopla): Punhos Cerrados (+15% de dano, Velocidade I, Resistência I) e a
                  melhoria Espírito de Luta (+25%, Velocidade II, Resistência II, o corpo todo com mana); a
                  Fúria do Lutador também virou transformação; o Soco Carregado joga o jogador para a frente.
+1.0.165          Socos da manopla em primeira pessoa vão para o meio da tela (antes o punho girava para fora).

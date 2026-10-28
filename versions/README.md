@@ -5,6 +5,7 @@ Algumas versões seguidas foram agrupadas quando eram ajustes da mesma novidade.
 
 | Versão | O que mudou |
 |---|---|
+| [1.0.165](1.0.165.md) | Socos da manopla em primeira pessoa vão para o meio da tela (antes o punho girava para fora). |
 | [1.0.164](1.0.164.md) | Javali de Brasa nas planícies e deltas da Forja (investida, pancada e pisada com anel de fogo como o Golem de Fogo; solta a Presa de Javali, peça da Espada do Apocalipse); vulcões gigantes na planície da Forja (cratera de lava e rios de magma); transformações das manoplas (Shift + direito com a manopla): Punhos Cerrados (+15% de dano, Velocidade I, Resistência I) e a melhoria Espírito de Luta (+25%, Velocidade II, Resistência II, o corpo todo com mana); a Fúria do Lutador também virou transformação; o Soco Carregado joga o jogador para a frente. |
 | [1.0.163](1.0.163.md) | Soco sem a "ombrada" (o braço estica e o tronco gira pouco); Luva de Metal e Manopla do Vazio com os nós lisos (sem espetos); Manopla do Vazio nas cores da Armadura Abissal. |
 | [1.0.162](1.0.162.md) | Luva de Metal (forja do ferreiro goblin: 6 ferros, corrente e 6 ossos de ork; 15 de dano) e Manopla do Vazio (materiais do Vazio; 28 de dano, puxa os inimigos e abre mini buracos negros); Bloquear funciona com uma manopla só (o direito não usa mais o item da outra mão) e deixa a segunda mão socar no clique; soco da segunda mão com o mesmo alcance da principal (também com a mira em cima da criatura); câmera e campo de visão reagem aos socos; pés acompanham os golpes. |
