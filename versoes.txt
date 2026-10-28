@@ -172,3 +172,10 @@ eram ajustes da mesma novidade.
 1.0.158          Árvores de habilidade com janela própria: arraste com o mouse (ou role com a rodinha)
                  para mover a árvore, e as linhas não saem mais do painel (armas, Amuleto Alfa, Espelho e
                  blocos); nomes das skills Berro, Soco no Chão e Investida nos botões do gorila.
+1.0.159          Manoplas de soco: Manopla de Couro (couro, lã e linha; 3 de dano, durabilidade de pedra) e
+                 Manopla Encantada (Cristal Instável, ferro, Essência de Mana, Tecido de Mago; faísca arcana),
+                 reforçáveis com ferro, ouro, diamante ou netherita em cruz; todas as manoplas sem tempo de
+                 espera em qualquer mão; skill Bloquear (só no direito, guarda alta depois de 1,5s, bloqueia
+                 como escudo); animações de luta em 1ª e 3ª pessoa (base de boxe, jab, corrida, guarda, Soco
+                 Carregado, Onda de Choque); Luva de Lobisomem com garras na palma e 10% de enjoo e
+                 sangramento.
