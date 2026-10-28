@@ -180,3 +180,8 @@ eram ajustes da mesma novidade.
                  Carregado, Onda de Choque); Luva de Lobisomem com garras na palma e 10% de enjoo e
                  sangramento.
 1.0.160          Novidades do guia atualizadas (manoplas, Bloquear, árvores arrastáveis).
+1.0.161          Manoplas: guarda do Bloquear como uma guarda de boxe (antebraços em pé na frente do rosto; em
+                 1ª pessoa os dois braços nas laterais da tela), base de boxe quicando de lado, socos em
+                 sequência (jab, gancho e uppercut) com o tronco girando, rastro e estalo de ar no punho e
+                 impacto colorido em quem apanha; Soco Carregado refeito (plantado, rajada de ar em cone que
+                 racha o chão e explode na carga cheia); espada baixa na lateral ao correr.

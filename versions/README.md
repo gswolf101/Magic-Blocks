@@ -5,6 +5,7 @@ Algumas versões seguidas foram agrupadas quando eram ajustes da mesma novidade.
 
 | Versão | O que mudou |
 |---|---|
+| [1.0.161](1.0.161.md) | Manoplas: guarda do Bloquear como uma guarda de boxe (antebraços em pé na frente do rosto; em 1ª pessoa os dois braços nas laterais da tela), base de boxe quicando de lado, socos em sequência (jab, gancho e uppercut) com o tronco girando, rastro e estalo de ar no punho e impacto colorido em quem apanha; Soco Carregado refeito (plantado, rajada de ar em cone que racha o chão e explode na carga cheia); espada baixa na lateral ao correr. |
 | [1.0.160](1.0.160.md) | Novidades do guia atualizadas (manoplas, Bloquear, árvores arrastáveis). |
 | [1.0.159](1.0.159.md) | Manoplas de soco: Manopla de Couro (couro, lã e linha; 3 de dano, durabilidade de pedra) e Manopla Encantada (Cristal Instável, ferro, Essência de Mana, Tecido de Mago; faísca arcana), reforçáveis com ferro, ouro, diamante ou netherita em cruz; todas as manoplas sem tempo de espera em qualquer mão; skill Bloquear (só no direito, guarda alta depois de 1,5s, bloqueia como escudo); animações de luta em 1ª e 3ª pessoa (base de boxe, jab, corrida, guarda, Soco Carregado, Onda de Choque); Luva de Lobisomem com garras na palma e 10% de enjoo e sangramento. |
 | [1.0.158](1.0.158.md) | Árvores de habilidade com janela própria: arraste com o mouse (ou role com a rodinha) para mover a árvore, e as linhas não saem mais do painel (armas, Amuleto Alfa, Espelho e blocos); nomes das skills Berro, Soco no Chão e Investida nos botões do gorila. |
