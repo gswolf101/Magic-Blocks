@@ -179,3 +179,4 @@ eram ajustes da mesma novidade.
                  como escudo); animações de luta em 1ª e 3ª pessoa (base de boxe, jab, corrida, guarda, Soco
                  Carregado, Onda de Choque); Luva de Lobisomem com garras na palma e 10% de enjoo e
                  sangramento.
+1.0.160          Novidades do guia atualizadas (manoplas, Bloquear, árvores arrastáveis).
