@@ -5,6 +5,7 @@ Algumas versões seguidas foram agrupadas quando eram ajustes da mesma novidade.
 
 | Versão | O que mudou |
 |---|---|
+| [1.0.163](1.0.163.md) | Soco sem a "ombrada" (o braço estica e o tronco gira pouco); Luva de Metal e Manopla do Vazio com os nós lisos (sem espetos); Manopla do Vazio nas cores da Armadura Abissal. |
 | [1.0.162](1.0.162.md) | Luva de Metal (forja do ferreiro goblin: 6 ferros, corrente e 6 ossos de ork; 15 de dano) e Manopla do Vazio (materiais do Vazio; 28 de dano, puxa os inimigos e abre mini buracos negros); Bloquear funciona com uma manopla só (o direito não usa mais o item da outra mão) e deixa a segunda mão socar no clique; soco da segunda mão com o mesmo alcance da principal (também com a mira em cima da criatura); câmera e campo de visão reagem aos socos; pés acompanham os golpes. |
 | [1.0.161](1.0.161.md) | Manoplas: guarda do Bloquear como uma guarda de boxe (antebraços em pé na frente do rosto; em 1ª pessoa os dois braços nas laterais da tela), base de boxe quicando de lado, socos em sequência (jab, gancho e uppercut) com o tronco girando, rastro e estalo de ar no punho e impacto colorido em quem apanha; Soco Carregado refeito (plantado, rajada de ar em cone que racha o chão e explode na carga cheia); espada baixa na lateral ao correr. |
 | [1.0.160](1.0.160.md) | Novidades do guia atualizadas (manoplas, Bloquear, árvores arrastáveis). |

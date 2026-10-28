@@ -191,3 +191,5 @@ eram ajustes da mesma novidade.
                  deixa a segunda mão socar no clique; soco da segunda mão com o mesmo alcance da principal
                  (também com a mira em cima da criatura); câmera e campo de visão reagem aos socos; pés
                  acompanham os golpes.
+1.0.163          Soco sem a "ombrada" (o braço estica e o tronco gira pouco); Luva de Metal e Manopla do Vazio
+                 com os nós lisos (sem espetos); Manopla do Vazio nas cores da Armadura Abissal.
