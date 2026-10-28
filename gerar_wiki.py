@@ -1205,7 +1205,7 @@ VAZIO.extend([
 ])
 
 RECURSOS.extend([
-    ('magicblocks:mana_thread', 'A <b>Linha de Mana</b> é linha infundida com mana (sai 2 por vez). Faz a <b>Bolsa de Orbes de Mana</b>, a Bolsa Melhorada do ferreiro goblin e o <b>Arco de Mana</b>.',
+    ('magicblocks:mana_thread', 'A <b>Linha de Mana</b> é uma linha azul, como a da aranha, infundida com mana (sai 2 por vez). Faz a <b>Bolsa de Orbes de Mana</b>, a Bolsa Melhorada do ferreiro goblin e o <b>Arco de Mana</b>.',
      [infuser('minecraft:string', 'magicblocks:mana_essence', 'magicblocks:mana_thread')]),
     ('magicblocks:limit_breaker', 'O <b>Quebra-Limites</b> só existe no <b>criativo</b>. No inventário ou no slot de amuleto do Curios, seus golpes <b>ignoram o limite de dano por golpe dos chefes</b> (Kraken, Ronin, Pantan0, Lobisomem Alfa, Guardiã do Sol e Leviatã).',
      []),
@@ -1216,7 +1216,7 @@ RECURSOS.extend([
 ARMAS.extend([
     ('magicblocks:mana_bow', 'O <b>Arco de Mana</b> (Cristais Instáveis e Linha de Mana) atira normal quando há flechas. <b>Sem flechas</b>, gasta <b>1 de mana</b> por tiro e atira uma <b>Flecha de Mana</b> azul (<b>1,5x o dano</b> de uma flecha comum). A animação de puxar mostra a flecha comum ou a de mana.',
      [crafting('mana_bow')]),
-    ('magicblocks:ronin_katana', 'Hierarquia das armas e armaduras (do mais fraco ao mais forte): Instáveis, Lobo e Coroa Goblin; Ork, Adaga dos Viajantes, Mago e Elemental; Abissal e Martelo Fraturado; Manilium; Leviatã; Metal Solar e Besta Celestial; Lâmina do Caos; Katana do Ronin (100), Adagas do Pantan0 (80) e Martelo de Herfestus (90). Os tiers de cima cortam um pouco mais do dano (até 18% com o conjunto de Metal Solar ou Besta Celestial), e os chefes causam <b>25% a mais</b> de dano.',
+    ('magicblocks:ronin_katana', 'Hierarquia das armas e armaduras (do mais fraco ao mais forte): Instáveis, Lobo e Coroa Goblin; Ork, Adaga dos Viajantes, Mago e Elemental; Abissal e Martelo Fraturado; Manilium; Leviatã; Metal Solar e Besta Celestial; Lâmina do Caos; Katana do Ronin (100), Adagas do Pantan0 (80) e Martelo de Herfestus (90). Os tiers de cima ficam todos acima da netherita e cortam um pouco mais do dano (9% Abissal, 14% Manilium, 19% Leviatã e 26% com o conjunto de Metal Solar ou Besta Celestial), e os chefes causam <b>25% a mais</b> de dano.',
      []),
 ])
 
@@ -1227,6 +1227,34 @@ CRIATURAS.extend([
      []),
 ])
 
+
+
+# ---- entradas 1.0.156 - 1.0.157 ----
+MAGICOS.extend([
+    ('magicblocks:redstone_block', 'Os <b>Blocos de Redstone</b> (normal e Instável) podem ser <b>pintados</b> com qualquer tinta na bancada: o bloco na mão e no cajado e <b>todos os ataques</b> (faíscas, Corrente Carmesim, Kamehameha, Explosão Carmesim, o laser do céu e até a cor do céu) ficam na cor da tinta; tinta vermelha volta ao normal. No cajado, o <b>laser do céu do Redstone Instável</b> mira até <b>75 blocos</b>, desce como uma coluna gigante e cava do teto do mundo <b>até o fundo da bedrock</b>.',
+     []),
+])
+
+ARMAS.extend([
+    ('magicblocks:werewolf_glove', 'A <b>Árvore das Manoplas</b> (Mesa de Maestria com a Luva de Lobisomem ou a Manopla Solar): <b>Punho de Ferro</b> (+10%), <b>Soco Carregado</b> (avança e soca 2x a 4x) → <b>Mãos Pesadas</b> (atordoa e enfraquece), <b>Onda de Choque</b> (soco no chão, 5 blocos) → <b>Abalo</b> (8 blocos e lentidão), <b>Fúria do Lutador</b> (transformação: +30% de dano, velocidade e roubo de vida, gasta mana) → <b>Berserker</b>, e o <b>Campeão</b>. A Luva de Lobisomem não tem mais garras.',
+     []),
+    ('magicblocks:mana_bow', 'Novas habilidades da <b>Árvore do Arco</b> (no botão de bater, sem puxar): <b>Marca do Caçador</b> (o alvo aparece pelas paredes e leva +20% de dano), <b>Chuva de Flechas</b> (18 a 30 flechas caem numa área) e <b>Tiro Triplo</b> (a próxima flecha sai em leque). A <b>Flecha Perfurante</b> e o <b>Tiro Preciso</b> gastam 1 de mana. Mirando mais de 6s, a mira começa a balançar.',
+     []),
+    ('magicblocks:goblin_greatsword', 'Árvore da Espada: o <b>Aparar</b> agora se compra no meio da árvore; o Ronin ensina <b>Imbuir Mana</b> ou o <b>Corte Limpo</b> (uma barra com vermelho, amarelo e verde: solte no verde para um corte em área de 2x o dano). Entregando os <b>Ossos de Ork</b>, o <b>Rei Goblin</b> fica fortalecido para sempre (maior, 480 de vida, <b>Terremoto de Osso</b> com anéis para pular e <b>Chuva de Lâminas</b>); vencendo ele assim, ele ensina o <b>Arremesso da Espada</b> (a espada vai e volta cortando).',
+     []),
+    ('magicblocks:void_rifle', 'O <b>Rifle do Vazio</b> agora é como num jogo de tiro: <b>segure o direito para mirar</b> (zoom, a arma vai para o meio da tela e o tiro sai certeiro: 12 de dano, 48 blocos) e <b>atire com o esquerdo</b> (sem mirar: 9 de dano e o tiro abre). Cada tiro dá um coice na arma, e os <b>cristais podem ser pintados</b> com corante.',
+     []),
+])
+
+CRIATURAS.extend([
+    ('magicblocks:jonkey_spawn_egg', 'Gorila (Colar de Primata): a árvore agora abre só <b>clicando com o colar numa Mesa de Maestria</b>, tem ícones próprios e duas habilidades novas: <b>Rugido de Guerra</b> (Força II, Resistência e Velocidade por 1 minuto para você e os aliados) e <b>Agarrão</b> (agarra e arremessa). O <b>Berro</b> chega a 26 blocos, a carga tem uma <b>barra verde</b>, o colar aparece no peito e o item seguro aparece na mão do gorila.',
+     []),
+])
+
+RECURSOS.extend([
+    ('magicblocks:nature_harvester', 'O <b>Coletor de Colheita</b> guarda a colheita nos seus <b>5 slots</b> (direito no bloco abre; funis e baús encostados puxam). O <b>Tablet de Mana</b> abre a rede em <b>outra dimensão</b> se houver um <b>sinalizador aceso</b> a até 30 blocos. O <b>goblin xamã</b> sempre vende a <b>Orbe de Mana Condensada Instável</b>, que guarda mais mana a cada nível dele (10, 15, 20, 30); o resto das ofertas é sorteado, e cada Orbe de armazenamento acima da 1ª custa a anterior + 64 moedas.',
+     []),
+])
 
 PAGES = [
     ('recursos', 'Recursos', 'Materiais, essências e itens úteis.', RECURSOS),
