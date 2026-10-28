@@ -1256,6 +1256,15 @@ RECURSOS.extend([
      []),
 ])
 
+
+# ---- entradas 1.0.158 - 1.0.159 ----
+ARMAS.extend([
+    ('magicblocks:leather_gauntlet', 'A <b>Manopla de Couro</b> (couro em volta, lã em cima e linha no meio) veste na mão: <b>3 de dano</b>, durabilidade de pedra e <b>sem tempo de espera</b> para bater, em qualquer mão (na segunda mão, o botão direito soca). Com ela o jogador luta como um boxeador, com <b>animações próprias</b> em primeira e terceira pessoa: base de guarda, jab reto, corrida, Soco Carregado e Onda de Choque. A skill <b>Bloquear</b> da Árvore das Manoplas (só no botão direito) levanta a guarda depois de 1,5s segurando e bloqueia como um escudo.',
+     [crafting('leather_gauntlet')]),
+    ('magicblocks:enchanted_gauntlet', 'A <b>Manopla Encantada</b> (Cristal Instável, ferro e Cristal Instável; Essência de Mana dos lados da Manopla de Couro; Tecido de Mago embaixo) dá <b>5 de dano</b>, tem 400 de durabilidade, é muito encantável e <b>15%</b> dos socos soltam uma faísca arcana (+3 de dano mágico). As duas manoplas podem ser <b>reforçadas</b> na bancada com 4 lingotes de ferro ou ouro, diamantes ou netheritas em cruz em volta delas (mais dano e a durabilidade da ferramenta daquele metal). A Luva de Lobisomem agora tem as garras na palma e 10% de chance de deixar o alvo enjoado e sangrando.',
+     [crafting('enchanted_gauntlet')]),
+])
+
 PAGES = [
     ('recursos', 'Recursos', 'Materiais, essências e itens úteis.', RECURSOS),
     ('blocos', 'Blocos', 'Blocos que você coloca no mundo.', BLOCOS),
