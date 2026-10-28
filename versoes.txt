@@ -169,3 +169,6 @@ eram ajustes da mesma novidade.
                  25% menor; Rifle do Vazio com mira (direito) e tiro no esquerdo, coice e cristais
                  pintáveis; luva de lobo sem garras; manga de lobo em primeira pessoa; texturas novas do
                  Ignus e da Linha de Mana.
+1.0.158          Árvores de habilidade com janela própria: arraste com o mouse (ou role com a rodinha)
+                 para mover a árvore, e as linhas não saem mais do painel (armas, Amuleto Alfa, Espelho e
+                 blocos); nomes das skills Berro, Soco no Chão e Investida nos botões do gorila.
