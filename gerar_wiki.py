@@ -1271,8 +1271,22 @@ ARMAS.extend([
 ARMAS.extend([
     ('magicblocks:metal_gauntlet', 'A <b>Luva de Metal</b> só sai da forja do <b>ferreiro goblin</b> (aba Armas): 6 barras de ferro, 1 corrente e 6 ossos de ork. <b>15 de dano</b>, 900 de durabilidade, placas de ferro, anel de corrente e espetos de osso nos nós. Como todas as manoplas, bate sem tempo de espera em qualquer mão, e o soco da segunda mão tem o mesmo alcance da principal.',
      []),
-    ('magicblocks:void_gauntlet', 'A <b>Manopla do Vazio</b> é feita com os materiais do Vazio (Fragmentos, Cristal Abissal, Barras e uma Pepita do Vazio). <b>28 de dano</b> e 1.800 de durabilidade: cada soco <b>puxa os inimigos</b> a 4 blocos do alvo para perto dele, e 20% abrem um <b>mini buraco negro</b> (+6 de dano mágico em volta).',
+    ('magicblocks:void_gauntlet', 'A <b>Manopla do Vazio</b> é feita com os materiais do Vazio (Fragmentos, Cristal Abissal, Barras e uma Pepita do Vazio). <b>15 de dano</b> e 1.800 de durabilidade: cada soco <b>puxa os inimigos</b> a 4 blocos do alvo para perto dele, e 20% abrem um <b>mini buraco negro</b> (+6 de dano mágico em volta).',
      [crafting('void_gauntlet')]),
+])
+
+# ---- entradas 1.0.166 ----
+ARMAS.extend([
+    ('magicblocks:iron_gauntlet', 'A <b>Manopla de Ferro</b>: a Manopla de Couro no meio e 4 lingotes de ferro em cruz. <b>7 de dano</b>, 250 de durabilidade, placas de ferro no braço.',
+     [crafting('iron_gauntlet')]),
+    ('magicblocks:golden_gauntlet', 'A <b>Manopla de Ouro</b>: a Manopla de Couro e 4 lingotes de ouro em cruz. <b>6 de dano</b> e muito encantável.',
+     [crafting('golden_gauntlet')]),
+    ('magicblocks:diamond_gauntlet', 'A <b>Manopla de Diamante</b>: a Manopla de Couro e 4 diamantes em cruz. <b>10 de dano</b>, com uma gema acesa nas costas da mão.',
+     [crafting('diamond_gauntlet')]),
+    ('magicblocks:netherite_gauntlet', 'A <b>Manopla de Netherita</b>: Melhoria de Netherita na mesa de ferraria sobre a de diamante. <b>13 de dano</b>, filetes de ouro escuro, não queima na lava.',
+     [smithing3('minecraft:netherite_upgrade_smithing_template', 'magicblocks:diamond_gauntlet', 'minecraft:netherite_ingot', 'magicblocks:netherite_gauntlet')]),
+    ('magicblocks:manilium_gauntlet', 'A <b>Manopla de Manilium</b>: <b>18 de dano</b> e a <b>galáxia</b> nas placas, como os outros itens de Manilium (no braço, em primeira e terceira pessoa). 20% dos socos <b>explodem em estrelas</b> (+6 de dano mágico em volta do alvo).',
+     [smithing('magicblocks:netherite_gauntlet', 'magicblocks:manilium_gauntlet')]),
 ])
 
 

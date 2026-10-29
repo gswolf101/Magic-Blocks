@@ -5,6 +5,7 @@ Algumas versões seguidas foram agrupadas quando eram ajustes da mesma novidade.
 
 | Versão | O que mudou |
 |---|---|
+| [1.0.166](1.0.166.md) | Manoplas de Ferro (7), Ouro (6), Diamante (10), Netherita (13) e Manilium (18, com a galáxia nas placas e explosão de estrelas); Manopla do Vazio agora 15; Manopla Solar dá 10 na mão; aura do Espírito de Luta com os cubos de mana (aparece também em primeira pessoa); menos partículas no Soco Carregado; manopla na segunda mão alcança 1,5 bloco a mais; ícones das habilidades de manopla ao lado da hotbar. |
 | [1.0.165](1.0.165.md) | Socos da manopla em primeira pessoa vão para o meio da tela (antes o punho girava para fora). |
 | [1.0.164](1.0.164.md) | Javali de Brasa nas planícies e deltas da Forja (investida, pancada e pisada com anel de fogo como o Golem de Fogo; solta a Presa de Javali, peça da Espada do Apocalipse); vulcões gigantes na planície da Forja (cratera de lava e rios de magma); transformações das manoplas (Shift + direito com a manopla): Punhos Cerrados (+15% de dano, Velocidade I, Resistência I) e a melhoria Espírito de Luta (+25%, Velocidade II, Resistência II, o corpo todo com mana); a Fúria do Lutador também virou transformação; o Soco Carregado joga o jogador para a frente. |
 | [1.0.163](1.0.163.md) | Soco sem a "ombrada" (o braço estica e o tronco gira pouco); Luva de Metal e Manopla do Vazio com os nós lisos (sem espetos); Manopla do Vazio nas cores da Armadura Abissal. |
