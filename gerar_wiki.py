@@ -191,6 +191,7 @@ ICON_BUILDERS = {
     'magicblocks:fractured_colossus_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (36, 32, 44)), vtex('item/spawn_egg_overlay'), (180, 106, 240))),
     'magicblocks:solar_empress_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (244, 238, 220)), vtex('item/spawn_egg_overlay'), (255, 210, 74))),
     'magicblocks:star_slug_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (42, 74, 140)), vtex('item/spawn_egg_overlay'), (159, 240, 255))),
+    'magicblocks:ember_boar_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (42, 34, 32)), vtex('item/spawn_egg_overlay'), (255, 106, 30))),
     'magicblocks:mana_log': lambda: iso(mtex('block/mana_log_top'), mtex('block/mana_log')),
     'magicblocks:mana_planks': lambda: iso(mtex('block/mana_planks'), mtex('block/mana_planks')),
     'magicblocks:mana_leaves': lambda: iso(mtex('block/mana_leaves'), mtex('block/mana_leaves')),
