@@ -1409,6 +1409,17 @@ for _lst in (ARMAS, VAZIO, BLOCOS, CRIATURAS):   # textos que mudaram
         elif _e[0] == 'magicblocks:eclipse_wyrm_spawn_egg':
             _lst[_i] = (_e[0], 'A <b>Wyvern do Eclipse</b>: mini-dragão de 2 patas com as asas nos braços, criatura normal e rara que aparece em bandos de 1 a 3 nas Planícies do Vazio. Voa circulando o alvo, dá Rasante no disco marcado, morde e cospe chama do vazio numa faixa marcada.',
                         [note('Solta de 14 a 26 Escamas de Wyvern (pilhagem não muda) e às vezes (8%) o Coração do Eclipse.')])
+# ---- entradas 1.0.212 a 1.0.214 ----
+ARMAS.extend([
+    ('magicblocks:whip', 'O <b>Chicote</b> (linha, couro e ferro) estala a até <b>7 blocos</b>, dá 4 de dano e puxa quem acertar para perto de você.',
+     [crafting('whip')]),
+    ('magicblocks:kraken_whip', 'O <b>Chicote de Tentáculo</b> (tentáculos do Kraken sobre o Chicote): 8 de dano e puxa. <b>Segurando o ataque</b>, o tentáculo agarra o alvo e o segura na sua frente. No <b>direito</b> ele estala e, se pegar num bloco (até 20 blocos), gruda e você fica <b>pendurado balançando</b>: pular sobe pela corda, direito de novo solta e lança outra vez, Shift + ataque solta.',
+     [crafting('kraken_whip')]),
+    ('magicblocks:mithril_chestplate', 'A <b>Armadura de Mithril</b>: 1 de proteção e 1 de resistência a mais por peça que a de Metal Solar, <b>30% de corte</b> com o conjunto e quase nenhum empurrão. Com as 4 peças, cair do mundo não mata: você volta para o último chão firme.',
+     [crafting('mithril_helmet'), crafting('mithril_chestplate'), crafting('mithril_leggings'), crafting('mithril_boots')]),
+    ('magicblocks:mithril_pickaxe', 'As <b>Ferramentas de Mithril</b> (nível de netherita, com uma Barra de Ferro no lugar do graveto) quebram os recursos da Forja (Pedra da Forja, tijolos, Pedra Refinada, minérios e Madeira Densa) na velocidade em que o ferro quebra a pedra do mundo normal.',
+     [crafting('mithril_sword'), crafting('mithril_pickaxe'), crafting('mithril_axe'), crafting('mithril_shovel'), crafting('mithril_hoe')]),
+])
 PAGES = [
     ('recursos', 'Recursos', 'Materiais, essências e itens úteis.', RECURSOS),
     ('blocos', 'Blocos', 'Blocos que você coloca no mundo.', BLOCOS),
