@@ -96,7 +96,17 @@ LEAF = (72, 181, 24)
 CYAN = (127, 230, 255)
 
 ICON_BUILDERS = {
-    # --- blocos magicos (o bloco que flutua na mao) ---
+    # --- 1.0.201 a 1.0.210 ---
+    'magicblocks:slime_bracelet': lambda: flat(layered(mtex('item/slime_bracelet_band'), mtex('item/slime_bracelet_gel'), (74, 168, 255))),
+    'magicblocks:blue_slime_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (90, 180, 255)), vtex('item/spawn_egg_overlay'), (30, 90, 180))),
+    'magicblocks:slime_king_spawn_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (60, 140, 240)), vtex('item/spawn_egg_overlay'), (232, 176, 64))),
+    'magicblocks:dense_blue_slime': lambda: iso(mtex('block/dense_blue_slime'), mtex('block/dense_blue_slime')),
+    'magicblocks:emerald_prince_heart': lambda: iso(vtex('block/emerald_block'), vtex('block/emerald_block')),
+    'magicblocks:apocalypse_blade_raw': lambda: flat(mtex('item/apocalypse_sword')),
+    'magicblocks:apocalypse_blade': lambda: flat(mtex('item/apocalypse_sword')),    # --- Forja Divina, Metal Solar e Coracao de Herfestus (blocos novos sem icone exportado) ---
+    'magicblocks:divine_forge': lambda: iso(mtex('block/divine_forge_top'), mtex('block/divine_forge_side')),
+    'magicblocks:sunsteel_block': lambda: iso(mtex('block/sunsteel_block'), mtex('block/sunsteel_block')),
+    'magicblocks:herfestus_heart': lambda: iso(vtex('block/magma'), vtex('block/magma')),    # --- blocos magicos (o bloco que flutua na mao) ---
     'magicblocks:fire_block': lambda: iso(vtex('block/magma'), vtex('block/magma')),
     'magicblocks:soul_egg': lambda: flat(layered(tint(vtex('item/spawn_egg'), (58, 26, 85)), vtex('item/spawn_egg_overlay'), (127, 230, 255))),
     'magicblocks:sculk_block': lambda: iso(vtex('block/sculk'), vtex('block/sculk')),
@@ -595,7 +605,7 @@ BLOCOS = [
      [note('Raiz Ancestral, na base da árvore gigante das florestas.')]),
     ('magicblocks:mastery_codex', 'A Mesa de Maestria <b>de bolso</b>. Segurando e clicando <b>usar</b>, abre a tela de maestria de qualquer lugar para <b>ligar/desligar as habilidades</b> de cada Bloco Mágico e os <b>Efeitos</b> (tipo shader) dos Blocos Verdadeiros e do Void. As melhorias (rituais) continuam só na mesa. Feito com a Mesa de Maestria no meio, 7 Altares de Ritual em volta e uma Barra de Manilium embaixo.',
      [crafting('mastery_codex')]),
-    ('magicblocks:mastery_table', 'A <b>Árvore de Habilidades de cada Bloco Mágico</b>, estilo RPG. Clique na mesa <b>segurando um Bloco Mágico</b>: abre a árvore daquele bloco. <b>Usar o bloco sobe o nível dele</b> (cada mana gasta com ele na mão = 3 de XP da árvore, cada criatura morta = 10) e <b>cada nível dá 1 ponto</b> da árvore. Cada nó custa <b>pontos</b> (1; finais dos ramos 2; Maestria Suprema 3) <b>e níveis de XP</b> e só abre depois dos anteriores (linhas douradas = desbloqueado, ciano piscando = pode comprar). Sem bloco na mão, a mesa abre a tela de <b>ações</b> para ligar/desligar o que você não quer usar (ex.: o Shift + Bater do Bloco de Fogo) e os Efeitos dos Verdadeiros e do Void.',
+    ('magicblocks:mastery_table', 'A <b>Árvore de Habilidades de cada Bloco Mágico</b>, estilo RPG. Clique na mesa <b>segurando um Bloco Mágico</b>: abre a árvore daquele bloco. <b>Usar o bloco sobe o nível dele</b> (cada mana gasta com ele na mão = 1 de XP da árvore, cada criatura morta = 3,3; subir é 3x mais lento desde a 1.0.167) e <b>cada nível dá 1 ponto</b> da árvore. Cada nó custa <b>pontos</b> (1; finais dos ramos 2; Maestria Suprema 3) <b>e níveis de XP</b> e só abre depois dos anteriores (linhas douradas = desbloqueado, ciano piscando = pode comprar). Sem bloco na mão, a mesa abre a tela de <b>ações</b> para ligar/desligar o que você não quer usar (ex.: o Shift + Bater do Bloco de Fogo) e os Efeitos dos Verdadeiros e do Void.',
      [crafting('mastery_table'),
       '<h4>A árvore</h4><pre class="ring">                 Despertar (1)\n        /             |             \\\nDano I (2)       Alcance I (2)      Economia I (2)\n | \\ Vampirismo (5) | \\ Agilidade (5) | \\ Fonte de Mana (5)\nDano II (4)      Alcance II (4)     Economia II (4)\nDano III (8)     Alcance III (8)    Economia III (8)\nGolpe Crítico (12) Recarga Rápida (12) Conjuração Livre (12)\n        \\             |             /\n            Maestria Suprema (20)</pre>',
       table([('Despertar', '1', 'Abre os 3 ramos'),
@@ -846,7 +856,7 @@ CRIATURAS = [
              ('Ladino', 'Capuz preto e <b>duas adagas</b>: chega perto e <b>gira</b> como a Imperatriz Solar, cortando tudo em volta'),
              ('Ferreiro', 'Mora na <b>casa do ferreiro</b> (toda aldeia tem uma: bigorna, alto-forno, lava e chaminé) e vende armaduras e armas'),
              ('Xamã', 'Mora na <b>casa do xamã</b> (toda aldeia tem uma: telhado de azaleia, caldeirão, poções e ametista). Vende <b>orbes de mana condensadas</b> e os <b>Orbes de Condensação</b> do armazenamento; subindo de nível passa a vender orbes que guardam mais mana e compartimentos maiores (até o 64k e a Estrela de Mana)')], head=('Classe', 'Como luta')),
-      '<p>A aldeia tem de <b>5 a 12 casinhas</b> (3 modelos, com <b>tapete no lugar da cama</b>; cada uma com 1 a 3 goblins), caminhos de terra, <b>Árvores de Mana</b> e <b>Árvores Ancestrais</b> (as da muda, que dão maçãs douradas) e <b>plantações de Cogumelo de Mana</b>: canteiros quadrados de grama. O cogumelo <b>brilha</b>, só fica na grama e com o tempo <b>se espalha</b> para um dos 8 lados. <b>3 cogumelos + tigela</b> = <b>Sopa de Mana</b>: devolve <b>6 de mana</b>, se toma rápido e empilha até 16.</p>',
+      '<p>A aldeia tem de <b>5 a 12 casinhas</b> (3 modelos, com <b>tapete no lugar da cama</b>; cada uma com 1 a 3 goblins), caminhos de terra, <b>Árvores de Mana</b> e <b>Árvores Ancestrais</b> (as da muda, que dão maçãs douradas) e <b>plantações de Cogumelo de Mana</b>: canteiros quadrados de grama. O cogumelo <b>brilha</b>, só fica na grama e com o tempo <b>se espalha</b> para um dos 8 lados. <b>3 cogumelos + tigela</b> = <b>Sopa de Mana</b>: devolve <b>6 de mana</b> e <b>4 pernis de fome</b>, se toma rápido e empilha até 16.</p>',
       '<p><b>Bandos goblins</b>: nas savanas e taigas (com ou sem aldeia por perto), <b>de dia e de noite</b>, grupos de <b>3 a 5 goblins</b> aparecem de vez em quando a 24-40 blocos de você, como saqueadores, mas com mais frequência (sempre com um guerreiro, um arqueiro e um mago, e o resto sorteado). Não aparecem perto do Rei Goblin.</p>']),
     ('magicblocks:goblin_king_spawn_egg', 'Toda aldeia tem o <b>Salão do Rei</b>, a casa grande do meio, com trono de ouro e baús. Lá mora o <b>Rei Goblin</b> (chefe, 320 de vida): enorme e bombado, de coroa de ouro, ombreiras e capa, com uma <b>espada pesada</b>. Ele passeia pela aldeia. Cada golpe é <b>marcado em verde no chão</b> antes.',
      [table([('Corte', 'Disco na frente dele: ergue a espada e desce'),
@@ -943,10 +953,10 @@ CRIATURAS = [
     ('magicblocks:pantano_spawn_egg', 'No <b>Pântano Abissal</b> (Vazio) às vezes aparece a <b>Arena do Pantan0</b>: um tablado redondo sem paredes, com froglight no centro, anel de ametista com velas roxas, tijolos de lama com musgo, borda de pedra-negra e mangue, postes com lanternas de alma, estandartes roxos e cristais. <b>Nenhum monstro nasce nela nem perto</b>. No meio está o <b>Pantan0</b>, mestre das adagas, com duas <b>Adagas Abissais</b>. Ele <b>só conversa com quem lhe entrega uma sopa de cogumelos</b> (a tela de provação, como a do Ronin). Os golpes dele são sempre <b>avisados em roxo</b>.',
      [table([('1ª provação', '<b>1500 de vida</b>: <b>Investida</b> (faixa), <b>Giro</b> com as adagas (anel em volta) e <b>Salto</b> em direção a você (disco). Vencer ensina o <b>Giro das Lâminas</b>'),
              ('2ª provação', 'Ele invoca <b>4 Golens Fragmentados</b> e fica observando. Eles não soltam nada; se você se afastar da arena eles somem e a provação falha. Derrotar os 4 dá a <b>Sopa Abissal</b>'),
-             ('3ª provação', '<b>2000 de vida</b>: <b>Combo</b> (três golpes seguidos, 1s entre eles), Investida, Giro, Salto e, aos <b>50% da vida</b>, a <b>Fúria</b>: volta ao centro, entra em fúria roxa e volta mais rápido e forte. Vencer ensina o <b>Combo</b> e dá <b>3 Barras Abissais</b>'),
+             ('3ª provação', '<b>2000 de vida</b>: <b>Combo</b> (três golpes seguidos, 1s entre eles), Investida, Giro, Salto e, aos <b>50% da vida</b>, a <b>Fúria</b>: volta ao centro, entra em fúria roxa e volta mais rápido e forte. Vencer ensina o <b>Combo</b> e dá <b>6 Barras Abissais</b>'),
              ('Regras', 'Só <b>adagas</b> o ferem ("Eu só acho que 2 é melhor do que um, não?"); no máximo <b>20 de dano por golpe</b>; projéteis e magias voltam; um intrometido no duelo o deixa com 3x a vida e o dano')], head=('', 'Como funciona')),
       table([('Sopa Abissal', 'Parece a sopa de cogumelos: <b>5 usos</b>, cada gole (o tempo da Sopa de Mana) recupera <b>3 corações e 3 de fome</b> e lembra as lutas de HG. Vazia vira o <b>Pote Abissal</b>: na bancada com um <b>cacto</b>, <b>qualquer cogumelo</b> ou <b>semente de cacau</b> volta a ter 5 usos'),
-             ('Adaga Abissal', 'A adaga do Pantan0, em 3D: lâmina de obsidiana com o sulco de ametista brilhando, guarda em crescente e gema. <b>80 de dano</b>; uma em cada mão entra na <b>Fúria roxa</b>. Só sai com <b>3 Barras Abissais</b> na diagonal'),
+             ('Adaga Abissal', 'A adaga do Pantan0, em 3D: lâmina de obsidiana com o sulco de ametista brilhando, guarda em crescente e gema. <b>80 de dano</b>; uma em cada mão entra na <b>Fúria roxa</b>. Só sai com <b>6 Barras Abissais</b> na diagonal'),
              ('Barra Abissal', 'Da 3ª provação do Pantan0 ou do <b>Minério Abissal</b>: um só, raríssimo, por região de Pântano Abissal, escondido na pedra do Vazio (picareta de diamante)')], head=('Item', 'O que é')),
       '<p class="tip">Com <b>shaders</b> (Oculus/Iris) a borda cósmica do Manilium vira uma galáxia pintada e os olhos brilhantes das criaturas não aparecem mais através das paredes.</p>']),
     ('magicblocks:soul_mirror', 'O <b>Espelho da Alma</b> guarda as almas das criaturas que você derrota e deixa você <b>virar</b> elas. Primeiro peça o <b>Espelho da Alma Inativo</b> ao <b>ferreiro goblin</b> (na forja dele, depois de ganhar a confiança do Rei Goblin): 8 <b>Fragmentos de Espelho das Almas</b> + 1 <b>slime</b>. Depois desperte-o no <b>Altar de Rituais</b> (o inativo no altar + <b>Orbe de Mana</b>, <b>Estrela do Nether</b>, <b>Essência de Mana</b> e um <b>Bloco Verdadeiro</b>). Funciona só de estar no <b>inventário</b> (ou no Curios) e <b>não cai ao morrer</b>.',
@@ -1151,7 +1161,7 @@ ARMAS.extend([
              ('Ametista', 'Orbe de Mana', '+1 a 4 de mana máxima'),
              ('Pedra Solar', 'Barra de Metal Solar', '+2 a 10% de velocidade'),
              ('Opala', 'Membrana de Phantom', '-4 a 16% de recarga da esquiva')], head=('Joia', 'Catalisador', 'Efeito')),
-      note('Cada joia <b>sorteia o valor</b> quando é pega (em passos de 0,5; quanto maior, mais rara). Na <b>bigorna</b>, duas joias iguais com o <b>mesmo valor</b> viram uma com <b>+0,5</b>.')]),
+      note('Cada joia <b>sorteia o valor</b> quando é pega (em passos de 0,5; quanto maior, mais rara). Na <b>Fornalha de Herfestus</b> (uma em cada entrada), duas joias iguais com o <b>mesmo valor</b> viram uma com <b>+0,5</b>; é o único jeito de subir o valor.')]),
     ('magicblocks:solar_gauntlet', 'A <b>Manopla Solar</b>, de Metal Solar com o Coração da Luz, tem <b>5 encaixes</b> e aparece <b>vestida na mão</b> do jogador, com as joias nos nós dos dedos e a grande nas costas da mão, em primeira e terceira pessoa. Vai no slot de <b>mãos</b> do Curios, ou é só <b>segurar</b> (em qualquer mão) que ela se veste no braço. Os efeitos das joias dela <b>valem o tempo todo</b>; <b>sem o Curios instalado</b>, valem só de ela estar no <b>inventário</b>. Com <b>5 joias diferentes</b> vira o <b>Poder Infinito</b>: tudo vale 1,5x e as joias pulsam. Segurada, o soco com ela dá <b>4 de dano</b>; vestida no Curios (ou na segunda mão), o soco de mão vazia bate +6.',
      [crafting('solar_gauntlet')]),
     ('magicblocks:solar_wings', 'As <b>Asas Solares</b> são as asas de luz da Guardiã do Sol. Vão no slot do peito e <b>planam igual à elytra</b>, sem gastar durabilidade e <b>sem precisar de foguetes</b>: voando, aperte <b>R</b> para ganhar embalo (<b>1 de mana</b>). Só aparecem no jogador quando ele começa a voar: abrem, batem devagar (a onda corre da base até a ponta) e dobram um pouco a cada batida.',
@@ -1184,7 +1194,7 @@ VAZIO.extend([
      []),
     ('magicblocks:forgestone_bricks', 'A <b>Pedra da Forja</b> e o <b>Voidstone</b> (do Vazio) viram <b>tijolos</b>: 4 pedras em quadrado dão 4 tijolos. Com os tijolos dá para fazer <b>escadas</b>, <b>lajes</b> e <b>muros</b> (na bancada ou no cortador de pedra). Os de Pedra da Forja também são duros como obsidiana.',
      []),
-    ('minecraft:glass', '<b>Armadura transparente</b>: qualquer peça de armadura + <b>Vidro</b> no <b>Nature Infuser</b> fica invisível no corpo (continua protegendo normalmente) e ganha <b>Transparente</b> no nome. Para voltar ao normal, coloque a peça com outro Vidro.',
+    ('minecraft:glass', '<b>Armadura transparente</b>: qualquer peça de armadura + <b>Vidro</b> no <b>Nature Infuser</b> fica invisível no corpo (continua protegendo normalmente) e ganha <b>Transparente</b> no nome. Manoplas e luvas também: o modelo no braço some e fica só a mão do jogador, em primeira e terceira pessoa. Para voltar ao normal, coloque a peça com outro Vidro.',
      []),
 ])
 
@@ -1244,7 +1254,7 @@ ARMAS.extend([
      []),
     ('magicblocks:goblin_greatsword', 'Árvore da Espada: o <b>Aparar</b> agora se compra no meio da árvore; o Ronin ensina <b>Imbuir Mana</b> ou o <b>Corte Limpo</b> (uma barra com vermelho, amarelo e verde: solte no verde para um corte em área de 2x o dano). Entregando os <b>Ossos de Ork</b>, o <b>Rei Goblin</b> fica fortalecido para sempre (maior, 480 de vida, <b>Terremoto de Osso</b> com anéis para pular e <b>Chuva de Lâminas</b>); vencendo ele assim, ele ensina o <b>Arremesso da Espada</b> (a espada vai e volta cortando).',
      []),
-    ('magicblocks:void_rifle', 'O <b>Rifle do Vazio</b> agora é como num jogo de tiro: <b>segure o direito para mirar</b> (zoom, a arma vai para o meio da tela e o tiro sai certeiro: 12 de dano, 48 blocos) e <b>atire com o esquerdo</b> (sem mirar: 9 de dano e o tiro abre). Cada tiro dá um coice na arma, e os <b>cristais podem ser pintados</b> com corante.',
+    ('magicblocks:void_rifle', 'O <b>Rifle do Vazio</b> agora é como num jogo de tiro: <b>segure o direito para mirar</b> (zoom, a arma vai para o meio da tela e o tiro sai certeiro: 12 de dano, 48 blocos) e <b>atire com o esquerdo</b> (sem mirar: 9 de dano e o tiro abre). Mirando, um <b>retículo</b> na cor dos cristais mostra onde o tiro vai, e dá para <b>segurar o esquerdo</b> para atirar a cada recarga. Cada tiro dá um coice na arma, e os <b>cristais podem ser pintados</b> com corante.',
      []),
 ])
 
@@ -1270,7 +1280,7 @@ ARMAS.extend([
 
 # ---- entradas 1.0.162 ----
 ARMAS.extend([
-    ('magicblocks:metal_gauntlet', 'A <b>Luva de Metal</b> só sai da forja do <b>ferreiro goblin</b> (aba Armas): 6 barras de ferro, 1 corrente e 6 ossos de ork. <b>15 de dano</b>, 900 de durabilidade, placas de ferro, anel de corrente e espetos de osso nos nós. Como todas as manoplas, bate sem tempo de espera em qualquer mão, e o soco da segunda mão tem o mesmo alcance da principal.',
+    ('magicblocks:metal_gauntlet', 'A <b>Luva de Metal</b> só sai da forja do <b>ferreiro goblin</b> (aba Armas): 6 barras de ferro, 1 corrente e 6 ossos de ork. <b>15 de dano</b>, 900 de durabilidade, placas de ferro, anel de corrente e espetos de osso nos nós. Como todas as manoplas, bate sem tempo de espera em qualquer mão, e o soco da segunda mão alcança meio bloco a mais que a principal.',
      []),
     ('magicblocks:void_gauntlet', 'A <b>Manopla do Vazio</b> é feita com os materiais do Vazio (Fragmentos, Cristal Abissal, Barras e uma Pepita do Vazio). <b>15 de dano</b> e 1.800 de durabilidade: cada soco <b>puxa os inimigos</b> a 4 blocos do alvo para perto dele, e 20% abrem um <b>mini buraco negro</b> (+6 de dano mágico em volta).',
      [crafting('void_gauntlet')]),
@@ -1282,7 +1292,7 @@ ARMAS.extend([
      [crafting('iron_gauntlet')]),
     ('magicblocks:golden_gauntlet', 'A <b>Manopla de Ouro</b>: a Manopla de Couro e 4 lingotes de ouro em cruz. <b>6 de dano</b> e muito encantável.',
      [crafting('golden_gauntlet')]),
-    ('magicblocks:diamond_gauntlet', 'A <b>Manopla de Diamante</b>: a Manopla de Couro e 4 diamantes em cruz. <b>10 de dano</b>, com uma gema acesa nas costas da mão.',
+    ('magicblocks:diamond_gauntlet', 'A <b>Manopla de Diamante</b>: a Manopla de Ferro e 4 diamantes em cruz. <b>10 de dano</b>, com uma gema acesa nas costas da mão.',
      [crafting('diamond_gauntlet')]),
     ('magicblocks:netherite_gauntlet', 'A <b>Manopla de Netherita</b>: Melhoria de Netherita na mesa de ferraria sobre a de diamante. <b>13 de dano</b>, filetes de ouro escuro, não queima na lava.',
      [smithing3('minecraft:netherite_upgrade_smithing_template', 'magicblocks:diamond_gauntlet', 'minecraft:netherite_ingot', 'magicblocks:netherite_gauntlet')]),
@@ -1309,6 +1319,96 @@ RECURSOS.extend([
      []),
 ])
 
+
+# ---- entradas 1.0.171 ----
+RECURSOS.extend([
+    ('magicblocks:home_pearl', 'A <b>Pérola do Lar</b> (pérola do fim + qualquer cama, na bancada): com ela no inventário, o golpe que te mataria te leva de volta para o <b>ponto de nascimento</b> (a cama ou a âncora de renascimento; sem elas, o nascimento do mundo) com metade da vida e <b>sem perder nada</b>. Gasta uma pérola por vez; o /kill continua matando.',
+     [note('Bancada: <b>Pérola do Fim</b> + <b>qualquer cama</b> (sem formato).')]),
+])
+
+# ---- entradas 1.0.175 ----
+RECURSOS.extend([
+    ('magicblocks:enchanted_mana_fruit', 'A <b>Fruta de Mana Encantada</b>: uma Maçã Dourada no meio de 8 Frutas de Mana. Comer devolve <b>10 de mana</b> e dá <b>Regeneração II</b> e <b>Resistência II</b> por 1 minuto e <b>Absorção V</b> por 2:30.',
+     [crafting('enchanted_mana_fruit')]),
+    ('magicblocks:alpha_fang', 'A <b>Presa do Alfa</b> cai sempre do Lobisomem Alfa. É uma das peças da <b>Espada do Apocalipse</b>, junto com o Cabo, o Fragmento de Lâmina Forjada, a Presa de Javali, o Bico do Kraken e o Coração do Eclipse.',
+     []),
+    ('magicblocks:emerald_heart', 'Os <b>corações dos chefes</b> (Esmeralda Colossal, Leviatã do Vazio, Guardiã do Sol, Herfestus e Wyrm do Eclipse) são <b>troféus</b>: na bancada, junte um coração com a Espada ou o Machado de Manilium (<b>+0,2 de dano</b> por coração, sem limite), com uma manopla (+0,2 até a manopla chegar a <b>30</b>) ou com qualquer peça de armadura (<b>+1 de armadura</b>; cada tipo de coração uma vez em cada peça).',
+     []),
+])
+
+# ---- entradas 1.0.183 ----
+RECURSOS.extend([
+    ('magicblocks:apocalypse_hilt', 'O <b>Cabo da Espada do Apocalipse</b> junta as peças das grandes batalhas: Presa do Alfa, Coração do Eclipse, Bico do Kraken, Presa de Javali, Fragmento de Lâmina Forjada, Barra de Manilium, Tecido do Mago Selvagem, Caco do Espelho da Alma e <b>1 Garra de Leviatã</b>. A lâmina ainda está perdida.',
+     [crafting('apocalypse_hilt')]),
+])
+ARMAS.extend([
+    ('magicblocks:apocalypse_sword', 'A <b>Espada do Apocalipse</b>, a obra maior da Herfestus, com a lâmina longa de obsidiana e núcleo de brasa. <b>500 de dano</b>, inquebrável, não queima. 20% dos golpes abrem a <b>Ruptura</b> (40% do dano e fogo a 4 blocos). <b>Por enquanto só no criativo.</b>',
+     []),
+])
+
+# ---- entradas 1.0.185 a 1.0.200 ----
+CRIATURAS.extend([
+    ('magicblocks:herfestus_heart', '<b>Herfestus, a Mestra da Forja</b>: quando o martelo gigante esmaga o Aprendiz fortalecido, ela desce do céu num feixe de luz e pega o Martelo de Forja. 3000 de vida, no máximo 100 por golpe, e todo ataque é marcado no chão antes. <b>Forja:</b> Chuva de Espadas, Tridentes, Salto (a área bate 1 s depois), Investida do Martelo, Chuva de Bigornas e Redemoinho do Martelo. <b>Runas (2000):</b> sobe na bigorna, dano ×1,5, golpes mais rápidos, a arena racha. <b>Golem da Forja (1000):</b> a arena se parte em 4 com lava; o Escudo de Tijolos (1000) só quebra com picareta ou martelo da forja e cobre a barra de vida. <b>Mana:</b> no máximo 20 por golpe, espadas de Manilium que explodem e troca de arma a cada 3 golpes (Lâmina do Caos, Katana do Ronin, Lança Solar, Espadão Goblin, marreta). Vencida, vira <b>treinadora</b>: troca a Forja Divina e depois conserta o Núcleo do Golem.',
+     [note('Drops: Coração de Herfestus, Núcleo do Golem Quebrado, Marreta da Mestra (10%), 3–6 Barras de Ignus e 2–4 de Netherita.')]),
+])
+BLOCOS.extend([
+    ('magicblocks:divine_forge', 'A <b>Forja Divina</b> grava runas nos itens. Item em cima, Barra de Ignus ou troféu de chefe no meio (troféus dobram a chance das épicas e lendárias) e corante embaixo (a cor do símbolo). Cada posição tem <b>Gravar</b> ou <b>Trocar</b>. Limites: capacete 1, peitoral 3, calça 3, bota 1, armas e ferramentas 2, escudo 3. São 37 runas (Roubo de Vida, Fênix, Veio, Amplo, Escalada, Campo de Força, Combo...), cada uma com um símbolo japonês que aparece brilhando na peça equipada.',
+     [note('A Herfestus troca por: 1 bigorna, 6 Barras de Ignus, 1 Diário do Aprendiz, 2 Blocos de Metal Solar, 3 Blocos Verdadeiros e 10 obsidianas.')]),
+    ('magicblocks:sunsteel_block', 'O <b>Bloco de Metal Solar</b> guarda 9 barras. A Herfestus pede 2 para forjar a Forja Divina.',
+     [crafting('sunsteel_block')]),
+    ('magicblocks:herfestus_heart', 'O <b>Coração de Herfestus</b>: um bloquinho de lava que nunca esfria, com cubos de brasa vermelhos subindo em volta.', []),
+])
+RECURSOS.extend([
+    ('magicblocks:broken_golem_core', 'O <b>Núcleo do Golem Quebrado</b> cai sempre da Herfestus. Ela ensina a consertá-lo depois da Forja Divina.', []),
+    ('magicblocks:golem_core', 'O <b>Núcleo do Golem</b>: vestido no peitoral ou no colar do Curios, segure Shift + direito com a mão vazia por 2 s para virar golem (3,2 blocos, 35% menos dano, socos fortes, o 3º soco racha o chão). Shift + direito num bloco escolhe do que o golem é feito. A árvore dele (Mesa de Maestria) dá Pancada, Erupção, Escudo de Tijolos, Arremesso, Avalanche e o Titã da Forja.',
+     [note('A Herfestus conserta: Núcleo do Golem Quebrado, 4 Barras de Mithril, 1 Orbe de Mana e 4 Barras de Ignus.')]),
+    ('magicblocks:soul_stone', 'A <b>Pedra da Alma</b>: uma alma presa em pedra lapidada, o coração da Alma da Espada.', [crafting('soul_stone')]),
+    ('magicblocks:apocalypse_soul', 'A <b>Alma da Espada</b> é outra peça da Espada do Apocalipse: na forja, vai no meio, entre o Cabo e a Lâmina (que ainda não existe).',
+     [crafting('apocalypse_soul')]),
+])
+ARMAS.extend([
+    ('magicblocks:herfestus_master_hammer', 'A <b>Marreta da Mestra</b> (10% da Herfestus): <b>120 de dano</b>, põe fogo e quebra o Escudo de Tijolos do Golem. O Golpe da Forja é habilidade da Árvore do Machado.', []),
+    ('magicblocks:apocalypse_hilt', 'O <b>Cabo da Espada do Apocalipse</b> já é uma espada: <b>60 de dano</b>, inquebrável, e aceita runas.', [crafting('apocalypse_hilt')]),
+])
+for _lst in (ARMAS,):   # a Espada do Apocalipse com os numeros novos
+    for _i, _e in enumerate(_lst):
+        if _e[0] == 'magicblocks:apocalypse_sword':
+            _lst[_i] = (_e[0], 'A <b>Espada do Apocalipse</b>, a obra maior da Herfestus: <b>500 de dano</b>, alcance de 30 blocos, sem espera entre golpes, empurrão forte (Repulsão IV), inquebrável. 20% dos golpes abrem a <b>Ruptura</b>. <b>Por enquanto só no criativo.</b>', _e[2])
+# ---- entradas 1.0.201 a 1.0.210 ----
+ARMAS.extend([
+    ('magicblocks:alpha_sword', 'A <b>Espada do Alfa</b>: 2 Presas do Alfa e 1 osso. <b>15 de dano</b> e <b>1,5x</b> contra lobisomens (as criaturas e jogadores transformados).',
+     [crafting('alpha_sword')]),
+    ('magicblocks:wyvern_chestplate', 'A <b>Armadura de Escamas de Wyvern</b> protege como a de diamante, cada peça deixa a rolagem <b>0,2 s mais rápida</b> e o peitoral <b>plana como uma elytra</b>, abrindo asas de wyvern nas costas. Vestida, vira a cabeça de uma wyvern com chifres dourados, escamas em camadas, espinhos na coluna, cauda e garras.',
+     [crafting('wyvern_helmet'), crafting('wyvern_chestplate'), crafting('wyvern_leggings'), crafting('wyvern_boots')]),
+    ('magicblocks:wyvern_gauntlet', 'A <b>Manopla de Wyvern</b>: como a de netherita (13 de dano) e cada soco que acerta te leva um pouco para a frente, colado no alvo.',
+     [crafting('wyvern_gauntlet')]),
+    ('magicblocks:slime_bracelet', 'O <b>Bracelete Gosmento</b> (o Rei Slime solta quebrado) vai no slot de bracelete do Curios (sem o Curios, basta estar no inventário) e dá um estilo de luta de mão vazia: <b>Chicote de Slime</b> de 5 blocos (6 de dano), <b>bolha</b> no direito que segura 20 de dano (corações azuis; 10 s de recarga) e a <b>Rajada de Punhos</b> segurando o ataque (2 a 8 braços de slime que socam e quicam). Quebrado, cada ataque gasta 1 de mana. No Infusor: Pedra de Mana conserta, corante muda a cor e Tinta Brilhante faz brilhar no escuro.',
+     [infuser('magicblocks:slime_bracelet', 'magicblocks:mana_stone', 'magicblocks:slime_bracelet')]),
+    ('magicblocks:apocalypse_blade_raw', 'A <b>Lâmina Bruta do Apocalipse</b> sai da bancada com 8 espadas e o Bracelete Gosmento. Para afiar: clique num <b>rebolo</b> com ela na mão (ela fica deitada em cima), segure um martelo da forja em cada mão (Martelo de Forja ou Marreta da Mestra) e clique de novo. Minijogo em 3ª pessoa: marteladas no ritmo e pelo menos 5 testes de reação; errar um teste racha a lâmina e recomeça (~1 minuto). Esc sai.',
+     [crafting('apocalypse_blade_raw')]),
+    ('magicblocks:apocalypse_blade', 'A <b>Lâmina do Apocalipse</b> afiada. Na Forja do Vazio, aqueça a Bancada da Forja com <b>4 corações de chefe</b> nos Pedestais da Forja em volta, ponha o Cabo na esquerda, a Alma no meio e a Lâmina na direita e clique com um martelo da forja: A e D alternados no ritmo com testes de reação (~30 s). No fim nasce a Espada do Apocalipse.',
+     [note('Afiando a Lâmina Bruta no rebolo.')]),
+])
+CRIATURAS.extend([
+    ('magicblocks:blue_slime_spawn_egg', 'O <b>Slime Azul</b>: gel azul meio transparente, 10 de vida, em pântanos, manguezais e cavernas exuberantes. Pula e a cada 5 s dá uma Investida pela faixa marcada no chão.',
+     [note('Solta Gosma Azul (4 viram uma bola de slime, 9 viram um Bloco de Slime Azul Denso) e às vezes um Cristal Instável.')]),
+    ('magicblocks:slime_king_spawn_egg', 'O <b>Rei Slime</b>: use o Núcleo de Slime Azul num Slime Azul e ele cresce até <b>4,5 blocos</b>. Mini-chefe sem barra de vida: 1000 de vida, 15% menos dano físico e coroa de ouro. Golpes marcados no chão: <b>Salto Esmagador</b>, <b>Invocação</b> de Slimes Azuis e <b>Investida</b>.',
+     [crafting('blue_slime_core'), note('Solta o Bracelete Gosmento (quebrado), muita Gosma Azul, Blocos Densos e um Cristal Instável.')]),
+])
+RECURSOS.extend([
+    ('magicblocks:blue_goo', 'A <b>Gosma Azul</b> do Slime Azul: 4 viram uma bola de slime e 9 um Bloco de Slime Azul Denso.', [crafting('blue_goo_slime_ball')]),
+    ('magicblocks:emerald_prince_heart', 'O <b>Coração do Príncipe das Esmeraldas</b>: o troféu do Príncipe, um mini bloco de esmeralda flutuando que brilha e solta lascas. Conta como coração de chefe.', []),
+])
+BLOCOS.extend([
+    ('magicblocks:dense_blue_slime', 'O <b>Bloco de Slime Azul Denso</b> quica como o de slime. 8 deles em volta de um Cristal Instável fazem o Núcleo de Slime Azul.', [crafting('dense_blue_slime')]),
+])
+for _lst in (ARMAS, VAZIO, BLOCOS, CRIATURAS):   # textos que mudaram
+    for _i, _e in enumerate(_lst):
+        if _e[0] == 'magicblocks:apocalypse_sword':
+            _lst[_i] = (_e[0], 'A <b>Espada do Apocalipse</b>: <b>500 de dano</b>, alcance de 30 blocos, sem espera entre golpes, empurrão forte, inquebrável. Nasce na <b>Bancada da Forja do Vazio</b> com o Cabo, a Alma e a Lâmina do Apocalipse (veja a Lâmina).', _e[2])
+        elif _e[0] == 'magicblocks:eclipse_wyrm_spawn_egg':
+            _lst[_i] = (_e[0], 'A <b>Wyvern do Eclipse</b>: mini-dragão de 2 patas com as asas nos braços, criatura normal e rara que aparece em bandos de 1 a 3 nas Planícies do Vazio. Voa circulando o alvo, dá Rasante no disco marcado, morde e cospe chama do vazio numa faixa marcada.',
+                        [note('Solta de 14 a 26 Escamas de Wyvern (pilhagem não muda) e às vezes (8%) o Coração do Eclipse.')])
 PAGES = [
     ('recursos', 'Recursos', 'Materiais, essências e itens úteis.', RECURSOS),
     ('blocos', 'Blocos', 'Blocos que você coloca no mundo.', BLOCOS),
