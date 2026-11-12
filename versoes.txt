@@ -372,3 +372,200 @@ eram ajustes da mesma novidade.
                  serrilhada com sulco de sangue).
 1.0.215          Ícones novos no inventário para a Espada do Apocalipse, a Lâmina e a Lâmina Bruta (o modelo 3D continua
                  na mão e no chão). Wiki com os ícones tirados do jogo de novo e as entradas dos chicotes e do Mithril.
+1.0.216          Chicotes acertam onde a ponta chega (7 blocos, com folga em volta do alvo); Chicote de Slime também. Rajada
+                 de Punhos com os braços em leque, um por tick, repetindo no mesmo alvo. Arremesso de Espada gira deitado, na
+                 horizontal. Mana imbuída cobre a lâmina inteira da Espada do Apocalipse (também em 1ª pessoa). Aldeia
+                 Goblin: casas em aterro de pedra com grama em rampa (sem pilares; a fundação da ferraria agora gira com a
+                 casa) e o chão da aldeia com grama em cima e pedra embaixo.
+1.0.217          Escudos de material: Ferro, Ouro, Diamante, Netherita, Mago, Elemental, Abissal, Manilium, Leviatã, Celestial,
+                 Wyvern e Mithril (escudo comum + 4 do material em cruz; Celestial = Escudo de Leviatã + Manilium). Todo escudo
+                 empunhado em qualquer mão tira um pouco de cada dano (comum 0,5, ferro 1, até 2 na netherita e acima). Conjunto
+                 de Mithril protege do dano da dimensão do Vazio (abismo).
+1.0.218          Bloco de Folha no cajado: segurando o ataque por 3s (5 de mana) invoca o Espírito de Folha, um bloquinho de
+                 azaleia florida que voa atrás do seu ombro e cura meio coração por segundo durante 1min30 (pisca nos
+                 últimos 5s; um por jogador, invocar de novo renova). O Abraço da Floresta continua enquanto segura.
+1.0.219          Chicotes: a corda não aparece mais pendurada na mão enquanto você segura; só surge ao estalar, agarrar ou
+                 se pendurar.
+1.0.220          Novo bioma na Forja Primordial: Ermos Vulcânicos (a parte mais quente da Fornalha). Chão de Terra Queimada
+                 com manchas de pedra-negra, basalto e magma, lagos de lava cercados de pedra-negra, árvores mortas de Tronco
+                 Queimado (só tronco e galhos, sem folhas), vulcões mais frequentes, cinzas no ar e mais Javalis de Brasa.
+                 Blocos novos: Tronco Queimado e Terra Queimada. A Forja de Herfestus e a Forja do Vulcão também nascem lá.
+1.0.221          Correções de combate. Chicotes: o dano sai quando a ponta estala (não no clique), acerta até 7 blocos
+                 sempre (antes um golpe sim, outro não falhava pela imunidade do alvo) e não atravessa paredes. Rei Slime:
+                 pulos de aproximação mais longos (persegue de verdade), o Salto Esmagador agora cai em cima do disco marcado
+                 (o ar freava o pulo), ao cair solta uma onda de gosma pelo chão (pule por cima para desviar) e com 50% de
+                 vida fica roxo, treme e ataca mais seguido (emenda saltos, invoca 1 slime a mais, investida mais rápida; o
+                 dano não muda). Quem derrotar o Rei Slime não é mais atacado por slimes (salvo no jogador). Slime Azul com
+                 exatamente 8 de vida. Bracelete Gosmento: segurar o ataque agora carrega um Soco Carregado — um único braço
+                 de slime de 8 a 12 blocos (no lugar da Rajada de Punhos).
+1.0.222          Espada do Apocalipse: ao terminar o minijogo da Bancada da Forja a espada agora vai direto para o inventário
+                 (antes ela nascia flutuando sem gravidade e subia uns 12 blocos, fora do alcance; inventário cheio = cai
+                 nos seus pés). O servidor confere o fim pelas marteladas recebidas com folga no tempo (antes podia recusar
+                 quem jogava rápido e não avisava): se recusar, avisa e as peças ficam na bancada. Mais folga para lag logo
+                 depois do teleporte do minijogo.
+1.0.223          Rebolo da Lâmina Bruta: basta um martelo da forja (Martelo de Forja ou Marreta da Mestra, em qualquer mão)
+                 para começar o minijogo; não precisa mais de dois.
+1.0.224          Kit Inicial: na primeira entrada o jogador ganha o Orbe do Iniciante. Usar o orbe dá 32 pães e a Pérola do
+                 Lar e abre a tela de escolha em carrossel (nome do kit, você segurando a arma, habilidade inicial e os itens;
+                 setas ou A/D, botão Selecionar). Kits: Manoplas, Adagas, Machado + picareta, Arco + 64 flechas, Espada +
+                 Escudo de Pedra (novo), Varinha + Orbe Instável com 20 de mana, Lança, Chicote e Aleatório. Só um kit por
+                 jogador (salvo no jogador; fechar a tela não gasta o orbe). Habilidades de iniciante novas, já equipadas no
+                 botão esquerdo do kit e compráveis por 1 nível nas árvores: Golpe Pesado (machado), Investida Curta
+                 (espada), Corte Duplo (adagas), Tiro Rápido (arco), Estocada Longa (lança) e Combo de 3 (manoplas). Chicote
+                 comum: Laço no botão direito (puxa o alvo). Varinha: o Míssil de Mana é o próprio tiro dela.
+1.0.225          Guia: nenhum texto passa mais das páginas. O que não cabe (novidades, itens com texto comprido e o texto
+                 embaixo das receitas) continua na página seguinte, com o título e "»" para mostrar que é a continuação.
+1.0.226          Pedras de estatística no rebolo (outro jeito de melhorar além da Fornalha de Herfestus): ponha uma pedra no
+                 rebolo, segure outra igual e do mesmo valor numa mão e um martelo da forja na outra e clique. Minijogo de
+                 15s em 3ª pessoa: um ponteiro gira num círculo e é preciso acertar os 6 alvos dourados; a cada acerto ele
+                 pode inverter o giro e ficar mais rápido ou mais lento. Acertando tudo as pedras se fundem e o valor sobe 1,
+                 1,5 ou 2 (sorteado, até o máximo); errar ou acabar o tempo quebra a pedra da mão (a do rebolo fica). Esc
+                 sai e devolve as duas.
+1.0.227          Pedras no rebolo: ao concluir o minijogo a pedra sobe 1 ou 2 (sorteado). No rebolo a pedra pode passar do
+                 limite normal dela, mas quanto mais passa mais difícil fica o teste: alvo menor, ponteiro mais rápido e mais
+                 alvos (6 até o limite, até 12).
+1.0.228          Tablet de Mana em outra dimensão (perto de um sinalizador): o chunk do controlador e os dos Leitores da rede
+                 ficam carregados enquanto a tela está aberta, então ela não fecha nem fica vazia numa dimensão sem
+                 jogadores. Tablets sincronizados em versões antigas (sem a dimensão salva) voltam a funcionar.
+1.0.229          A rede de armazenamento sincronizada com um Tablet de Mana vira chunk loader: o chunk do controlador, os 8 em
+                 volta (Carregador de Natureza, geradores) e os chunks dos Leitores ficam carregados e funcionando sempre,
+                 mesmo sem ninguém perto, em outra dimensão e depois de reiniciar o servidor. Quebrar o controlador solta os
+                 chunks. Tablets já sincronizados ativam isso ao abrir a rede uma vez. Espada: o corte agora tem 3 variações
+                 que se alternam (diagonal, revés subindo e horizontal) e a lâmina passa pelo alvo nos primeiros ticks, junto
+                 com o dano do golpe.
+1.0.230          Animações novas em 3ª pessoa: machado e marretas (as duas mãos sobem acima da cabeça e a arma desce na
+                 vertical), lança (recua e estoca reto com passo à frente), Varinha de Aprendiz (a mão sobe e dá um peteleco
+                 apontando a mira), chicote (o braço vai para trás por cima do ombro e chicoteia junto com o estalo) e arco
+                 (ao soltar a flecha a mão da corda escapa para trás e o arco dá um tranco). Todas com o impacto nos
+                 primeiros ticks, junto com o dano.
+1.0.231          Armas Instáveis novas (Cristal Instável, mesmo nível da Espada Instável): Manopla Instável (Manopla de Couro +
+                 4 cristais em cruz; 11 de dano, 25% de efeito elemental no soco), Lança Instável (12,5 de dano, efeito
+                 elemental), Arco Instável (2.000 de durabilidade, flechas com +1,5 de dano e efeito elemental) e Chicote
+                 Instável (Chicote + 4 cristais em cruz; 7 de dano): cada golpe guarda energia instável e com 5 o golpe solta
+                 uma descarga roxa que pula para até 4 inimigos; segurar o ataque e soltar explode toda a energia guardada no
+                 alvo. Chicotes agora seguem o controle novo: toque no esquerdo estala, segurar usa o poder do chicote (os
+                 que têm) e o direito fica para as habilidades. Cordas de energia brilham no escuro.
+1.0.232          Chicotes: o Chicote vira Chicote de Couro e ganhou o Chicote de Ferro (couro + 4 ferros), a base dos outros:
+                 Chicote Instável (agora do de Ferro; descarga mais forte: 9 por salto e explosão de 6 + 3 por carga), Chicote
+                 do Vazio (de Ferro + 4 Barras do Vazio; segurar e soltar abre um redemoinho que puxa os inimigos para a ponta),
+                 Chicote de Mana (Linha de Mana, Chicote Instável e Orbe de Mana: 25 de dano, 1 de mana por ataque e cura 1,5
+                 coração ao acertar; o item mostra só o cabo, a corda de mana aparece no ataque) e Chicote Solar (Metal Solar,
+                 Chicote do Vazio e Alma Radiante: segurar acumula energia solar e o golpe chega a 3x o dano). Correções: a
+                 Herfestus descia duas vezes ao matar o Aprendiz; picaretas de outros mods (Tinkers, Silent Gear, paxels)
+                 agora ferem o Rei/Colosso das Esmeraldas, o Mini Colosso e a forma de golem da Herfestus.
+1.0.233          Tablet de Mana em outra dimensão: quem precisa do sinalizador a até 30 blocos é a REDE (o Controlador de Mana),
+                 não o jogador — esse era o bug. Árvore do Chicote (Mesa de Maestria com um chicote): o esquerdo continua o
+                 estalo e o poder do chicote, e todas as habilidades vão no botão direito. Laço (iniciante), Puxão Aéreo (laça
+                 o inimigo até 11 blocos e você é puxado pelo ar até ele, sem atravessar blocos e sem dano de queda), Chicote
+                 Meteórico (golpe vertical que explode no chão: 1,5x o dano num raio de 3,5 blocos), e os passivos
+                 Empunhadura (+10%), Alcance Longo (+1,5 bloco), Estalo Cortante (+15%) e Mestre do Chicote (+10% e recarga 2x
+                 mais rápida). O kit do Chicote já vem com o Laço no direito.
+
+1.0.234-1.20.1   A Wyvern do Eclipse aparece bem mais: a cada 2 a 4 minutos nas Planícies do Vazio, 60% de chance (antes 8 a 16
+                 minutos e 35%), procurando até 8 pontos de chão firme a 24-48 blocos do jogador.
+1.0.235-1.20.1   A Isca do Kraken agora leva uma Concha de Náutilo no meio no lugar do Coração do Mar.
+1.0.236-1.20.1   JEI: o ritual de nível 2 (Fornalha de Herfestus) mostra o resultado (antes aparecia um texto quebrado) e
+                 é achado pelo R na Fornalha de Herfestus; o Pedestal da Forja aparece como catalisador dos rituais.
+1.0.237-1.20.1   JEI: os rituais do Tecido Mágico Selvagem, Totem de Mana, Espelho da Alma, Controlador com mesa e das 4 Orbes
+                 de Construção mostram o resultado; receitas especiais com exemplos no JEI (cor do Bloco de Redstone, olhos do
+                 Amuleto Alfa, Ovo de Alma, Corações de Chefe e reforço de manopla).
+1.0.238-1.20.1   Slime Azul nasce de dia e de noite, também nas Planícies. Ponto de Natureza (novo): Cabos em cruz com a Flor
+                 do Escolhido (dá 2); pontos na mesma rede dividem a energia a qualquer distância, até entre dimensões; rede com
+                 nome, senha opcional e dono (jogadores diferentes podem usar o mesmo nome). Flor do Escolhido num vaso comum:
+                 perto de um Coletor, faz outra flor a cada 10 minutos.
+1.0.239-1.20.1   Ponto de Natureza com modelo próprio (base de pedra com musgo, coluna com veio verde e cristal-flor dourado).
+                 Javali de Brasa: textura nova (pelo com fios, veios de lava que pulsam, focinho em brasa, juba de fogo), 1,5x
+                 maior, respira e bufa fumaça, mais raro; agora é uma luta de chefe: barra de chefe, rugido de abertura e fase 2
+                 na metade da vida (fúria: rachaduras acesas, investidas seguidas, dois anéis de fogo na pisada, golpes mais
+                 frequentes e mais rápido), explode em brasas ao morrer. Dano, vida e drops iguais.
+1.0.240-1.20.1   Javali de Brasa com modelo próprio (corcova, juba de espinhos em brasa, presas curvas, orelhas e rabo que
+                 mexem, cascos) e textura nova, 1,75x maior. Manequim das Sombras: cada jogador só vê as criaturas que já
+                 descobriu (lutando com elas ou vendo de perto); a lista é de cada um e fica salva.
+1.0.241-1.20.1   Javali de Brasa com 135 de vida. Ira do Apocalipse (árvore da Espada, botão direito): cada golpe que acerta
+                 uma criatura carrega a arma (8 acertos); cheia, um corte em arco até o alcance da arma com 3x o dano base.
+                 Minerador da Natureza com tela (estado, camada, energia, itens guardados) e botões Ligar/Desligar e Recalcular
+                 área; não precisa mais de redstone.
+1.0.242-1.20.1   Chicotes: o alcance desenhado, a área de acerto e o dano usam a mesma medida (a ponta para onde encosta no
+                 alvo; o Puxão Aéreo e o Chicote Meteórico contam o Alcance Longo). Rifle do Vazio: braços e mãos em primeira
+                 pessoa, ponto pequeno no centro sem mirar, retículo ao mirar com zoom leve; não funciona na mão secundária.
+1.0.243-1.20.1   Rifle do Vazio em primeira pessoa refeito no estilo FPS: arma reta para a frente, as duas mãos segurando o punho
+                 e o cano, e mirando a massa de mira fica logo abaixo do centro; sem balanço ao andar mirando.
+1.0.244-1.20.1   Bracelete de Slime: Salto Elástico. Agachado, segure o pulo para carregar (o slime se espalha embaixo dos pés)
+                 e solte para ser lançado para a frente e para cima; quanto mais carga, mais longe (até ~14 blocos). A queda do
+                 próprio salto não causa dano.
+1.0.245-1.20.1   Salto Elástico bem mais forte: com a carga cheia o jogador voa uns 35 blocos para a frente (carga mínima: uns 9).
+1.0.246-1.20.1   Salto Elástico mais fluido: desacelera aos poucos no ar e dá para conduzir com as teclas de andar (a distância
+                 depende de como você voa; carga cheia passa dos 35 blocos no plano).
+1.0.247-1.20.1   Habilidades carregadas da Espada, do Machado e das Adagas (Redemoinho, Arremesso, Giro, Dança, Fúria, Golpe
+                 Sísmico) só saem com a carga cheia; soltar antes cancela. Imbuir Mana e as habilidades de clique não mudaram.
+1.0.248-1.20.1   Habilidades das armas só no botão direito (o esquerdo é o ataque normal); no arco, só no esquerdo. A Estocada
+                 voltou a carregar. Combo novo: carregue e solte com a carga cheia; ele executa em sequência as 3 habilidades
+                 que você escolhe ao equipá-lo na Mesa de Maestria (pode repetir a mesma).
+1.0.249-1.20.1   Bloco do Vazio: o buraco negro lançado não corrompe mais os blocos; explode ao bater numa criatura ou num bloco
+                 sólido (a corrupção ficou só no golpe corpo a corpo). A Fonte de Mana do Bloco do Vazio ficou um pouco mais lenta
+                 (+1 de mana a cada 12,5s em vez de 10s).
+1.0.250-1.20.1   Buraco negro do Bloco do Vazio volta a atravessar as criaturas (puxando todas) e explode ao bater num bloco
+                 sólido. Bracelete de Slime: o Salto Elástico é segurar o botão direito de mão vazia; a bolha é Shift + segurar
+                 o direito. Combo: a escolha das 3 habilidades abre pelo botão Editar na Mesa de Maestria.
+1.0.251-1.20.1   Corrigido o crash ao salvar o Combo com habilidades de nome longo (ex.: 3 Lâminas de Vento).
+1.0.252-1.20.1   Lanças na mão mais finas e mais longas, seguradas no meio da haste; em primeira pessoa ficaram menores.
+1.0.253-1.20.1   Armaduras para a Wyvern: Cobre, Ferro, Ouro, Diamante (lingotes em volta do bloco) e Netherita (Diamante na Mesa
+                 de Ferraria). Elas vão na Wyvern quando a domesticação chegar.
+1.0.254-1.20.1   Ícones novos das armaduras de Wyvern: elmo de dragão (focinho com dentes, chifres e placas do pescoço).
+1.0.255-1.20.1   Wyvern domável! Enfraqueça uma Wyvern selvagem (30% da vida) e dê carne crua. Domada: Shift + mão vazia troca
+                 entre deitada, seguindo e livre; vista Sela e Armadura; tesoura tira; mão vazia monta. Montado: W/A/S/D, Espaço
+                 sobe/decola, Ctrl desce, Shift desmonta, segure R para o sopro na direção do olhar. Com sela ela paira parada;
+                 sem sela desce devagar. Sela Reforçada (mais rápida e ágil), Amuleto de Vínculo (guarda e solta a Wyvern),
+                 zumbis, aranhas, creepers, esqueletos e slimes fogem dela; ela defende o dono e não o machuca; se o dono bater
+                 demais (75% da vida) ela volta a ser selvagem.
+1.0.256-1.20.1   Wyvern mais viva: anda apoiando os punhos das asas como patas, deita (modo deitada) e, fraca, deita no chão
+                 ofegando. Voo com animações para frente, parada/descendo, para os lados e para trás. Armadura cobre costas,
+                 pescoço, cabeça e cauda (Vidro no Infusor a deixa invisível). Sopro montado dura enquanto segurar R e vai 2x
+                 mais longe. Tecla de inventário montado abre o inventário da Wyvern (sela, armadura e atributos). Cada Wyvern
+                 tem velocidade e aceleração próprias; barra de aceleração e barra de vida no HUD. O jogador montado acompanha
+                 o corpo e segura a sela. Regeneração natural. Sela Reforçada removida.
+1.0.257-1.20.1   Armaduras especiais da Wyvern: Instável (cada sopro sorteia Água, Fogo, Raio ou Gelo), Manilium (placas com
+                 galáxia), Vazio (segure R para carregar um buraco negro, solte para disparar) e Metal Solar (laser solar;
+                 feita no Altar de Rituais). Controles novos: Shift desce, Ctrl acelera (barra de aceleração), C desmonta;
+                 voo 2x mais rápido e cada Wyvern vai de 20% a 50% mais rápido com a barra cheia. Pairando ela olha para a
+                 frente. Montado, as armas balançam ao bater. O Ponto de Natureza não gasta mais a Flor do Escolhido.
+                 Machado do Apocalipse (só no criativo, ainda sem receita).
+1.0.258-1.20.1   C desmonta da Wyvern de novo (a tecla brigava com a de salvar a barra do jogo). Machado do Apocalipse com modelo
+                 3D na mão (machado barbado de aço escuro com runas vermelhas acesas, cabo de madeira com couro) e ícone novo.
+                 Armadura de Manilium com galáxia em todos os espinhos e nas placas; armadura Solar com frisos claros, pedras do
+                 sol acesas, coroa de raios no elmo e um sol no peito. Sopro da Wyvern montada bem mais visível, com marca
+                 no ponto onde acerta.
+1.0.259-1.20.1   Carregador de Chunks de Natureza: mantém o próprio chunk carregado com energia de natureza (1.000 a cada 30
+                 segundos; sem energia solta o chunk; Shift + direito ou redstone desliga e aí não gasta nada). Tinkers'
+                 Construct: Mithril e Ignus viraram materiais (Bancada de Peças). Silent Gear conferido.
+1.0.260-1.20.1   Machado do Apocalipse: lâmina no formato do desenho (colar de metal pontudo, esporão atrás, lâmina que abre
+                 para cima e para baixo até o gume curvo) e pegada corrigida (a mão segura logo acima do pomo). Wyvern montada:
+                 laser e buraco negro saem da boca (o servidor usava o giro antigo do corpo); o jato do sopro desenhado pelo
+                 mod ficou maior e mais forte, para no primeiro bloco e mostra um anel de chamas no ponto de impacto.
+1.0.261-1.20.1   Machado do Apocalipse preso na mão de verdade (pegada calculada para cair no mesmo ponto do machado normal) e
+                 inclinado 35° para a frente; visual de arma lendária: borda dourada gravada na lâmina, gema vermelha acesa
+                 no colar com moldura de ouro, faixas e anéis dourados, ponta de ouro no esporão e olhos acesos no pomo.
+                 Olhos da Wyvern um pouco maiores.
+1.0.262-1.20.1   Mini-mira: pontinho branco no meio da tela com a câmera de ombro (F5 + Tab) e a interface escondida (F1).
+                 Bracelete de Slime: Shift + bater invoca 3 Slimes Azuis aliados por 30 segundos. Potes de Vaga-lumes perto
+                 do Nature Charger aumentam a geração (1,1x a 1,4x). Minerador da Natureza com 3 espaços de melhoria
+                 (Velocidade e Esponja) e itens minerados juntos em pilhas. Orbe de Construção usa o bloco da mão secundária
+                 como material (e está no guia). Armazém: Shift + clique cria no máximo uma pilha e usa até 64 de cada
+                 ingrediente; a grade de criação guarda os itens; Shift + clique neles volta para a rede; botão X limpa a
+                 grade. Rebolo com martelo da Herfestus: alvo maior e sem limite de tempo. Wyvern voando mais fluida em
+                 servidores.
+1.0.263-1.20.1   Wyvern: voo bem mais rápido (todas começam iguais; o atributo só muda a velocidade máxima), andando no chão
+                 mais devagar, som de batida das asas e, indo para a frente, sobe ou desce conforme o olhar. Tecla de desmontar
+                 mais confiável. Machado do Apocalipse maior em primeira pessoa e com corrida própria. Dimensão da Forja com
+                 colinas, morros e baixadas (só em terreno novo).
+1.0.264-1.20.1   Machado do Apocalipse: lâmina que aquece a cada golpe (10 golpes seguidos = 2,5x de dano), põe fogo quando
+                 quente e esfria parada; as runas vão do vermelho ao laranja e ao branco. Jonkey com textura nova no estilo
+                 do Minecraft (mais clara e simpática). Golem do jogador: passos pesados, investida correndo, pisão ao cair e
+                 um poder pelo bloco do núcleo (gelo deixa lento, ouro rápido, fogo, obsidiana resiste, gemas batem mais,
+                 slime quica, TNT explode).
+1.0.265 - Chicote de Mana com textura nova (cabo com cristal e corda trancada azul). Puxao Aereo, Chicote Meteorico e Laco com particulas da cor do chicote.
+    Espada do Apocalipse: com o inventario cheio avisa que caiu aos pes. Testes: slimes amigos, Slime Azul com 8 de vida, mini-mira, forja sem duplicar.
+1.0.266 - Autoria e autenticidade: identificador unico do projeto, autor gswolf101 nos metadados, manifesto SHA-256 de cada versao e assinatura digital
+    Ed25519 das versoes oficiais. Ferramenta de verificacao aberta (authenticity/MagicBlocksAuth.java) e MAGIC_BLOCKS_AUTHENTICITY.md. Nada de rede ou rastreio.
+1.0.267 - Portal Arcano invisivel: agachado, clique direito com Vidro no portal do Pedestal Arcano (com Cristal de Teleporte) e ele fica invisivel,
+    sem particulas, mas continua teleportando. O vidro nao e gasto.

@@ -5,3 +5,7 @@ __pycache__/
 .idea/
 .DS_Store
 Thumbs.db
+
+# chaves de assinatura nunca entram no repositorio
+*private*.pem
+*.key
